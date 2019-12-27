@@ -1,0 +1,42 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+#relative_permalinks: true
+
+# Setup
+title:               Krispingal.github.io
+tagline:             'Untangling thoughts'
+description:         'Graduate Computer Science Student'
+url:                 https://krispingal.github.io
+baseurl:             ''
+paginate:            3
+
+# About/contact
+author:
+  name:              Krishna Babuji
+  url:               https://twitter.com/mdo
+  email:             krishna.pingal@gmail.com
+
+markdown: kramdown
+kramdown:
+    math_engine: mathjax
+
+# Custom vars
+version:             3.0.0
+
+plugins:
+  - jekyll-paginate
+  - classifier-reborn
+  - jekyll-typogrify
+  - jekyll-sitemap
+
+ga_analytics: UA-67268846-1
+
+defaults:
+  -
+    scope:
+      path: ""      # empty string for all files
+      type: posts   # limit to posts
+    values:
+      is_post: true # automatically set is_post=true for all posts
