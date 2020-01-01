@@ -7,7 +7,7 @@ permalink:           pretty
 # Setup
 title:               Krispingal.github.io
 tagline:             'Untangling thoughts'
-description:         'Graduate Computer Science Student'
+description:         'Ramblings of a Graduate Computer Science Student'
 url:                 https://krispingal.github.io
 baseurl:             ''
 paginate:            3
@@ -15,7 +15,7 @@ paginate:            3
 # About/contact
 author:
   name:              Krishna Babuji
-  url:               https://twitter.com/mdo
+  url:               https://twitter.com/krishna_pingalB
   email:             krishna.pingal@gmail.com
 
 markdown: kramdown
@@ -30,8 +30,14 @@ plugins:
   - classifier-reborn
   - jekyll-typogrify
   - jekyll-sitemap
+  - jekyll-analytics
+  - jekyll-seo-tag
 
-ga_analytics: UA-67268846-1
+ga_analytics:
+jekyll_analytics:
+  GoogleAnalytics:          # Add, if you want to track with Google Analytics
+    id: UA-67268846-1       # Required - replace with your tracking id
+    anonymizeIp: true      # Optional - Default: false - set to true for anonymized tracking
 
 defaults:
   -

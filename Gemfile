@@ -7,4 +7,6 @@ group :jekyll_plugins do
   gem 'classifier-reborn'
   gem 'jekyll-typogrify'
   gem 'jekyll-sitemap'
+  gem 'jekyll-analytics'
+  gem 'jekyll-seo-tag'
 end

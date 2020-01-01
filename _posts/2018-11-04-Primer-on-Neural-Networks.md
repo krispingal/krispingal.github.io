@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "A Guide to Neural Networks"
-categories: [tutorial]
-tags: []
+categories: [ML]
+tags: [tutorial]
 article_summary: A guide to Neural Networks
 use_math: true
 ---
@@ -159,17 +159,17 @@ There are quite a few deep learning libraries that have emerged. Some of the pop
 [universal_approx_thm]: http://neuralnetworksanddeeplearning.com/chap4.html
 [bias_var]: https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff
 [transfer_learning]: https://ruder.io/transfer-learning/
-[bayes_optimiz]: http://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote15.html
-[CNN]: http://cs231n.github.io/convolutional-networks/#conv
+[bayes_optimiz]: https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote15.html
+[CNN]: https://cs231n.github.io/convolutional-networks/#conv
 [RNN]: https://en.wikipedia.org/wiki/Recurrent_neural_network
 
 [iris]: https://www.kaggle.com/uciml/iris
 [deeplearning.ai]: https://www.deeplearning.ai/
 [fast.ai]: https://www.fast.ai/
-[cs231n]: http://cs231n.stanford.edu/
+[cs231n]: https://cs231n.stanford.edu/
 [deep_learning_book]: http://neuralnetworksanddeeplearning.com/
 [MNIST]: http://yann.lecun.com/exdb/mnist/
-[imdb]: http://ai.stanford.edu/~amaas/data/sentiment/
+[imdb]: https://ai.stanford.edu/~amaas/data/sentiment/
 [kaggle]: https://www.kaggle.com/
 [kaggle_ds]: https://www.kaggle.com/datasets
 [lionbridge_ds]: https://lionbridge.ai/datasets/
