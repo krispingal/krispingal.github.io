@@ -1,29 +1,33 @@
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
+permalink: pretty
 #relative_permalinks: true
 
 # Setup
-title:               Krispingal.github.io
-tagline:             'Untangling thoughts'
-description:         'Ramblings of a Graduate Computer Science Student'
-url:                 https://krispingal.github.io
-baseurl:             ''
-paginate:            3
+title: Krispingal.github.io
+tagline: "Untangling thoughts"
+description: "Ramblings of a Graduate Computer Science Student"
+url: https://krispingal.github.io
+baseurl: ""
+paginate: 3
 
 # About/contact
 author:
-  name:              Krishna Babuji
-  url:               https://twitter.com/krishna_pingalB
-  email:             krishna.pingal@gmail.com
+  name: Krishna Babuji
+  url: https://twitter.com/krishna_pingalB
+  email: krishna.pingal@gmail.com
+
+excerpt_separator: <!--more-->
 
 markdown: kramdown
 kramdown:
-    math_engine: mathjax
+  math_engine: mathjax
+  syntax_highlighter_opts:
+    line_numbers: table
 
 # Custom vars
-version:             3.0.0
+version: 3.0.0
 
 plugins:
   - jekyll-paginate
@@ -35,14 +39,13 @@ plugins:
 
 ga_analytics:
 jekyll_analytics:
-  GoogleAnalytics:          # Add, if you want to track with Google Analytics
-    id: UA-67268846-1       # Required - replace with your tracking id
-    anonymizeIp: true      # Optional - Default: false - set to true for anonymized tracking
+  GoogleAnalytics: # Add, if you want to track with Google Analytics
+    id: UA-67268846-1 # Required - replace with your tracking id
+    anonymizeIp: true # Optional - Default: false - set to true for anonymized tracking
 
 defaults:
-  -
-    scope:
-      path: ""      # empty string for all files
-      type: posts   # limit to posts
+  - scope:
+      path: "" # empty string for all files
+      type: posts # limit to posts
     values:
       is_post: true # automatically set is_post=true for all posts

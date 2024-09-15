@@ -2,14 +2,12 @@
 layout: page
 title: About
 ---
+
 <p align="center">
     <img src="/assets/img/portrait.JPG" alt="portrait">
 </p>
+I'm a Software Engineer with a knack for tinkering and a never-ending curiosity about how things work in the computer science world. This blog is where I document my experiments – diving deep into various algorithms, data science techniques, and building prototypes to tackle exciting challenges.
 
-I am a Computer Science masters student at Arizona State University graduating in May 2020. I graduated in Computer Science & Engineering from the National Institute of Technology, Calicut in July 2014. Prior to my masters, I had been a software engineer at Citi for 4 years.
+My background includes a Masters in Computer Science from Arizona State University and 7 years of industry experience, most recently at Amazon's Seller Partner Financial Technology org. I love to solve challenging engineering problems, and to explain them clearly.
 
-My passion has been to solve challenging problems and to explain them clearly.
-I love to explore new technologies and libraries. I will be graduating in May 2020,
-and I am currently seeking opportunities to join
-as a Software Engineer or as a Machine Learning Engineer.
-<!--In my spare time I love watching movies. -->
+I enjoy watching movies, drawing, and listening to music as well. If you have any questions, comments, or just want to chat tech, hit me up at [krishna{dot}pingal{at}gmail{dot}com](mailto:krishna.pingal@gmail.com)

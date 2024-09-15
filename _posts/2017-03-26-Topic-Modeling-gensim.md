@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Topic Modeling with gensim"
+title: "Topic Modeling with gensim"
 categories: [NLP]
 tags: [topic-modeling, gensim]
 Article_summary: Topic modeling with gensim
 ---
-<!-- BEGIN_SUMMARY -->
-I first started doing topic modeling when I used to play around with the [nips dataset][nips]. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think [scikit-learn][sklearn] is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library [gensim][gensim] which is focused on topic modeling. Among many features it provides, it includes transformations such as *online* LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, [vowpal wabbit][vowpal_wabbit], and [Mallet][mallet].
+
+I first started doing topic modeling when I used to play around with the [nips dataset][nips]. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think [scikit-learn][sklearn] is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library [gensim][gensim] which is focused on topic modeling. Among many features it provides, it includes transformations such as _online_ LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, [vowpal wabbit][vowpal_wabbit], and [Mallet][mallet].
 
 The code can be viewed at my [Github repository][gh_repo].
 
-<!-- END_SUMMARY -->
+<!--more-->
 
 While numpy and scipy comes along with gensim when you install it via `pip install -U gensim`, having [nltk][nltk] installed also might come in handy if you decide to perform lemmatization or stemming. Gensim does provide Porter stemming but nltk does provide many other features as well. It is also recommended to have a blas/laplack library such as [OpenBlas][OpenBlas], [Atlas][Atlas] or [intel MKL][intel_mkl].
 
@@ -32,22 +32,22 @@ from itertools import dropwhile
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-""" iterate through directories by a  walk"""
+""" iterate through directories by a walk"""
 def iter_docs(topdir, stoplist):
-    for root, subdirs, files in os.walk(topdir):
-        for filename in files:
-            file_path = os.path.join(root, filename)
-            fin = open(file_path, 'rb')
-            text = fin.read()
-            fin.close()
-            yield (x for x in tokenize(
-                                       text,
-                                       lowercase=True,
-                                       deacc=True,
-                                       errors="ignore"
-                                       )
-                      if x not in stoplist
-                  )
+for root, subdirs, files in os.walk(topdir):
+for filename in files:
+file_path = os.path.join(root, filename)
+fin = open(file_path, 'rb')
+text = fin.read()
+fin.close()
+yield (x for x in tokenize(
+text,
+lowercase=True,
+deacc=True,
+errors="ignore"
+)
+if x not in stoplist
+)
 
 class OnlineCorpus(object):
 
@@ -85,7 +85,7 @@ corpus = corpora.MmCorpus(os.path.join(MODELS_DIR, 'corpora.mm'))
 lda = models.LdaModel(corpus=corpus, id2word=dictionary, num_topics=num_topics)
 lda.print_topics(num_topics=num_topics, num_words=10)
 lda.save(os.path.join(MODELS_DIR, 'twentyNewsGroups.lda'))
-{% endhighlight %}    
+{% endhighlight %}
 
 ## Enron dataset
 
@@ -93,12 +93,12 @@ Once I started benchmarking the performance of gensim on the twenty newsgroup da
 
 One of the earliest gripes I had with gensim was that it did not have enough documentation in my opinion. While trying to figure out how some methods worked, by reading the source code from [gensim's Github repository][gensim_ghrepo], I discovered a folder containing many jupyter notebooks that demonstrated many recipes. Apart from this, the [google group][gensim_ggroup] is also active and the posts there would also give you directions.
 
-Overall I would say, gensim's usage has increased and it has continued bringing more and more useful functionalities, to the board. I have noticed that gensim's performance does *not increase as much as one would expect* even if we provide more cores or more machines to the algorithm. I am expecting this to be fixed soon by the developers as they continue to optimize the code. Another thing I have noted is the effectiveness of the random state. I am expecting that by providing the same random state to the LDA, provided every other parameter remains the same, I would be getting back the same model. As far as I can see, this is not happening.
+Overall I would say, gensim's usage has increased and it has continued bringing more and more useful functionalities, to the board. I have noticed that gensim's performance does _not increase as much as one would expect_ even if we provide more cores or more machines to the algorithm. I am expecting this to be fixed soon by the developers as they continue to optimize the code. Another thing I have noted is the effectiveness of the random state. I am expecting that by providing the same random state to the LDA, provided every other parameter remains the same, I would be getting back the same model. As far as I can see, this is not happening.
 
 ## Recommended reading
 
-* [An introduction to LDA][LDA_EChen]
-* [gensim's jupyter docs that cover important points][gensim_jupyter]
+- [An introduction to LDA][LDA_EChen]
+- [gensim's jupyter docs that cover important points][gensim_jupyter]
 
 [nips]: https://www.kaggle.com/benhamner/nips-papers
 [sklearn]: http://scikit-learn.org/stable/

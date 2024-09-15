@@ -10,3 +10,7 @@ group :jekyll_plugins do
   gem 'jekyll-analytics'
   gem 'jekyll-seo-tag'
 end
+
+gem "webrick", "~> 1.8"
+
+gem "matrix", "~> 0.4.2"

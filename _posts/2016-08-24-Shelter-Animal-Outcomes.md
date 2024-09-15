@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Shelter Animal Outcomes"
+title: "Shelter Animal Outcomes"
 category: ML
 tags: kaggle
 Slug: shelter-animal-outcome
@@ -10,6 +10,7 @@ Article_summary: adventures while doing shelter animal outcomes competition
 ![pic of a puppy](/assets/img/puppy.jpg)
 
 <!-- BEGIN_SUMMARY -->
+
 [Shelter animal outcomes][animal-shelter-outcomes] is a knowledge
 competition hosted by [kaggle][kaggle]. My goal was to learn and get
 familiarized with the different techniques, methods and tools required to
@@ -23,11 +24,10 @@ we are provided with outcome subtypes too.
 
 All my work related to this can be found in this
 [github repository][repo_url], it houses my jupyter notebooks.
-<!-- END_SUMMARY -->
 
+<!--more-->
 
-Prior beliefs
-=============
+# Prior beliefs
 
 Before looking at the competition data, I thought cats might be a bit
 more favored than dogs, because of seeing many cat memes & gifs. I
@@ -40,8 +40,7 @@ in descending order of importance.
 4. color
 5. gender
 
-The data
-========
+# The data
 
 The training set had the following features:
 
@@ -52,14 +51,13 @@ The training set had the following features:
 - Color
 - DateTime
 - Name
-- *OutcomeType* [Adoption, Transfer, Euthanasia, Death & Return to owner] &
+- _OutcomeType_ [Adoption, Transfer, Euthanasia, Death & Return to owner] &
 - OutcomeSubtype [Foster, Partner, Surgery, Suffering ...]
 
 The test data does not include the last two columns.
 Perhaps OutcomeSubtype column was just provided to satisfy the participant's curiosity.
 
-Model creation
-==============
+# Model creation
 
 To reach my objective, to learn about various methods and techniques to solve similar problems,
 I planned to start off with the simplest models then progressively fine tune it. In all I made three
@@ -78,8 +76,7 @@ I used the following algorithms for my models:
 9. GradientTreeBoosting
 10. and Bagging.
 
-First pass
-==========
+# First pass
 
 I started off by doing a bit of visualization. The visualization gave me
 some knowledge on how the data is spread and what features might be
@@ -90,7 +87,7 @@ algorithms to get predictions. I tried to use as many algorithms I
 could but the evaluation metric log loss would need to get probability
 confidence for each outcome.
 
-$$ logloss = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{M} y_{ij}log(p_{ij}) $$
+$$ logloss = -\frac{1}{N}\sum*{i=1}^{N}\sum*{j=1}^{M} y*{ij}log(p*{ij}) $$
 
 Apart from using the score which Kaggle provides, I used cross-validation
 to get an estimate on how well the models are doing. I got scores which
@@ -100,8 +97,7 @@ Key learning point for me from the first pass was, I got familiar
 with scikit-learn's api for classification tasks as well as
 cross-validation.
 
-Second pass
-===========
+# Second pass
 
 This time when I browsed through the forums for this competition, I
 found out a [post][kaggle_post] which talked out about a potential data
@@ -115,16 +111,16 @@ fostering).
 
 Finally I ended up with the following features:
 
-* NameLength,
-* IsMix,
-* CoatType(short/medium/long hair),
-* IsDangerous(pit bull or other dangerous dogs),
-* Gender + spayed/neutered,
-* Ancestor1_group and Ancestor2_group.
+- NameLength,
+- IsMix,
+- CoatType(short/medium/long hair),
+- IsDangerous(pit bull or other dangerous dogs),
+- Gender + spayed/neutered,
+- Ancestor1_group and Ancestor2_group.
 
 The Ancestor_group features are for dogs, where dog breeds are
 classified into groups like sporting, herding, hound, working etc.
- I got this idea from another [post][kaggle_dog_group_post] in the forum.
+I got this idea from another [post][kaggle_dog_group_post] in the forum.
 
 Apart from the above changes in feature transformation, in the second
 pass I made additional changes to do feature selection as well. Wherever
@@ -134,20 +130,19 @@ selection though. With algorithms where RFECV won't work I used
 univariate feature elimination. For some classifiers I used pipelines
 which pipe feature selection with the classification algorithms.
 
-I did notice most *classifiers were not doing as well as it did during the
-first pass*, probably because I removed the Age feature which should
+I did notice most _classifiers were not doing as well as it did during the
+first pass_, probably because I removed the Age feature which should
 have been a feature that played a crucial role of the outcome of an
 animal.
 
 Key learning points in this pass was learning about Feature selection and
 pipelines.
 
-Third pass
-==========
+# Third pass
 
 For the third and final pass my aim was to tune the classifiers with
 their key parameters to achieve the best scores. For this I used
-scikit-learn's *GridSearchCV*. Essentially you give a parameter or a list
+scikit-learn's _GridSearchCV_. Essentially you give a parameter or a list
 of parameters and the list of values these can take, then internally it
 will do a search over all the given parameters, and finally it will give
 you the combination which gives the best score. As you can imagine this
@@ -155,7 +150,7 @@ is a computationally intensive operation.
 
 For certain classifiers, like SVM and gradientBoosting classsifiers,
 GridSearchCV even running on multiple cores could take hours to complete.
-In these cases I used the alternative *RandomizedSearchCV*, in which you
+In these cases I used the alternative _RandomizedSearchCV_, in which you
 can specify how many iterations it should perform. One can also provide
 random numbers from a range, for these parameters. Hence if you have low
 computational resources and want a solution which is good but not the best,  
@@ -167,12 +162,11 @@ drawback for RandomizedSearchCV is you might repeat an iteration with a
 set of parameters that might have already been tried.
 
 Key learning points were learning about GridSearchCV and
-RandomizedSearchCV. One thing I learned afterwards was that, *in practice
+RandomizedSearchCV. One thing I learned afterwards was that, _in practice
 GridSearchCV is only provided the parameters that are deemed important
-for that classifier*.
+for that classifier_.
 
-Conclusion
-==========
+# Conclusion
 
 For me this project, when considering everything has been highly rewarding.
 I got familiar with tools like pandas and scikit-learn. I also got to
