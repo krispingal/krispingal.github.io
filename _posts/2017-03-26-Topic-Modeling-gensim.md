@@ -21,7 +21,7 @@ very small dataset.
 
 Below is a bare-bones version of code for pre-processing your data:
 
-{% highlight python %}
+```python
 import os
 import logging
 import gensim
@@ -34,20 +34,17 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 
 """ iterate through directories by a walk"""
 def iter_docs(topdir, stoplist):
-for root, subdirs, files in os.walk(topdir):
-for filename in files:
-file_path = os.path.join(root, filename)
-fin = open(file_path, 'rb')
-text = fin.read()
-fin.close()
-yield (x for x in tokenize(
-text,
-lowercase=True,
-deacc=True,
-errors="ignore"
-)
-if x not in stoplist
-)
+    for root, subdirs, files in os.walk(topdir):
+        for filename in files:
+            file_path = os.path.join(root, filename)
+            fin = open(file_path, 'rb')
+            str_list = []
+            for line in dropwhile(isHeader, fin):
+               str_list.append(line)
+            text = ''.join(str_list)
+            fin.close()
+            yield (x for x in gensim.utils.tokenize(text, lowercase=True, deacc=True, errors="ignore")
+                                                    if x not in stoplist)
 
 class OnlineCorpus(object):
 
@@ -67,7 +64,8 @@ stoplist = set(stopwords.words("english"))
 corpus = OnlineCorpus(TEXTS_DIR, stoplist)
 corpus.dictionary.save(os.path.join(MODELS_DIR, 'twentyNewsGroup.dict'))
 gensim.corpora.MmCorpus.serialize(os.path.join(MODELS_DIR, 'corpora.mm'), corpus)
-{% endhighlight %}
+```
+
 It is also trivial to provide gensim's methods with a corpus that has been tf-idf transformed. Do note that, in case you hold out some of your dataset for later, you will have to do the same transformations you did on the training data, otherwise the results might end up bad.
 
 Gensim also provides algorithms that will utilize multiple cores in your machine to be more efficient. There is also a distributed implementation of LDA and LSA that gensim provides which is very useful while dealing with very big datasets. While I have created a [jupyter notebook][20ng_jupyter] that benchmarks the performance of gensim's methods, do note that much newer versions of gensim would have better performance.
