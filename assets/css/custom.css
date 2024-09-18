@@ -21,7 +21,7 @@ div#toc {
 
 .image-wrapper {
     text-align: center;
-    color: #888;
+    color: #aaa;
 
     .image-caption {
         margin-top: $spacing-unit / 3;
@@ -34,4 +34,8 @@ div#toc {
 
 .eqn-wrapper{
   padding: 3px;
+}
+
+span.archive-date {
+  float: right
 }

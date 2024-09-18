@@ -4,10 +4,7 @@ layout: default
 
 <article class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">
-    <i class="fa-regular fa-calendar"></i>  {{ page.date | date_to_string }} |  <i class="fa-regular fa-clock"></i>  {{ page.content | number_of_words | divided_by: 180 }} min read
-  </span>
-  <div id="toc"></div>
+  <span class="post-date">{{ page.date | date_to_string }}</span>
   {{ content }}
 
   <h4>Posted in
@@ -61,13 +58,4 @@ layout: default
   })();
 </script>
 
-<script src="https://hypothes.is/embed.js" async></script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-<script src="/assets/js/toc.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#toc').toc({ headers: 'h1, h2, h3, h6' });
-});
-</script>

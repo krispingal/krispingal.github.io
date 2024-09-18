@@ -7,16 +7,22 @@ permalink: pretty
 # Setup
 title: Krispingal.github.io
 tagline: "Untangling thoughts"
-description: "Ramblings of a Graduate Computer Science Student"
+description: "Ruminations of a software engineer"
 url: https://krispingal.github.io
 baseurl: ""
-paginate: 3
+paginate: 5
 
 # About/contact
 author:
   name: Krishna Babuji
   url: https://twitter.com/krishna_pingalB
   email: krishna.pingal@gmail.com
+
+social:
+  name: Krishna Babuji
+  links:
+    - https://www.linkedin.com/in/krishna-babuji/
+    - https://github.com/krispingal
 
 excerpt_separator: <!--more-->
 

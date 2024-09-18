@@ -32,7 +32,7 @@ A Layer 4 load balancer operates at the transport layer (OSI Layer 4), distribut
 
 Below is a diagram of a simple load balancer. Requests (R1, R2, R3, R4) are distributed to three backend servers, and the forwarded requests are shown as FR1, FR2, FR3, and FR4.
 
-![diagram of a load balancer](/assets/img/l7lb/load%20balancer.png)
+{% include images.html img="/assets/img/l7lb/load balancer.png" title="Diagram of aload balancer" caption="Diagram of a load balancer." %}
 
 Below is code for a simple load balancer that supports HTTP routes request in a Round Robin fashion.
 
@@ -120,7 +120,7 @@ func main() {
 }
 ```
 
-You can refer to this [article][kasvith_article] which I referred.
+You can refer to this [article][kasvith_article] which I referred for inspiration when building a simple load balancer.
 
 ## What is a layer 7 load balancer?
 

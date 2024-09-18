@@ -7,7 +7,7 @@ Slug: shelter-animal-outcome
 Article_summary: adventures while doing shelter animal outcomes competition
 ---
 
-![pic of a puppy](/assets/img/puppy.jpg)
+{% include images.html img="/assets/img/puppy.jpg" title="pic of a rottweiler puppy" caption="A rottweiler puppy." %}
 
 <!-- BEGIN_SUMMARY -->
 
