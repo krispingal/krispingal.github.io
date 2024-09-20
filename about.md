@@ -3,9 +3,7 @@ layout: page
 title: About
 ---
 
-<p align="center">
-    <img src="/assets/img/portrait.JPG" alt="portrait">
-</p>
+<img align="right" src="/assets/img/portrait.webp" alt="portrait" style="border-radius: 50%;">
 I'm a Software Engineer with a knack for tinkering and a never-ending curiosity about how things work in the computer science world. This blog is where I document my experiments – diving deep into various algorithms, data science techniques, and building prototypes to tackle exciting challenges.
 
 My background includes a Masters in Computer Science from Arizona State University and 7 years of industry experience, most recently at Amazon's Seller Partner Financial Technology org. I love to solve challenging engineering problems, and to explain them clearly.

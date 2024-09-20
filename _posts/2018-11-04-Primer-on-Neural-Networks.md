@@ -7,7 +7,7 @@ article_summary: A guide to Neural Networks
 use_math: true
 ---
 
-{% include images.html img="/assets/img/post_3/nn.svg" title="Neural Network architecture" caption="Fig 1. Neural net with Input layer &#x2208; &#8477;<sup>16</sup>; hidden layer 1  &#x2208; &#8477;<sup>12</sup>; hidden layer 2 &#x2208; &#8477;<sup>10</sup> and finally a single unit &#x2208; &#8477; in the output layer" %}
+{% include images.html img="/assets/img/post_3/nn.webp" title="Neural Network architecture" caption="Fig 1. Neural net with Input layer &#x2208; &#8477;<sup>16</sup>; hidden layer 1  &#x2208; &#8477;<sup>12</sup>; hidden layer 2 &#x2208; &#8477;<sup>10</sup> and finally a single unit &#x2208; &#8477; in the output layer" %}
 
 > TLDR: <br>
 > Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.
@@ -54,7 +54,7 @@ $$
 
 Figure 2 shows the above logic pictorially.
 
-{% include images.html img="/assets/img/post_3/neuron.png" title="Single Neuron" caption="Fig 2. A single unit taking input <i>x</i> &#x2208; &#8477;<sup>3</sup> and returning output <i>y</i> &#x2208; &#8477;" %}
+{% include images.html img="/assets/img/post_3/neuron.webp" title="Single Neuron" caption="Fig 2. A single unit taking input <i>x</i> &#x2208; &#8477;<sup>3</sup> and returning output <i>y</i> &#x2208; &#8477;" %}
 
 We have seen what happens in the forward propagation for a single unit but in layer _k_ we have <i>n<sup>out</sup></i> units. Matrix operations are faster than regular loop operations, so we transform our problem such that we have matrix multiplications and additions.
 
@@ -96,11 +96,11 @@ Neural networks could be equated to the [perceptron][perceptron] model with hidd
 
 When we have multiple layers in the neural network, what we are doing is that we are stacking linear transformations followed by a non-linear function. If we are only stacking linear transformations, we can reduce this into a single linear transformation. Stacking both the linear and non-linear function together allows us to construct _approximately_ any mathematical function that we desire. We call this property the **Universal approximation theorem**. A good read-up that covers a visual proof for this as well as the surrounding caveats for this is present in Michael Nielsen's [online book][universal_approx_thm].
 
-{% include images.html img="/assets/img/post_3/scatter_plot.png" title="Single Neuron" caption="Fig 3. A concentric data problem to classify the points, a linear classifier such as SVM (without kernel) would not be able to distinguish the points properly in such cases."%}
+{% include images.html img="/assets/img/post_3/scatter_plot.webp" title="Single Neuron" caption="Fig 3. A concentric data problem to classify the points, a linear classifier such as SVM (without kernel) would not be able to distinguish the points properly in such cases."%}
 
 So how does a neural network partition the data in a classification problem? Neural networks transform the feature space into space where we can distinguish each data point using a hyperplane. Figure 3 shows a toy problem of identifying the two classes when data is spread concentrically. One way to solve this is to warp this space into a bowl-shaped space and then use hyperplane to partition this space.
 
-{% include images.html img="/assets/img/post_3/bowl_shaped.svg" title="Bowl shaped 3 D space" caption="Fig 4. Bowl shaped 3-D space where we can easily partition the data points and space shown in Fig 3. using a plane" %}
+{% include images.html img="/assets/img/post_3/bowl_shaped.webp" title="Bowl shaped 3 D space" caption="Fig 4. Bowl shaped 3-D space where we can easily partition the data points and space shown in Fig 3. using a plane" %}
 
 ## Why would one use neural networks or why not use it?
 

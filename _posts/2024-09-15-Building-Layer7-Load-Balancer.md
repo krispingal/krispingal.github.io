@@ -24,7 +24,7 @@ There are two common types of load balancers:
 1. **Layer 4 Load Balancer**: Operates at the transport layer (TCP/UDP), distributing traffic based on IP addresses and ports.
 2. **Layer 7 Load Balancer**: Operates at the application layer (HTTP), distributing requests based on more granular details such as URL paths, headers, and even request content.
 
-Popular load balancers include AWS [ELB][ELB], [NGINX][NGINX], and [HAProxy][HAProxy].
+Popular load balancers include AWS [Elastic Load Balancer][ELB], [NGINX][NGINX], and [HAProxy][HAProxy].
 
 ## What is a layer 4 load balancer?
 
@@ -32,7 +32,7 @@ A Layer 4 load balancer operates at the transport layer (OSI Layer 4), distribut
 
 Below is a diagram of a simple load balancer. Requests (R1, R2, R3, R4) are distributed to three backend servers, and the forwarded requests are shown as FR1, FR2, FR3, and FR4.
 
-{% include images.html img="/assets/img/l7lb/load balancer.png" title="Diagram of aload balancer" caption="Diagram of a load balancer." %}
+{% include images.html img="/assets/img/l7lb/load balancer.webp" title="Diagram of aload balancer" caption="Diagram of a load balancer." %}
 
 Below is code for a simple load balancer that supports HTTP routes request in a Round Robin fashion.
 
