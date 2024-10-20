@@ -14,7 +14,7 @@ layout: default
   </h4>
   <small>
     {% for tag in page.tags %}
-    <i class="fa-solid fa-tag"></i><a href="/tags/#{{ tag }}">{{ tag }}</a>
+    <button class="button-16" role="button"><a href="/tags/#{{ tag }}">{{ tag }}</a></button>
     {% endfor %}
   </small>
 </article>
