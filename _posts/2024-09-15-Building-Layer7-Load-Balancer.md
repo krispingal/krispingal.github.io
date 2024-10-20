@@ -2,7 +2,7 @@
 layout: post
 title: "Building a layer 7 load balancer"
 categories: [Software engineering]
-tags: [tutorial]
+tags: [Golang, Load Balancing, tutorial]
 article_summary: Building a layer 7 load balancer
 use_math: false
 ---
