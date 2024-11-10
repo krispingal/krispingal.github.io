@@ -1,0 +1,34 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-US'
+title = 'Untangling thoughts'
+
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
+
+[[menus.main]]
+name = 'Tags'
+pageRef = '/tags'
+weight = 30
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderHooks]
+        [markup.goldmark.renderhooks.image]
+          enableDefault = true
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.116.0"

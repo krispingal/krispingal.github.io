@@ -1,0 +1,12 @@
+{{ define "main" }}
+
+<div class="about">
+    <div class="column-right">
+        <h1>{{ .Title }}</h1>
+        {{ .Summary }}
+    </div>
+    <div class="column-left">
+        {{ .ContentWithoutSummary }}
+    </div>
+  </div>
+{{ end }}

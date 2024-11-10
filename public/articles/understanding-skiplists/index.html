@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>Understanding Skip lists | kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
+        });
+    });
+</script>
+  <meta itemprop="name" content="Understanding Skip lists">
+  <meta itemprop="description" content="An intro to skip lists three operations search, insert, and delete.">
+  <meta itemprop="datePublished" content="2024-11-01T00:00:00-05:00">
+  <meta itemprop="dateModified" content="2024-11-01T00:00:00-05:00">
+  <meta itemprop="wordCount" content="2263">
+  <meta itemprop="keywords" content="Data Structures,Python,Probabilistic">
+<meta property="og:url" content="http://localhost:1313/articles/understanding-skiplists/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="Understanding Skip lists">
+  <meta property="og:description" content="An intro to skip lists three operations search, insert, and delete.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-11-01T00:00:00-05:00">
+    <meta property="article:modified_time" content="2024-11-01T00:00:00-05:00">
+    <meta property="article:tag" content="Data Structures">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Probabilistic">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+<div class="content">
+    <h1>Understanding Skip lists</h1>
+    
+    
+    <time datetime="2024-11-01T00:00:00-05:00">November 1, 2024</time>
+    <article>
+        <p>Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.</p>
+<p>With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.</p>
+<h2 id="how-skip-lists-improve-efficiency">
+  How Skip Lists improve efficiency
+  <a class="anchor" href="#how-skip-lists-improve-efficiency" aria-label="Link to section - How Skip Lists improve efficiency">#</a>
+</h2>
+
+<p>So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &ldquo;express lane&rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.</p>
+<p>To make the analogy clearer, think of these levels as a series of express lanes on a highway. As you travel along an express lane, you occasionally find exits that let you drop down to slower lanes with more nodes, offering greater detail for precise adjustments. This balance of speed and accuracy allows skip lists to achieve efficient search, insert, and delete operations.</p>
+<figure><img src="/articles/understanding-skiplists/skipList.webp" loading="lazy"><figcaption>
+      <h4>Fig 1. An example Skip List</h4>
+    </figcaption>
+</figure>
+
+<p><strong>Note on Bidirectional traversal</strong></p>
+<p>For simplicity, we assume here that skip lists contain only forward links, though it&rsquo;s possible to implement bidirectional (backward) links. Without 
+<span class="sidenote">
+  <input
+    aria-label="Show sidenote"
+    type="checkbox"
+    id="sidenote__checkbox--1"
+    class="sidenote__checkbox">
+  <label
+    tabindex="0"
+    title="Sidenote content"
+    aria-describedby="sidenote-1"
+    for="sidenote__checkbox--1"
+    class="sidenote__button sidenote__button--number-1
+  ">
+        heuristics
+</label>
+  <small
+    id="sidenote-1"
+    class="sidenote__content sidenote__content--number-1">
+    <span class="sidenote__content-parenthesis
+    "> (sidenote: </span>
+      A helpful heuristic in this case would let us know  approximately how much skips away target node is.
+    <span class="sidenote__content-parenthesis">)</span>
+  </small>
+</span>heuristics or specific knowledge of data distribution, however, it’s often hard to predict if moving backward would be more efficient than moving forward. Thus, a simple forward-only skip list remains optimal for most use cases.</p>
+<p>Now, let’s take a look at initializing a skip list.</p>
+<hr>
+<h2 id="initializing-a-skip-list">
+  Initializing a Skip List
+  <a class="anchor" href="#initializing-a-skip-list" aria-label="Link to section - Initializing a Skip List">#</a>
+</h2>
+
+<p>Like a linked list, a skip list also consists of &ldquo;nodes&rdquo; and a primary data structure that encapsulates the nodes, providing <code>insert</code>, <code>delete</code>, and <code>search</code> operations. Each node in a skip list, represented here as <code>SkipListNode</code>, stores a value and a forward list of pointers to the next nodes at various levels. This list enables the &ldquo;express lanes&rdquo; that allow for efficient traversal and manipulation of the list.</p>
+<figure><img src="/articles/understanding-skiplists/SkipListClassDiagram.webp" loading="lazy"><figcaption>
+      <h4>Fig 2. Skip List state</h4>
+    </figcaption>
+</figure>
+
+<p><strong>Components of SkipListNode</strong></p>
+<ul>
+<li><code>value</code>: Stores the value or data held by the node.</li>
+<li><code>forward</code>: A list of pointers, where each index corresponds to a level in the skip list. At each level, it points to the next node at that level or remains None if no such node exists.</li>
+</ul>
+<p><strong>Components of the SkipList Structure</strong></p>
+<p>The SkipList class itself maintains key attributes that govern its behavior:</p>
+<ul>
+<li><code>head</code>: A SkipListNode instance that serves as the starting point of the skip list at all levels. Its forward list has a length equal to max_level.</li>
+<li><code>max_level</code>: Specifies the maximum level height for the skip list, which caps the number of levels any node can have.</li>
+<li><code>cur_level</code>: Tracks the highest level currently in use within the skip list, which grows as nodes are added with higher levels.</li>
+<li><code>probability</code>: Defines the probability factor used to determine the level height of each new node, influencing the list’s balance.</li>
+</ul>
+<div class="highlight" id="init"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SkipListNode</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>    <span style="color:#66d9ef">def</span> __init__(self, value: int, level: int):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>        self<span style="color:#f92672">.</span>forward <span style="color:#f92672">=</span> [<span style="color:#66d9ef">None</span>] <span style="color:#f92672">*</span> (level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SkipList</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    <span style="color:#66d9ef">def</span> __init__(self, max_level: int, probability: float):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>        self<span style="color:#f92672">.</span>head <span style="color:#f92672">=</span> SkipListNode(<span style="color:#66d9ef">None</span>, max_level)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>        self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>        self<span style="color:#f92672">.</span>max_level <span style="color:#f92672">=</span> max_level
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>        self<span style="color:#f92672">.</span>probability <span style="color:#f92672">=</span> probability
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_random_level</span>(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>        level <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>        <span style="color:#66d9ef">while</span> random<span style="color:#f92672">.</span>random() <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>probability <span style="color:#f92672">and</span> level <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>max_level:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>            level <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>        <span style="color:#66d9ef">return</span> level
+</span></span></code></pre></div><p>Next we can look into the <code>search</code> operation, we start with search because the same logic is used in <code>insert</code> and <code>delete</code>.</p>
+<p><strong>A little bit on what role probability plays</strong>
+Till now we talked about the levels in skip lists. One could carefully choose which elements to put on the higher levels
+if we know the proximity of other elements. In practice when we have <code>inserts</code> and <code>deletes</code> with no information on the
+distribution of data we will have no way to know what level is optimal for a node. Here is where probability comes into
+play. We can assign the level of a node randomly provided the probability for each node decreases exponentially.</p>
+<p>The level structure is also such that if a node is at level $k$ it has pointers to forwards for all levels less than $k$.</p>
+<p>So far, we&rsquo;ve discussed levels in skip lists. Ideally, we could manually select which elements to place on higher levels if we had information about the distribution or proximity of elements. However, in dynamic scenarios where <code>insert</code> and <code>delete</code> operations occur without any predefined data distribution, it’s difficult to predict an optimal level for each new node. Probability provides an elegant solution here.</p>
+<p>By using a random level assignment governed by a probability factor, we ensure that the number of nodes decreases exponentially with each increasing level. This probabilistic approach keeps the skip list balanced on average, allowing it to maintain efficient $O(\log{n})$ performance across <code>search</code>, <code>insert</code>, and <code>delete</code> operations.</p>
+<p>Additionally, each node’s level is structured such that if a node is at level $k$, it has forward pointers for all levels below $k$. This ensures seamless traversal between levels during search operations.</p>
+<hr>
+<h2 id="search-operation-in-skip-lists">
+  Search operation in Skip Lists
+  <a class="anchor" href="#search-operation-in-skip-lists" aria-label="Link to section - Search operation in Skip Lists">#</a>
+</h2>
+
+<p>The search operation in a skip list forms the foundation for insert and delete operations as well, so let’s cover it first.</p>
+<p>In a skip list, we begin the search from the <code>head</code> node using a pointer called <code>current</code>. <code>current</code> has a list of forward pointers that allow traversal across different levels. Starting from the highest active level (<code>cur_level</code>), we examine each forward pointer on that level. If the forward pointer’s value is less than our target value, we advance <code>current</code> to this forward node and continue on the same level. If a forward node’s value exceeds the target value, we drop down one level and repeat this process.</p>
+<p>This traversal continues until one of two conditions is met:</p>
+<ul>
+<li>We reach a node whose forward pointer value matches the target value (indicating success).</li>
+<li>We reach level 0 and a forward pointer exceeds the target, or points to <code>None</code> (indicating the target is not present in the list).</li>
+</ul>
+<p>Below is a python implementation of <code>search</code>.</p>
+<div class="highlight" id="search"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search</span>(self, target: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    current <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>head
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#75715e"># Search each level till the next has esxceeded target. Once exceeded go down to lower level.</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#66d9ef">for</span> level <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>cur_level, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>        <span style="color:#66d9ef">while</span> current<span style="color:#f92672">.</span>forward[level] <span style="color:#f92672">and</span> current<span style="color:#f92672">.</span>forward[level]<span style="color:#f92672">.</span>value <span style="color:#f92672">&lt;</span> target:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[level]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>    current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span><span>    <span style="color:#66d9ef">return</span> current <span style="color:#f92672">and</span> current<span style="color:#f92672">.</span>value <span style="color:#f92672">==</span> target
+</span></span></code></pre></div><p>We can look at <code>insert</code> next.</p>
+<hr>
+<h2 id="insert-operation-in-skip-lists">
+  Insert operation in Skip Lists
+  <a class="anchor" href="#insert-operation-in-skip-lists" aria-label="Link to section - Insert operation in Skip Lists">#</a>
+</h2>
+
+<p>The insertion process in a skip list can be broken down into three main steps:</p>
+<ol>
+<li><strong>Identify the Insert Position</strong>: Find the correct position for the target value, marking nodes whose forward links will need to be updated to point to the new node.</li>
+<li><strong>Create a New Node</strong>: Instantiate a new SkipListNode and assign it a level based on the probability factor.</li>
+<li><strong>Reconnect Forward Links</strong>: Insert the new node by updating the forward links of the marked nodes.</li>
+</ol>
+<h3 id="step-1-find-the-insert-position">
+  Step 1: Find the Insert Position
+  <a class="anchor" href="#step-1-find-the-insert-position" aria-label="Link to section - Step 1: Find the Insert Position">#</a>
+</h3>
+
+<p>Finding the <code>insert</code> position for the target value closely resembles the search operation. Starting from the highest active level, traverse each level until you reach the correct position where the target should be inserted. As you go, keep track of the nodes whose forward pointers will need updating to accommodate the new node. These are either the last nodes on that level or the node that will directly precede the new node on each level.</p>
+<h3 id="step-2-create-a-new-node">
+  Step 2: Create a New Node
+  <a class="anchor" href="#step-2-create-a-new-node" aria-label="Link to section - Step 2: Create a New Node">#</a>
+</h3>
+
+<p>Once the position is identified, create a new SkipListNode with the specified target value. Determine the node’s level using the probability factor, which governs the likelihood of each node appearing on higher levels.</p>
+<h3 id="step-3-reconnect-forward-links">
+  Step 3: Reconnect Forward Links
+  <a class="anchor" href="#step-3-reconnect-forward-links" aria-label="Link to section - Step 3: Reconnect Forward Links">#</a>
+</h3>
+
+<p>Finally, reconnect the marked forward links to the new node. Starting from the node’s assigned level down to level 0, adjust each marked node’s forward pointer to include the new node. This effectively “weaves” the new node into its position at every level, integrating it fully into the skip list structure.</p>
+<figure><img src="/articles/understanding-skiplists/skiplist_insert.gif" loading="lazy"><figcaption>
+      <h4>Fig 3. An example of an insert operation on Skip List</h4>
+    </figcaption>
+</figure>
+
+<div class="highlight" id="insert"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, val: int) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>    update <span style="color:#f92672">=</span> [<span style="color:#66d9ef">None</span>] <span style="color:#f92672">*</span> (
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>        self<span style="color:#f92672">.</span>max_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    )  <span style="color:#75715e"># Used to track all nodes whose next would be new val</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>    current <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>head
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    <span style="color:#75715e"># Traverse and mark each node which should be updated</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>    <span style="color:#66d9ef">for</span> level <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>cur_level, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>        <span style="color:#66d9ef">while</span> current<span style="color:#f92672">.</span>forward[level] <span style="color:#f92672">and</span> current<span style="color:#f92672">.</span>forward[level]<span style="color:#f92672">.</span>value <span style="color:#f92672">&lt;</span> val:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[level]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>        update[level] <span style="color:#f92672">=</span> current
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    <span style="color:#75715e"># Assign a level to the new value</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    new_level <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_random_level()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>    <span style="color:#66d9ef">if</span> new_level <span style="color:#f92672">&gt;</span> self<span style="color:#f92672">.</span>cur_level:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, new_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>            update[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>head  <span style="color:#75715e"># Propagate head nodes to higher levels</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>        self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">=</span> new_level
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>    new_node <span style="color:#f92672">=</span> SkipListNode(val, new_level)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(new_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>        new_node<span style="color:#f92672">.</span>forward[i] <span style="color:#f92672">=</span> update[i]<span style="color:#f92672">.</span>forward[i]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>        update[i]<span style="color:#f92672">.</span>forward[i] <span style="color:#f92672">=</span> new_node
+</span></span></code></pre></div><hr>
+<h2 id="delete-operation-in-skip-lists">
+  Delete operation in Skip Lists
+  <a class="anchor" href="#delete-operation-in-skip-lists" aria-label="Link to section - Delete operation in Skip Lists">#</a>
+</h2>
+
+<p>The <code>delete</code> operation in a skip list closely resembles the <code>insert</code> operation and can be broken down into two main steps:</p>
+<ol>
+<li><strong>Identify the delete position</strong>: Locate the target value in the skip list, keeping track of nodes whose forward links will need updating to bypass the target node.</li>
+<li><strong>Reconnect forward links</strong>: Remove the target node if it exists and reconnect the preceding nodes&rsquo; forward links to the nodes that follow the target.</li>
+</ol>
+<h3 id="step-1-identify-the-delete-position">
+  Step 1: Identify the Delete Position
+  <a class="anchor" href="#step-1-identify-the-delete-position" aria-label="Link to section - Step 1: Identify the Delete Position">#</a>
+</h3>
+
+<p>Finding the position of the target value for deletion follows the same logic as the <code>search</code> operation. Starting from the highest active level, traverse each level of the skip list, tracking nodes whose forward pointers will need updating to remove the target node. These nodes are either the last ones on each level or the nodes that directly precede the target node on each level.</p>
+<p>The skip list will delete only the first occurrence of the target value found. If the target value is not present in the list, the operation is aborted.</p>
+<h3 id="step-2-reconnect-forward-links">
+  Step 2: Reconnect Forward Links
+  <a class="anchor" href="#step-2-reconnect-forward-links" aria-label="Link to section - Step 2: Reconnect Forward Links">#</a>
+</h3>
+
+<p>Once the target node is identified, update the forward links of all preceding nodes to skip over the target node, effectively removing it from each level where it exists. After updating links, clean up any higher levels in the skip list that are now empty.</p>
+<p>Here&rsquo;s a Python example of how this deletion process works:</p>
+<div class="highlight" id="delete"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete</span>(self, target: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>    update <span style="color:#f92672">=</span> [<span style="color:#66d9ef">None</span>] <span style="color:#f92672">*</span> (self<span style="color:#f92672">.</span>max_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># Used to track all nodes whose next should be updated.</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>    current <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>head
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>    <span style="color:#66d9ef">for</span> level <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>cur_level, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>        <span style="color:#66d9ef">while</span> current<span style="color:#f92672">.</span>forward[level] <span style="color:#f92672">and</span> current<span style="color:#f92672">.</span>forward[level]<span style="color:#f92672">.</span>value <span style="color:#f92672">&lt;</span> target:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[level]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>        update[level] <span style="color:#f92672">=</span> current
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>    current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>    <span style="color:#75715e"># Value is not found</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> current <span style="color:#f92672">or</span> current<span style="color:#f92672">.</span>value <span style="color:#f92672">!=</span> target:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    <span style="color:#75715e"># Update the forward links to skip/bypass target node</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>        <span style="color:#66d9ef">if</span> update[i]<span style="color:#f92672">.</span>forward[i] <span style="color:#f92672">!=</span> current:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>        update[i]<span style="color:#f92672">.</span>forward[i] <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>forward[i]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>    <span style="color:#75715e"># Clean up any left over levels that are empty</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>    <span style="color:#66d9ef">while</span> self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>head<span style="color:#f92672">.</span>forward[self<span style="color:#f92672">.</span>cur_level] <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>        self<span style="color:#f92672">.</span>cur_level <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span></code></pre></div><hr>
+<h2 id="closing-notes-when-to-use-skip-lists">
+  Closing notes: When to use Skip Lists
+  <a class="anchor" href="#closing-notes-when-to-use-skip-lists" aria-label="Link to section - Closing notes: When to use Skip Lists">#</a>
+</h2>
+
+<p>Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of $O(\log{n})$ for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
+<strong>Range Queries</strong></p>
+<ul>
+<li><strong>Efficient range searches</strong>: Skip lists excel in range queries, as they allow for quick traversal over nodes within specified bounds. By leveraging the multi-level structure, skip lists can efficiently identify all elements within a given range.</li>
+<li><strong>Real-time applications</strong>: In database systems or network applications where efficient range queries are crucial, skip lists provide an effective and straightforward option.</li>
+</ul>
+<p><strong>Ordered Data</strong></p>
+<ul>
+<li><strong>Inherent order maintenance</strong>: Skip lists maintain elements in sorted order by design, which makes them suitable for applications needing ordered traversal or lookups for successive or preceding elements.</li>
+</ul>
+<p><strong>Simple Implementation</strong></p>
+<ul>
+<li><strong>Ease of coding and maintenance</strong>: Unlike self-balancing trees (e.g., red-black or AVL trees) that require complex rotations or rebalancing logic, skip lists achieve balance through probabilistic leveling. This feature simplifies the codebase and reduces maintenance complexity, making skip lists relatively easy to implement and debug.</li>
+</ul>
+<p><strong>Limitations of Skip Lists</strong></p>
+<p>Despite their benefits, skip lists come with trade-offs:</p>
+<ul>
+<li><strong>Performance Variability</strong>: Skip lists offer excellent average-case performance but do not guarantee the same worst-case efficiency as balanced trees. In rare cases, skip lists may degrade to linear time if level distribution is unbalanced.</li>
+<li><strong>Increased Memory Usage</strong>: To enable their multi-level structure, skip lists require additional memory to store pointers at each level, which can increase space usage compared to simpler structures.</li>
+</ul>
+<p>You can see the full implementation <a href="https://github.com/krispingal/DSA/blob/main/src/dsa/datastructures/skip_lists.py">here</a>.</p>
+    </article>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/data-structures/">Data Structures</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+      <li><a href="/tags/probabilistic/">Probabilistic</a></li>
+  </ul>
+
+    
+</div>
+
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2024 kbabuji. All rights reserved.</p>
+
+
+  </footer>
+</body>
+
+</html>

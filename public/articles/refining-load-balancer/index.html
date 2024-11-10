@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>Refining Load Balancer | kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+
+  <meta itemprop="name" content="Refining Load Balancer">
+  <meta itemprop="description" content="Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup">
+  <meta itemprop="datePublished" content="2024-10-19T00:00:00-05:00">
+  <meta itemprop="dateModified" content="2024-10-19T00:00:00-05:00">
+  <meta itemprop="wordCount" content="1768">
+  <meta itemprop="keywords" content="golang,layer 7 load balancer,Clean Architecture">
+<meta property="og:url" content="http://localhost:1313/articles/refining-load-balancer/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="Refining Load Balancer">
+  <meta property="og:description" content="Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-10-19T00:00:00-05:00">
+    <meta property="article:modified_time" content="2024-10-19T00:00:00-05:00">
+    <meta property="article:tag" content="Scalability">
+    <meta property="article:tag" content="Load Balancer">
+    <meta property="article:tag" content="Golang">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+<div class="content">
+    <h1>Refining Load Balancer</h1>
+    
+    
+    <time datetime="2024-10-19T00:00:00-05:00">October 19, 2024</time>
+    <article>
+        <p>In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.</p>
+<p>This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.</p>
+<h2 id="clean-architecture-a-more-modular-and-scalable-approach">
+  Clean Architecture: A More Modular and Scalable Approach
+  <a class="anchor" href="#clean-architecture-a-more-modular-and-scalable-approach" aria-label="Link to section - Clean Architecture: A More Modular and Scalable Approach">#</a>
+</h2>
+
+<p>As the project grew, it became clear that a more organized and scalable architecture was needed. With plans to add features like advanced rate limiting, routing strategies, and custom plugins, the initial structure began to feel restrictive. To keep the core logic isolated and clean, I moved to a clean architecture.</p>
+<p>Here’s how it’s structured:</p>
+<ul>
+<li><strong>Domain Layer</strong>: Houses core components like backend and rate limiter interfaces, and backend statuses. This defines the core business rules.</li>
+<li><strong>Usecases Layer</strong>: Contains the main business logic, including load balancing, health checkers, and rate limiters.</li>
+<li><strong>Infrastructure Layer</strong>: Manages external systems like logging (via zap) and configuration readers, keeping them separate from core logic.</li>
+<li><strong>Interfaces/HTTP Layer</strong>: Handles the routing and middleware for incoming requests.</li>
+</ul>
+<p>This structure helps keep code modular and maintainable, making it easier to add new features without unnecessary complexity or tight coupling.</p>
+<h3 id="benefits-of-clean-architecture">
+  Benefits of Clean Architecture
+  <a class="anchor" href="#benefits-of-clean-architecture" aria-label="Link to section - Benefits of Clean Architecture">#</a>
+</h3>
+
+<p>One immediate benefit is improved modularity. Test cases are now kept with the code they test, making the project more organized and maintainable. Adding new features is easier too, thanks to interfaces that allow flexible implementations. During setup, these interfaces are injected with concrete implementations based on the configuration, enabling different behaviors without altering core code.</p>
+<h3 id="challenges-and-learning-curve">
+  Challenges and Learning Curve
+  <a class="anchor" href="#challenges-and-learning-curve" aria-label="Link to section - Challenges and Learning Curve">#</a>
+</h3>
+
+<p>Transitioning to clean architecture wasn’t without challenges. Having never used it before, I faced a learning curve—especially around maintaining separation of concerns and organizing components. Despite these hurdles, the change has been worthwhile, significantly improving scalability and maintainability, even though some areas are still being refined.</p>
+<hr>
+<h2 id="moving-to-a-configuration-driven-setup-with-toml-and-viper">
+  Moving to a Configuration-Driven Setup with TOML and Viper
+  <a class="anchor" href="#moving-to-a-configuration-driven-setup-with-toml-and-viper" aria-label="Link to section - Moving to a Configuration-Driven Setup with TOML and Viper">#</a>
+</h2>
+
+<p>Initially, the load balancer’s settings, like backend details and routing strategies, were hardcoded. While manageable at first, this approach quickly became inflexible as the project grew. To address this, I switched to using TOML configuration files with the <a href="https://github.com/spf13/viper">Viper</a> library for more dynamic configuration management.</p>
+<h3 id="why-use-configuration-files">
+  Why Use Configuration Files?
+  <a class="anchor" href="#why-use-configuration-files" aria-label="Link to section - Why Use Configuration Files?">#</a>
+</h3>
+
+<p>The switch to configuration files offered key advantages:</p>
+<ul>
+<li><strong>Flexibility</strong>: All settings are now consolidated in one place, making it easier to adjust parameters like routing or backends without diving into multiple files.</li>
+<li><strong>Ease of Updates</strong>: Testing and reverting changes is now streamlined since all modifications happen in a single file.</li>
+</ul>
+<h3 id="using-viper-and-toml">
+  Using Viper and TOML
+  <a class="anchor" href="#using-viper-and-toml" aria-label="Link to section - Using Viper and TOML">#</a>
+</h3>
+
+<p>I chose <a href="https://toml.io/en/">TOML</a> for its simplicity and readability, unlike <a href="https://yaml.org/">YAML</a>, which can become cumbersome. TOML also allows for comments, making it easier to document configurations.</p>
+<p>Current configurations include:</p>
+<ul>
+<li><strong>Routes and Backends</strong>: Mapping backends to routes.</li>
+<li><strong>Rate Limiter Settings</strong>: Managing allowed requests per second.</li>
+<li><strong>Health Checker Settings</strong>: Configuring backend health checks.</li>
+</ul>
+<p>Viper made it easy to load these configurations at startup, though error handling remains basic for now. The ability to switch environments (e.g., development and production) without altering code has been a significant improvement.</p>
+<h3 id="impact-on-maintainability">
+  Impact on Maintainability
+  <a class="anchor" href="#impact-on-maintainability" aria-label="Link to section - Impact on Maintainability">#</a>
+</h3>
+
+<p>The shift to a configuration-driven approach has boosted maintainability. As an open-source tool, the load balancer now allows users to customize features like route mapping and rate limiting through simple configuration changes, making it easier for others to adapt it to their needs.</p>
+<p>Here&rsquo;s a snippet of what my config file looks like</p>
+<div class="highlight" id="config"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>[[<span style="color:#a6e22e">routes</span>]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;/apiB&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8082&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8084&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8085&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>[<span style="color:#a6e22e">rateLimiter</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span><span style="color:#a6e22e">type</span> = <span style="color:#e6db74">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span><span style="color:#75715e">#type = &#34;fixed_window&#34;  # can be &#34;fixed_window&#34;, &#34;token_bucket&#34;, &#34;none&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span><span style="color:#75715e">#limit = 100</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span><span style="color:#75715e">#window = &#34;1m&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="improving-throughput-with-connection-pooling">
+  Improving Throughput with Connection Pooling
+  <a class="anchor" href="#improving-throughput-with-connection-pooling" aria-label="Link to section - Improving Throughput with Connection Pooling">#</a>
+</h2>
+
+<p>As the load balancer&rsquo;s performance demands increased, a critical step was to ensure efficient communication between the load balancer, health checkers, and backend servers. To achieve this, I introduced connection pooling, which significantly improved throughput and reduced latency.</p>
+<h3 id="why-connection-pooling">
+  Why Connection Pooling?
+  <a class="anchor" href="#why-connection-pooling" aria-label="Link to section - Why Connection Pooling?">#</a>
+</h3>
+
+<p>Without pooling, the overhead of establishing new connections for every request added latency and constrained the number of simultaneous requests the system could handle. By reusing connections, I aimed to increase throughput while reducing the delay associated with setting up new connections for each backend communication.</p>
+<h3 id="implementing-connection-pooling">
+  Implementing Connection Pooling
+  <a class="anchor" href="#implementing-connection-pooling" aria-label="Link to section - Implementing Connection Pooling">#</a>
+</h3>
+
+<p>Instead of relying on an external library, I implemented connection pooling using Go’s built-in net/http library. Below is a code snippet demonstrating the pooling setup used in the health checkers:</p>
+<div class="highlight" id="connection-pooling"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#a6e22e">transport</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Transport</span>{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>	<span style="color:#a6e22e">MaxIdleConns</span>:        <span style="color:#ae81ff">50</span>, <span style="color:#75715e">// Maximum number of idle connections
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">MaxIdleConnsPerHost</span>: <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>	<span style="color:#a6e22e">IdleConnTimeout</span>:     <span style="color:#ae81ff">30</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>	<span style="color:#a6e22e">DisableKeepAlives</span>:   <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// Ensure keep-alives are enabled for connection reuse
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#a6e22e">pooledClient</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Client</span>{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>	<span style="color:#a6e22e">Transport</span>: <span style="color:#a6e22e">transport</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>	<span style="color:#a6e22e">Timeout</span>:   <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>	}
+</span></span></code></pre></div><p>This setup allows multiple connections to stay alive, ready for reuse, and ensures that requests do not have to constantly establish new connections. The <code>MaxIdleConns</code> and <code>MaxIdleConnsPerHost</code> parameters ensure that idle connections are reused, while the <code>IdleConnTimeout</code> controls how long idle connections remain open. The DisableKeepAlives flag ensures connection persistence.</p>
+<h3 id="health-checkers-vs-load-balancer">
+  Health Checkers vs. Load Balancer
+  <a class="anchor" href="#health-checkers-vs-load-balancer" aria-label="Link to section - Health Checkers vs. Load Balancer">#</a>
+</h3>
+
+<p>Connection pooling is handled independently by both the health checkers and the load balancer itself, each utilizing separate connection pools. Health checkers are run in separate Go routines from the load balancer, meaning they manage their own pool of connections to backend servers. This segregation allows both components to manage connections efficiently without interfering with each other.</p>
+<hr>
+<h2 id="ensuring-stability-with-testing-and-continuous-integration">
+  Ensuring Stability with Testing and Continuous Integration
+  <a class="anchor" href="#ensuring-stability-with-testing-and-continuous-integration" aria-label="Link to section - Ensuring Stability with Testing and Continuous Integration">#</a>
+</h2>
+
+<p>As the load balancer grew in complexity, I realized the importance of automated testing and continuous integration (CI) to maintain stability and catch regressions early. By automating this process, I could focus on new features and improvements without worrying about breaking existing functionality.</p>
+<h3 id="why-add-testing-and-ci">
+  Why Add Testing and CI?
+  <a class="anchor" href="#why-add-testing-and-ci" aria-label="Link to section - Why Add Testing and CI?">#</a>
+</h3>
+
+<p>Manually testing every change became tedious and prone to human error, especially as the load balancer evolved. I wanted to ensure that core components—such as routing, health checks, and rate limiting—remained reliable. Automated tests not only reduced manual effort but also gave me confidence in the codebase&rsquo;s stability after each change.</p>
+<h3 id="test-coverage">
+  Test Coverage
+  <a class="anchor" href="#test-coverage" aria-label="Link to section - Test Coverage">#</a>
+</h3>
+
+<p>I focused on building a robust set of unit tests, particularly for:</p>
+<ul>
+<li><strong>Load Balancer Request Routing</strong>: Ensuring requests were routed correctly using the round-robin strategy.</li>
+<li><strong>Health Checkers</strong>: Testing various scenarios, such as handling backends that were initially down but became healthy again, as well as the reverse.</li>
+<li><strong>Fixed-Window Rate Limiter</strong>: Validating the correct enforcement of rate limits.</li>
+</ul>
+<p>I also created a benchmark test to track performance changes and optimization efforts. Having these tests in place ensures that I can continuously improve the load balancer without fear of breaking core functionality.</p>
+<h3 id="organizing-tests">
+  Organizing Tests
+  <a class="anchor" href="#organizing-tests" aria-label="Link to section - Organizing Tests">#</a>
+</h3>
+
+<p>With clean architecture in place, I keep my tests alongside the code. This structure makes it easy to maintain modularity, with logically similar components grouped together. It also ensures that any new code or feature additions are covered with relevant tests, improving maintainability.</p>
+<h3 id="continuous-integration-with-github-actions">
+  Continuous Integration with GitHub Actions
+  <a class="anchor" href="#continuous-integration-with-github-actions" aria-label="Link to section - Continuous Integration with GitHub Actions">#</a>
+</h3>
+
+<p>I set up GitHub Actions to automate the execution of tests whenever code changes are pushed. The pipeline runs all unit tests and will soon include benchmarks as well, helping me track performance over time. This CI setup ensures that regressions are caught early, keeping the codebase reliable as new features are added.</p>
+<h3 id="challenges-so-far">
+  Challenges So Far?
+  <a class="anchor" href="#challenges-so-far" aria-label="Link to section - Challenges So Far?">#</a>
+</h3>
+
+<p>Fortunately, I haven&rsquo;t encountered any major issues with the CI pipeline. The GitHub Actions integration has worked smoothly, and I plan to further optimize the pipeline as the project grows.</p>
+<hr>
+<h2 id="consistent-logging-with-ubers-zap">
+  Consistent Logging with Uber&rsquo;s Zap
+  <a class="anchor" href="#consistent-logging-with-ubers-zap" aria-label="Link to section - Consistent Logging with Uber&rsquo;s Zap">#</a>
+</h2>
+
+<p>As the load balancer matured, consistent and performant logging became a critical focus. Initially, I relied on Go&rsquo;s standard library for logging, but it quickly became apparent that it wasn&rsquo;t meeting my needs—especially when it came to performance and having granular control over log levels.</p>
+<h3 id="why-move-to-zap">
+  Why Move to Zap?
+  <a class="anchor" href="#why-move-to-zap" aria-label="Link to section - Why Move to Zap?">#</a>
+</h3>
+
+<p>The primary reason for switching to Uber’s <a href="https://github.com/uber-go/zap">Zap</a> was performance and flexibility. Unlike the standard library, Zap offers leveled logging, which was crucial when debugging specific issues. While I considered alternatives like <a href="https://github.com/rs/zerolog">Zerolog</a>, I ultimately chose Zap for its balance between performance and broader support.</p>
+<h3 id="configuring-zap-for-different-environments">
+  Configuring Zap for Different Environments
+  <a class="anchor" href="#configuring-zap-for-different-environments" aria-label="Link to section - Configuring Zap for Different Environments">#</a>
+</h3>
+
+<p>Zap’s flexibility shines through in its configuration options. I set it up to use either production or development configurations depending on the environment. Production logging is optimized for performance, while development logging includes more detailed information for debugging.</p>
+<ul>
+<li>In performance-critical areas (e.g., the load balancer’s hot path), I use zap.Logger, which is optimized for low overhead.</li>
+<li>For startup tasks and less performance-sensitive code, I use <code>SugaredLogger</code>, which is more convenient for formatted output but slightly less performant. This is restricted to initialization logic to minimize overhead.</li>
+</ul>
+<p>The logger is initialized in the infrastructure layer, and the instance is passed to various components throughout the application, ensuring consistency in how logging is handled across layers.</p>
+<h3 id="current-logging-setup">
+  Current Logging Setup
+  <a class="anchor" href="#current-logging-setup" aria-label="Link to section - Current Logging Setup">#</a>
+</h3>
+
+<p>For now, logs are stored locally, and I’ve focused logging efforts primarily on errors and critical events in components like the health checkers. While this is still in the early stages, having a centralized logging approach has already proven useful for debugging and tracking the system’s state.</p>
+<h3 id="challenges-so-far-1">
+  Challenges so far?
+  <a class="anchor" href="#challenges-so-far-1" aria-label="Link to section - Challenges so far?">#</a>
+</h3>
+
+<p>Integrating Zap was a smooth experience. The SugaredLogger provided a great balance between ease of use and performance, though I kept its usage to a minimum in areas where performance is key.</p>
+<hr>
+<h2 id="conclusion">
+  Conclusion
+  <a class="anchor" href="#conclusion" aria-label="Link to section - Conclusion">#</a>
+</h2>
+
+<p>In this phase of enhancing the load balancer, the focus was on refining existing functionalities rather than introducing half-baked features. From transitioning to a clean architecture to adopting a configuration-driven approach, each change was aimed at improving maintainability, flexibility, and performance.</p>
+<p>Switching to TOML-based configuration with Viper allowed for centralized settings, making the load balancer easier to test and maintain. This, combined with connection pooling, helped significantly boost throughput, improving efficiency when communicating with backend servers.</p>
+<p>Introducing consistent logging with Zap provided deeper insight into the application’s state, allowing errors and events to be tracked without compromising performance. Furthermore, the addition of unit tests and continuous integration has strengthened the reliability of the load balancer, ensuring that any changes introduced are thoroughly tested for regression.</p>
+<p>As I continue developing the load balancer, these improvements set a solid foundation for future feature additions—whether it&rsquo;s implementing new routing strategies, rate-limiting algorithms, or custom plugins.</p>
+<p>In the next article, I’ll dive deeper into the improvements made to the health checkers, highlighting the changes that make backend monitoring more robust and responsive.</p>
+<p>You can see the <a href="https://github.com/krispingal/l7lb">github repository</a> here.</p>
+    </article>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/scalability/">Scalability</a></li>
+      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
+      <li><a href="/tags/golang/">Golang</a></li>
+  </ul>
+
+    
+</div>
+
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2024 kbabuji. All rights reserved.</p>
+
+
+  </footer>
+</body>
+
+</html>

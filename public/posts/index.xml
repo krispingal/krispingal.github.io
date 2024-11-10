@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kbabuji</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content on kbabuji</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 06 Nov 2024 15:05:28 -0600</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shelter Animal Outcomes</title>
+      <link>http://localhost:1313/posts/shelter-animal-outcomes/</link>
+      <pubDate>Wed, 24 Aug 2016 04:14:54 -0800</pubDate>
+      <guid>http://localhost:1313/posts/shelter-animal-outcomes/</guid>
+      <description>&lt;p&gt;{% include images.html img=&amp;quot;/assets/img/puppy.webp&amp;quot; title=&amp;ldquo;A puppy taken in at a shelter&amp;rdquo; caption=&amp;ldquo;A puppy taken in at a shelter.&amp;rdquo; %}&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.kaggle.com/c/shelter-animal-outcomes&#34;&gt;Shelter animal outcomes&lt;/a&gt; is a knowledge&#xA;competition hosted by &lt;a href=&#34;https://www.kaggle.com/&#34;&gt;kaggle&lt;/a&gt;. My goal was to learn and get&#xA;familiarized with the different techniques, methods and tools required to&#xA;solve classification problems. In my adventures I used &lt;a href=&#34;http://pandas.pydata.org/&#34;&gt;pandas&lt;/a&gt;,&#xA;&lt;a href=&#34;http://matplotlib.org/&#34;&gt;matplotlib&lt;/a&gt;, &lt;a href=&#34;https://stanford.edu/~mwaskom/software/seaborn/index.html&#34;&gt;seaborn&lt;/a&gt;, &lt;a href=&#34;http://jupyter.org/&#34;&gt;jupyter&lt;/a&gt; and&#xA;&lt;a href=&#34;http://scikit-learn.org/stable/index.html&#34;&gt;scikit-learn&lt;/a&gt;. The goal of this competition&#xA;is to predict the outcome of a cat or a dog, given it&amp;rsquo;s age, gender(also&#xA;whether spayed/neutered or not), breed, color. The outcomes are&#xA;return-to-owner, adoption, transfer, euthanasia and died. In some cases&#xA;we are provided with outcome subtypes too.&lt;/p&gt;&#xA;&lt;p&gt;All my work related to this can be found in this&#xA;&lt;a href=&#34;https://github.com/krispingal/shelterAnimalOutcomes&#34;&gt;github repository&lt;/a&gt;, it houses my jupyter notebooks.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Building a Layer7 Loadbalancer</title>
+      <link>http://localhost:1313/posts/building-a-layer7-loadbalancer/</link>
+      <pubDate>Wed, 06 Nov 2024 15:05:28 -0600</pubDate>
+      <guid>http://localhost:1313/posts/building-a-layer7-loadbalancer/</guid>
+      <description>&lt;p&gt;Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-a-load-balancer&#34;&gt;&#xA;  What is a load balancer?&#xA;  &lt;a href=&#34;#what-is-a-load-balancer&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;Imagine you&amp;rsquo;re at an airport, standing in line for the security check. There is a single line of passengers, but there are five booths with agents checking boarding passes and IDs. At the front of the line, there is an agent directing passengers to available booths. This agent acts like a basic load balancer, distributing incoming requests (passengers) to backend servers (TSA agents) for processing.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Test Hugo</title>
+      <link>http://localhost:1313/posts/test-hugo/</link>
+      <pubDate>Wed, 06 Nov 2024 11:22:44 -0600</pubDate>
+      <guid>http://localhost:1313/posts/test-hugo/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis est, lobortis id velit vel, facilisis tincidunt tellus. Sed pharetra feugiat est at hendrerit. Donec dictum feugiat lobortis. Pellentesque eget mi arcu. Proin vitae condimentum eros, eu maximus eros. Morbi efficitur efficitur ipsum vel feugiat. Curabitur condimentum mauris commodo, congue felis vitae, ultrices nunc. Ut dignissim auctor lorem, vitae blandit dui tristique in. Sed neque mauris, egestas sed laoreet eleifend, ornare eu orci. Proin rutrum imperdiet euismod. Suspendisse pulvinar tellus ut dui ullamcorper ornare. Quisque vel lorem eget sapien tempor varius. Nulla a justo non erat porta imperdiet.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Understanding Skip lists</title>
+      <link>http://localhost:1313/posts/understanding-skiplists/</link>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/understanding-skiplists/</guid>
+      <description>&lt;p&gt;layout: post&#xA;title: &amp;ldquo;Understanding skip lists&amp;rdquo;&#xA;categories: [Data structures]&#xA;tags: [Python, linked-list, probabilistic]&#xA;article_summary: Understanding advanced datastructure skiplist&#xA;use_math: true&lt;/p&gt;&#xA;&lt;p&gt;Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.&lt;/p&gt;&#xA;&lt;p&gt;With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.&lt;/p&gt;&#xA;&lt;h2 id=&#34;how-skip-lists-improve-efficiency&#34;&gt;&#xA;  How Skip Lists improve efficiency&#xA;  &lt;a href=&#34;#how-skip-lists-improve-efficiency&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &amp;ldquo;express lane&amp;rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Refining Load Balancer</title>
+      <link>http://localhost:1313/posts/refining-load-balancer/</link>
+      <pubDate>Sat, 19 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/refining-load-balancer/</guid>
+      <description>&lt;p&gt;In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.&lt;/p&gt;&#xA;&lt;p&gt;This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>A guide to Neural Networks</title>
+      <link>http://localhost:1313/posts/a-guide-to-neural-networks/</link>
+      <pubDate>Sun, 04 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/a-guide-to-neural-networks/</guid>
+      <description>&lt;p&gt;{% include images.html img=&amp;quot;/assets/img/post_3/nn.webp&amp;quot; title=&amp;ldquo;Neural Network architecture&amp;rdquo; caption=&amp;ldquo;Fig 1. Neural net with Input layer ∈ ℝ&lt;!-- raw HTML omitted --&gt;16&lt;!-- raw HTML omitted --&gt;; hidden layer 1  ∈ ℝ&lt;!-- raw HTML omitted --&gt;12&lt;!-- raw HTML omitted --&gt;; hidden layer 2 ∈ ℝ&lt;!-- raw HTML omitted --&gt;10&lt;!-- raw HTML omitted --&gt; and finally a single unit ∈ ℝ in the output layer&amp;rdquo; %}&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;TLDR: &lt;!-- raw HTML omitted --&gt;&#xA;Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;&#xA;  Introduction&#xA;  &lt;a href=&#34;#introduction&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;Every day we are relying on machine learning models to make our lives simpler and hassle-free. Take your average day, where you start, by reading news and weather predictions, or later in the day when you are checking your emails, we unconsciously are relying on machine learning models that run behind the scenes. The list goes on and on with applications in image recognition used in our gallery, audio recognition in voice assistants. This list keeps growing every day.&lt;/p&gt;&#xA;&lt;p&gt;A few popular classical Machine learning models include Logistic Regression, Linear Regression, Decision Trees, Support Vector Machines, and Naive Bayes models. Although these models are nowadays less commonly used in practice, they are still very useful as understanding them helps to understand the more recent models. Ensemble models such as Random forests and XGBoost are some machine learning models that are commonly used these days.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Topic modeling with Gensim</title>
+      <link>http://localhost:1313/posts/topic-modeling-with-gensim/</link>
+      <pubDate>Sun, 26 Mar 2017 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/topic-modeling-with-gensim/</guid>
+      <description>&lt;p&gt;I first started doing topic modeling when I used to play around with the &lt;a href=&#34;https://www.kaggle.com/benhamner/nips-papers&#34;&gt;nips dataset&lt;/a&gt;. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think &lt;a href=&#34;http://scikit-learn.org/stable/&#34;&gt;scikit-learn&lt;/a&gt; is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library &lt;a href=&#34;https://radimrehurek.com/gensim/index.html&#34;&gt;gensim&lt;/a&gt; which is focused on topic modeling. Among many features it provides, it includes transformations such as &lt;em&gt;online&lt;/em&gt; LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, &lt;a href=&#34;http://hunch.net/~vw/&#34;&gt;vowpal wabbit&lt;/a&gt;, and &lt;a href=&#34;http://mallet.cs.umass.edu/&#34;&gt;Mallet&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;The code can be viewed at my &lt;a href=&#34;https://github.com/krispingal/topic_modeling&#34;&gt;Github repository&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,17 @@
+{{- with .Paginator }}
+  <nav class="pagination" aria-label="Page navigation">
+
+    {{- with .Prev }}
+      <a class="pagination-item newer" href="{{ .URL }}" aria-label="Newer posts">Newer</a>
+    {{- else }}
+      <span class="pagination-item newer" aria-disabled="true">Newer</span>
+    {{- end }}
+
+    {{- with .Next }}
+      <a class="pagination-item older" href="{{ .URL }}" aria-label="Older posts">Older</a>
+    {{- else }}
+      <span class="pagination-item older" aria-disabled="true">Older</span>
+    {{- end }}
+
+  </nav>
+{{- end }}

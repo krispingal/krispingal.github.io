@@ -1,0 +1,32 @@
+{{-  $id := .Get "id" }}
+<span class="sidenote">
+  <input
+    aria-label="Show sidenote"
+    type="checkbox"
+    id="sidenote__checkbox--{{ $id }}"
+    class="sidenote__checkbox">
+  <label
+    tabindex="0"
+    title="Sidenote content"
+    aria-describedby="sidenote-{{ $id }}"
+    for="sidenote__checkbox--{{ $id }}"
+    class="sidenote__button sidenote__button--number-{{ $id }}
+  "> {{- with $.Get "label" }}
+        {{ . }}
+      {{- else }}
+        {{- errorf "The %q shortcode requires a 'label' argument. See %s" .Name .Position }}
+      {{- end }}
+</label>
+  <small
+    id="sidenote-{{ $id }}"
+    class="sidenote__content sidenote__content--number-{{ $id }}">
+    <span class="sidenote__content-parenthesis
+    "> (sidenote: </span>
+    {{- with $.Get "content" }}
+      {{ . }}
+    {{- else }}
+      {{- errorf "The %q shortcode requires a 'content' argument. See %s" .Name .Position }}
+    {{- end }}
+    <span class="sidenote__content-parenthesis">)</span>
+  </small>
+</span>

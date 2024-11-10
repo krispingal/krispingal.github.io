@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head>
+	<meta name="generator" content="Hugo 0.137.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
+        });
+    });
+</script>
+  <meta itemprop="name" content="kbabuji">
+  <meta itemprop="datePublished" content="2024-11-01T00:00:00-05:00">
+  <meta itemprop="dateModified" content="2024-11-01T00:00:00-05:00">
+<meta property="og:url" content="http://localhost:1313/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="kbabuji">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+  <div class="content">
+    
+    
+    
+    
+      <div class="card">
+    <h1><a style="color:#0B3C5D" href="/articles/understanding-skiplists/">Understanding Skip lists</a></h2>
+    <span class="article-date">Nov 1, 2024 </span>
+    <article>
+        <p>Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.</p>
+<p>With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.</p>
+<h2 id="how-skip-lists-improve-efficiency">
+  How Skip Lists improve efficiency
+  <a class="anchor" href="#how-skip-lists-improve-efficiency" aria-label="Link to section - How Skip Lists improve efficiency">#</a>
+</h2>
+
+<p>So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &ldquo;express lane&rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.</p>
+    </article>
+    <a class="button read-more" href="/articles/understanding-skiplists/">Read more ...</a>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/data-structures/">Data Structures</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+      <li><a href="/tags/probabilistic/">Probabilistic</a></li>
+  </ul>
+
+</div>
+    
+      <div class="card">
+    <h1><a style="color:#0B3C5D" href="/articles/refining-load-balancer/">Refining Load Balancer</a></h2>
+    <span class="article-date">Oct 19, 2024 </span>
+    <article>
+        <p>In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.</p>
+<p>This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.</p>
+    </article>
+    <a class="button read-more" href="/articles/refining-load-balancer/">Read more ...</a>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/scalability/">Scalability</a></li>
+      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
+      <li><a href="/tags/golang/">Golang</a></li>
+  </ul>
+
+</div>
+    
+      <div class="card">
+    <h1><a style="color:#0B3C5D" href="/articles/building-a-layer7-loadbalancer/">Building a Layer 7 Loadbalancer</a></h2>
+    <span class="article-date">Sep 15, 2024 </span>
+    <article>
+        <p>Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.</p>
+<h2 id="what-is-a-load-balancer">
+  What is a load balancer?
+  <a class="anchor" href="#what-is-a-load-balancer" aria-label="Link to section - What is a load balancer?">#</a>
+</h2>
+
+<p>Imagine you&rsquo;re at an airport, standing in line for the security check. There is a single line of passengers, but there are five booths with agents checking boarding passes and IDs. At the front of the line, there is an agent directing passengers to available booths. This agent acts like a basic load balancer, distributing incoming requests (passengers) to backend servers (TSA agents) for processing.</p>
+    </article>
+    <a class="button read-more" href="/articles/building-a-layer7-loadbalancer/">Read more ...</a>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/golang/">Golang</a></li>
+      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
+  </ul>
+
+</div>
+    
+      <div class="card">
+    <h1><a style="color:#0B3C5D" href="/articles/guide-to-neural-network/">A guide to Neural Networks</a></h2>
+    <span class="article-date">Nov 4, 2018 </span>
+    <article>
+        <figure><img src="/articles/guide-to-neural-network/nn.webp"
+    alt="Fig 1. Neural net with Input layer ∈ ℝ16; hidden layer 1 ∈ ℝ12; hidden layer 2 ∈ ℝ10 and finally a single unit ∈ ℝ in the output layer" loading="lazy"><figcaption>
+      <h4>Neural Network architecture</h4><p>Fig 1. Neural net with Input layer ∈ ℝ<!-- raw HTML omitted -->16<!-- raw HTML omitted -->; hidden layer 1  ∈ ℝ<!-- raw HTML omitted -->12<!-- raw HTML omitted -->; hidden layer 2 ∈ ℝ<!-- raw HTML omitted -->10<!-- raw HTML omitted --> and finally a single unit ∈ ℝ in the output layer</p>
+    </figcaption>
+</figure>
+
+
+  
+  
+    <blockquote>
+      <p>TLDR:
+Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.</p>
+
+    </blockquote>
+  
+  
+  <h2 id="introduction">
+  Introduction
+  <a class="anchor" href="#introduction" aria-label="Link to section - Introduction">#</a>
+</h2>
+
+<p>Every day we are relying on machine learning models to make our lives simpler and hassle-free. Take your average day, where you start, by reading news and weather predictions, or later in the day when you are checking your emails, we unconsciously are relying on machine learning models that run behind the scenes. The list goes on and on with applications in image recognition used in our gallery, audio recognition in voice assistants. This list keeps growing every day.</p>
+<p>A few popular classical Machine learning models include Logistic Regression, Linear Regression, Decision Trees, Support Vector Machines, and Naive Bayes models. Although these models are nowadays less commonly used in practice, they are still very useful as understanding them helps to understand the more recent models. Ensemble models such as Random forests and XGBoost are some machine learning models that are commonly used these days.</p>
+    </article>
+    <a class="button read-more" href="/articles/guide-to-neural-network/">Read more ...</a>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/neural-networks/">Neural Networks</a></li>
+  </ul>
+
+</div>
+    
+      <div class="card">
+    <h1><a style="color:#0B3C5D" href="/articles/topic-modeling-with-gensim/">Topic modeling with Gensim</a></h2>
+    <span class="article-date">Mar 26, 2017 </span>
+    <article>
+        <p>I first started doing topic modeling when I used to play around with the <a href="https://www.kaggle.com/benhamner/nips-papers">nips dataset</a>. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think <a href="http://scikit-learn.org/stable/">scikit-learn</a> is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library <a href="https://radimrehurek.com/gensim/index.html">gensim</a> which is focused on topic modeling. Among many features it provides, it includes transformations such as <em>online</em> LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, <a href="http://hunch.net/~vw/">vowpal wabbit</a>, and <a href="http://mallet.cs.umass.edu/">Mallet</a>.</p>
+<p>The code can be viewed at my <a href="https://github.com/krispingal/topic_modeling">Github repository</a>.</p>
+    </article>
+    <a class="button read-more" href="/articles/topic-modeling-with-gensim/">Read more ...</a>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/gensim/">Gensim</a></li>
+      <li><a href="/tags/nlp/">NLP</a></li>
+      <li><a href="/tags/topic-modeling/">Topic-Modeling</a></li>
+  </ul>
+
+</div>
+    
+
+    
+      
+  <nav class="pagination" aria-label="Page navigation">
+      <span class="pagination-item newer" aria-disabled="true">Newer</span>
+      <a class="pagination-item older" href="/page/2/" aria-label="Older posts">Older</a>
+
+  </nav>
+    
+  </div>
+
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2024 kbabuji. All rights reserved.</p>
+
+
+  </footer>
+</body>
+
+</html>

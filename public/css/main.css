@@ -1,0 +1,540 @@
+body {
+  color: #1D2731;
+  font-family: 'garamond', 'charter', Georgia, 'Times New Roman', serif;
+  line-height: 1.5;
+  margin: 0px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em 1em;
+  position: relative;
+  min-width: 25em;
+  max-width: 33em;
+}
+
+header {
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 1rem;
+  background-color: #0B3C5D;
+}
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0em 3em;
+  color: #fff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  position: relative; /* Required for positioning the :after element */
+  transition: color 0.3s;
+  padding-bottom: 2px; /* Add some padding for visual balance with the underline */
+}
+
+/* Pseudo-element for the underline animation */
+.nav-links a:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #D9B310;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect to reveal the underline */
+.nav-links a:hover:after {
+  opacity: 1;
+  height: 2px;
+}
+
+
+footer {
+  padding-top: 2em;
+  padding-left: 3em;
+  padding-right: 3em;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  margin-top: 2rem;
+  background-color: #1D2731;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+/* SVG Icon Styling */
+svg.icon {
+  width: 2em;
+  height: 2em;
+  fill: currentColor; /* Inherit color from the parent link */
+  vertical-align: -0.125em;
+  transition: fill 0.3s ease;
+}
+
+/* Link and Hover Styling */
+.footer-icons a {
+  color: #ccc; /* Default color for the icons */
+  text-decoration: none;
+}
+
+.footer-icons a:hover svg.icon {
+  fill: #328CC1; /* Color on hover */
+}
+
+.footer-copyright {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #ddd;
+}
+
+
+a {
+  color: #0B3C5D;
+  text-decoration: none;
+}
+
+article a {
+  text-decoration: underline;
+}
+
+article a:visited {
+  color: #0B3C5D;
+}
+
+.anchor {
+  color: #0B3C5D;
+  text-decoration: none;
+}
+
+.anchor:hover {
+  color: #328CC1;
+}
+
+.site-title {
+  color: #D9B310;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'garamond', 'charter', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  color: #313131;
+  letter-spacing: -.025rem;
+  text-rendering: optimizeLegibility;
+}
+
+blockquote {
+  border-left: 6px solid #0B3C5D;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  background-color: rgba(0,0,0,5%);
+}
+
+article img {
+  max-width: 100%;
+}
+
+.taxonomy {
+  column-count: 3;
+  width: 90%;
+  max-width: 900px;
+  margin: 2em auto;
+}
+
+.taxonomy-banner {
+  text-align: center;
+}
+
+article {
+  padding-bottom: 1.5em;
+}
+
+article ul {
+  padding-inline-start: 1.5ch;
+  margin-bottom: .25rem;
+  list-style-type: "—";
+  padding-bottom: 2rem;
+}
+article ul li::before {
+  content: "";
+  padding-left: .25rem;
+}
+
+article hr {
+  border: none;
+  border-top: 3px double #333;
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
+
+article hr::after {
+  background: #fff;
+  content: '§';
+  padding: 0 4px;
+  position: relative;
+  top: -13px;
+}
+
+/* Meta data line below post title */
+.article-date {
+  display: block;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.article-item-right-date {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 1rem;
+  padding-top: 0.75rem;
+}
+
+.article-link {
+  flex-grow: 1;
+  color: #0B3C5D;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+
+@media (min-width: 38em) {
+  html {
+    font-size: 18px;
+  }
+}
+
+.tags ul {
+  padding: 0px;
+}
+.tags li {
+  display: inline;
+}
+.tags a {
+  font-size: .75rem;
+  background-color: #0B3C5D;
+  color: #fff;
+  padding: 0.5em 1.2em;
+  border-radius: 5px;
+}
+
+figcaption h4 {
+  text-align: center;
+  color: #666;
+}
+
+.button {
+	text-decoration: none;
+	color: #0B3C5D;
+	font-weight: 100;
+	font-size: 20px;
+	position: relative;
+	padding: 10px;
+}
+
+a.button.read-more:before, a.button.read-more:after{
+	content: '';
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	transition: all 0.3s ease;
+}
+
+a.button.read-more:before{
+	top: -2.5%;
+	left: -1%;
+	/* border-top: 1.5px solid #660099; */
+  border-top: 1.5px solid#D9B310;
+	border-left: 1.5px solid #D9B310;	
+}
+a.button.read-more:after{
+	bottom: -2.5%;
+	right: -1%;
+	border-bottom: 1.5px solid #D9B310;
+	border-right: 1.5px solid #D9B310;
+}
+
+a.button.read-more:hover:before, a.button.read-more:hover:after{
+	width: 100%;
+	height: 100%;
+	transition: all 0.25s ease;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.pagination-item {
+  padding: 0.5rem 4rem;
+  color: #328CC1;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  border: 1.5px solid #bbb;
+}
+
+.pagination-item.older {
+  margin-left: auto;
+}
+
+.pagination-item[aria-disabled="true"] {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
+
+.card {
+  padding-top: 0.5em;
+  padding-bottom: 1.5em;
+}
+
+.about {
+  display: flex;
+  gap: 1rem; /* Adds spacing between columns */
+}
+
+.column-right {
+  flex-basis: 40%;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.column-left {
+  flex-basis: 60%; /* Sets the second column to 60% width */
+  padding: 4em 3em;
+}
+
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column; /* Stack columns vertically */
+    padding: 1em;
+  }
+  
+  .column-right, .column-left {
+    flex-basis: 100%; /* Make each column take full width */
+    text-align: left; /* Align text to the left on smaller screens */
+    margin-left: 0;
+    padding: 2em 1em;
+  }
+  .profile-picture.polaroid {
+    margin-left: 0; /* Remove the auto margin for left alignment */
+    margin-right: auto; /* Center the image if desired */
+  }
+}
+
+.profile-picture.polaroid {
+  display: block;
+  margin-left: auto;
+  width: 220px;
+  padding: 10px 10px 20px 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture.polaroid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+pre {
+  white-space: pre-wrap;
+  tab-width: 4;
+  border-radius: 10px;
+}
+
+/* Sidenote */
+
+.sidenote {
+  display: inline;
+}
+
+/* * */
+.sidenote__button::after {
+  content: "\002a";
+  display: inline-block;
+}
+
+/* ⁑ */
+.sidenote__button--number-2::after {
+  content: "\2051";
+}
+
+/* ⁂ */
+.sidenote__button--number-3::after {
+  content: "\2042";
+}
+
+/* ✝ */
+.sidenote__button--number-4::after {
+  content: "\2020";
+}
+
+/* ‡ */
+.sidenote__button--number-5::after {
+  content: "\2021";
+}
+
+/* ⁑⁑ */
+.sidenote__button--number-6::after {
+  content: "\2051\2051";
+}
+
+/* ‡‡ */
+.sidenote__button--number-7::after {
+  content: "\2021\2021";
+}
+
+.sidenote__checkbox {
+  display: none;
+}
+
+/* Hidden, but accessible to browsers that don't do CSS (e.g. screenreaders, Pocket) */
+.sidenote__content-parenthesis {
+  position: absolute;
+  left: -99999px;
+  top: auto;
+}
+
+/* For narrow viewports, the sidenote is hidden by default and shown when the checkbox is checked. */
+@media screen and (max-width: 1079px) {
+
+  .sidenote__checkbox~.sidenote__content {
+    /* Hidden, but accessible to browsers that don't do CSS (e.g. screenreaders, Pocket) */
+    position: absolute;
+    left: -99999px;
+    top: auto;
+  }
+
+  .sidenote__checkbox:checked~.sidenote__content {
+    /* override hidden-but-accessible */
+    position: relative;
+    left: auto;
+
+    /* Don't break up line containing the sidenote */
+    float: left;
+    min-width: 100%;
+
+    display: block;
+    margin: 0.8rem 0;
+    padding: 0.8rem 1.6rem;
+  }
+
+  .sidenote__button {
+    color: var(--link-color);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    cursor: pointer;
+  }
+
+  .sidenote__button:not(:hover):focus::after {
+    display: inline;
+    /* display:inline-block causes misalignment between focus ring and background. */
+  }
+
+  .sidenote__checkbox:checked~.sidenote__button::after {
+    content: none;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .sidenote {
+    --sidenote-width: 12rem;
+    --sidenote-margin: 4.8rem;
+    cursor: default;
+  }
+
+  .sidenote:hover .sidenote__button::after,
+  .sidenote:hover .sidenote__content::before {
+    color: var(--link-color);
+  }
+
+  .sidenote__content::before {
+    /* * */
+    content: "\002a";
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -4rem;
+
+    /* to align different types of asterisks we need a fixed width */
+    width: 3rem;
+  }
+
+  .sidenote__content {
+    display: block;
+    position: absolute;
+    right: 0;
+
+    /* Align sidenote top with main text */
+    margin-top: calc(-1.5*var(--text-size));
+
+    margin-right: calc(-1*var(--sidenote-width) - 1*var(--sidenote-margin));
+    width: var(--sidenote-width);
+    font-size: var(--text-size);
+    color: var(--text-color);
+  }
+
+  /* ⁑ */
+  .sidenote__content--number-2::before {
+    content: "\2051";
+  }
+
+  /* ⁂ */
+  .sidenote__content--number-3::before {
+    content: "\2042";
+  }
+
+  /* ✝ */
+  .sidenote__content--number-4::before {
+    content: "\2020";
+  }
+
+  /* ‡ */
+  .sidenote__content--number-5::before {
+    content: "\2021";
+  }
+
+  /* ⁑⁑ */
+  .sidenote__content--number-6::before {
+    content: "\2051\2051";
+  }
+
+  /* ‡‡ */
+  .sidenote__content--number-7::before {
+    content: "\2021\2021";
+  }
+}

@@ -1,0 +1,17 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'kbabuji'
+theme = 'minimal'
+timezone = 'America/Chicago'
+enableRobotsTXT = true
+
+[params]
+  math = true
+  [params.contact]
+    email = 'krishna.pingal@gmail.com'
+
+[sitemap]
+  changeFreq = 'monthly'
+  disable = false
+  filename = 'sitemap.xml'
+  priority = -1

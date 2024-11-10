@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>A guide to Neural Networks | kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
+        });
+    });
+</script>
+  <meta itemprop="name" content="A guide to Neural Networks">
+  <meta itemprop="description" content="Neural Network architectureFig 1. Neural net with Input layer ∈ ℝ16; hidden layer 1 ∈ ℝ12; hidden layer 2 ∈ ℝ10 and finally a single unit ∈ ℝ in the output layer
+TLDR: Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.
+Introduction # Every day we are relying on machine learning models to make our lives simpler and hassle-free. Take your average day, where you start, by reading news and weather predictions, or later in the day when you are checking your emails, we unconsciously are relying on machine learning models that run behind the scenes. The list goes on and on with applications in image recognition used in our gallery, audio recognition in voice assistants. This list keeps growing every day.
+A few popular classical Machine learning models include Logistic Regression, Linear Regression, Decision Trees, Support Vector Machines, and Naive Bayes models. Although these models are nowadays less commonly used in practice, they are still very useful as understanding them helps to understand the more recent models. Ensemble models such as Random forests and XGBoost are some machine learning models that are commonly used these days.">
+  <meta itemprop="datePublished" content="2018-11-04T00:00:00-05:00">
+  <meta itemprop="dateModified" content="2018-11-04T00:00:00-05:00">
+  <meta itemprop="wordCount" content="2926">
+  <meta itemprop="keywords" content="neural networks">
+<meta property="og:url" content="http://localhost:1313/articles/guide-to-neural-network/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="A guide to Neural Networks">
+  <meta property="og:description" content="Neural Network architectureFig 1. Neural net with Input layer ∈ ℝ16; hidden layer 1 ∈ ℝ12; hidden layer 2 ∈ ℝ10 and finally a single unit ∈ ℝ in the output layer
+TLDR: Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.
+Introduction # Every day we are relying on machine learning models to make our lives simpler and hassle-free. Take your average day, where you start, by reading news and weather predictions, or later in the day when you are checking your emails, we unconsciously are relying on machine learning models that run behind the scenes. The list goes on and on with applications in image recognition used in our gallery, audio recognition in voice assistants. This list keeps growing every day.
+A few popular classical Machine learning models include Logistic Regression, Linear Regression, Decision Trees, Support Vector Machines, and Naive Bayes models. Although these models are nowadays less commonly used in practice, they are still very useful as understanding them helps to understand the more recent models. Ensemble models such as Random forests and XGBoost are some machine learning models that are commonly used these days.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2018-11-04T00:00:00-05:00">
+    <meta property="article:modified_time" content="2018-11-04T00:00:00-05:00">
+    <meta property="article:tag" content="Neural Networks">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+<div class="content">
+    <h1>A guide to Neural Networks</h1>
+    
+    
+    <time datetime="2018-11-04T00:00:00-05:00">November 4, 2018</time>
+    <article>
+        <figure><img src="/articles/guide-to-neural-network/nn.webp"
+    alt="Fig 1. Neural net with Input layer ∈ ℝ16; hidden layer 1 ∈ ℝ12; hidden layer 2 ∈ ℝ10 and finally a single unit ∈ ℝ in the output layer" loading="lazy"><figcaption>
+      <h4>Neural Network architecture</h4><p>Fig 1. Neural net with Input layer ∈ ℝ<!-- raw HTML omitted -->16<!-- raw HTML omitted -->; hidden layer 1  ∈ ℝ<!-- raw HTML omitted -->12<!-- raw HTML omitted -->; hidden layer 2 ∈ ℝ<!-- raw HTML omitted -->10<!-- raw HTML omitted --> and finally a single unit ∈ ℝ in the output layer</p>
+    </figcaption>
+</figure>
+
+
+  
+  
+    <blockquote>
+      <p>TLDR:
+Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.</p>
+
+    </blockquote>
+  
+  
+  <h2 id="introduction">
+  Introduction
+  <a class="anchor" href="#introduction" aria-label="Link to section - Introduction">#</a>
+</h2>
+
+<p>Every day we are relying on machine learning models to make our lives simpler and hassle-free. Take your average day, where you start, by reading news and weather predictions, or later in the day when you are checking your emails, we unconsciously are relying on machine learning models that run behind the scenes. The list goes on and on with applications in image recognition used in our gallery, audio recognition in voice assistants. This list keeps growing every day.</p>
+<p>A few popular classical Machine learning models include Logistic Regression, Linear Regression, Decision Trees, Support Vector Machines, and Naive Bayes models. Although these models are nowadays less commonly used in practice, they are still very useful as understanding them helps to understand the more recent models. Ensemble models such as Random forests and XGBoost are some machine learning models that are commonly used these days.</p>
+<hr>
+<h2 id="what-are-neural-networks">
+  What are Neural Networks?
+  <a class="anchor" href="#what-are-neural-networks" aria-label="Link to section - What are Neural Networks?">#</a>
+</h2>
+
+<p>Neural Networks are a class of Machine learning models that are different from the ones we saw above. They emerged from the pursuit of building systems that imitate human thought. Though these were originally conceived in the sixties, interest surrounding them died during the nineties when they were not producing impressive results. Interest in Neural Networks have risen to new heights after the 2010s when they have beat benchmarks in various tasks like image recognition and natural language processing, currently, there are models which beats human performance in specific tasks. Deep learning has become an important toolset in the data science toolbox. It has made its way into image recognition, speech recognition, natural language processing, and regular prediction tasks. These models started performing quite well, once we started feeding in <em>more data and computational power</em>. Improvements and breakthroughs in both these have aided in deep learning becoming more successful in various applications, especially with the rise in usage of GPUs.</p>
+<p>To understand what&rsquo;s happening behind the scenes, let&rsquo;s take the problem of classification. Our input $x$ is a n × m matrix, with n training samples of dimensionality m. The labels for this training data will be $y$.</p>
+<p>Let&rsquo;s understand our &ldquo;network&rdquo; as well. Our Neural network comprises of layers of neurons or units. Each neuron has a weight vector associated with it and a bias value. Conceptually data flows/passes through each layer of the network and then arrives at the output layer where you get the prediction of the network. During the training cycle, there are two crucial steps called <em>forward propagation</em> and <em>backward propagation</em>.</p>
+<h3 id="forward-propagation">
+  Forward propagation
+  <a class="anchor" href="#forward-propagation" aria-label="Link to section - Forward propagation">#</a>
+</h3>
+
+<p>Once we have this data setup, we perform what is called a <strong>forward propagation</strong>. During the forward propagation, the training data passes through all the layers. In the forward propagation, we pass the data to our network. Once our data gets passed to our network of units, we perform a series of computations in each layer and &ldquo;propagate&rdquo; the results to the next layer. If we take an individual unit, what happens is first we perform a <strong>linear transformation</strong> as given in Eq(<a href="#eqn1_2">1</a>). In the equation, $W$ is the weight matrix and $b$ is the bias vector. After we get $z$, we apply the <strong>activation function</strong> and compute $a$ as per Eq(<a href="#eqn1_2">2</a>).</p>
+<!-- raw HTML omitted -->
+<p>Activation functions are non-linear functions, for example sigmoid function or tanh function or softmax function. The choice of non-linear function is dependent on the properties we desire; a sigmoid function, see Eq(<a href="#eqn3_4">3</a>), will squeeze outputs to the range of [0,1], this activation function is typically used at the output layer of a binary classification model. Tanh function, see Eq(<a href="#eqn3_4">4</a>), outputs in the range of [-1, 1]. Softmax activations are typically used in the output layer of a multiclass classification problem. Modern neural architectures commonly use a few other activation functions such as <!-- raw HTML omitted -->ReLU<!-- raw HTML omitted -->, leaky ReLU, GELU, &hellip; in addition to the 3, we discussed earlier.</p>
+<!-- raw HTML omitted -->
+<p>Figure 2 shows the above logic pictorially.</p>
+<figure><img src="/articles/guide-to-neural-network/neuron.webp"
+    alt="Fig 2. A single unit taking input x ∈ ℝ3 and returning output y ∈ ℝ" loading="lazy"><figcaption>
+      <h4>Single Neuron</h4><p>Fig 2. A single unit taking input <!-- raw HTML omitted -->x<!-- raw HTML omitted --> ∈ ℝ<!-- raw HTML omitted -->3<!-- raw HTML omitted --> and returning output <!-- raw HTML omitted -->y<!-- raw HTML omitted --> ∈ ℝ</p>
+    </figcaption>
+</figure>
+
+<p>We have seen what happens in the forward propagation for a single unit but in layer <em>k</em> we have <!-- raw HTML omitted -->n<!-- raw HTML omitted -->out<!-- raw HTML omitted --><!-- raw HTML omitted --> units. Matrix operations are faster than regular loop operations, so we transform our problem such that we have matrix multiplications and additions.</p>
+<p>Let&rsquo;s formalize; Our neural network comprises of <em>L</em> layers. Each layer has a Weight matrix $W$ ∈ ℝ<!-- raw HTML omitted -->[n_out × n_in]<!-- raw HTML omitted --> where <em>n_out</em> is the number of units in layer <em>l</em> and <em>n_in</em> is the number of units in layer <em>l-1</em>. Bias $b$ ∈ ℝ<!-- raw HTML omitted -->[n_out]<!-- raw HTML omitted --> will be a vector. We can see that equations 1 &amp; 3 still hold, with minor modifications to our implementation logic we can make things work. For now, let&rsquo;s assume that we initialize $W$ matrix and $b$ vector with numbers drawn from a normal distribution. Once the forward propagation reaches the output layer we obtain the output for the set of training data we provided.</p>
+<h3 id="backward-propagation">
+  Backward propagation
+  <a class="anchor" href="#backward-propagation" aria-label="Link to section - Backward propagation">#</a>
+</h3>
+
+<p>The output the network produces $\hat y$ after the forward propagation at this point need not be anywhere close to the actual $y$, after all, we did not have any constraints during the forward propagation. This is where backward propagation comes in. During the training cycle, we have both the actual label $y$ and the predicted label $\hat y$ for a given sample. With these two, we can calculate the <strong>loss</strong> which is a measure of how distant our predictions are from the true values. For the problem of classification <em>cross-entropy</em>, see Eq(<a href="#eqn5">5</a>), is generally a good choice, while something like <!-- raw HTML omitted -->RMSE<!-- raw HTML omitted --> is a good choice for regression problems.</p>
+<!-- raw HTML omitted -->
+<p>The loss function of these networks can be conceptually similar to the landscape of a valley. Our objective is to find the lowest point in this valley, which translates to us finding the function that captured all the characteristics of the given data. Since we do not know the true form of the function that generated our training data, we employ a technique called <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a>. When we compute the gradient of a function, we get the direction of the maximal slope. So to reach a minima we simply need to go the opposite direction (or negative direction) of the gradient.</p>
+<p>Our loss function can be expressed as a function of the weights and biases of a particular layer. We would be finding the gradient of this function and then moving in the direction of the minima. We will first be computing this negative gradient of loss w.r.t the output layer. Once we have this we can &ldquo;propagate&rdquo; these results to the layers preceding the output layer to find the directions each weight vector/matrix and bias value/vector needs to update so that we can move towards the minima.</p>
+<h3 id="tying-everything-together">
+  Tying everything together
+  <a class="anchor" href="#tying-everything-together" aria-label="Link to section - Tying everything together">#</a>
+</h3>
+
+<p>When we provide a bunch of training data to the network, after the forward propagation we get the predictions the model made. Next, we compute the gradients of all the weight matrices and bias vectors during the backward propagation. Once we compute the gradient for the loss function $J$ we update the parameter θ according to Eq(<a href="#eqn6">6</a>). α here is the <strong>learning rate</strong> which is one of the most important hyperparameters that we have to set. If we use a high learning rate we would miss the minima, while if we use too low of a learning rate we could get stuck at some local minima. A &ldquo;good&rdquo; learning rate would ensure that our model reaches the minima relatively quickly. Modern neural networks can work with adaptive learning rates.</p>
+<!-- raw HTML omitted -->
+<p>During the training phase, our network will see all the training data and try to reach the optima using gradient descent. If we have lots of training data (&gt; 1 million records) it might be hard to fit all this data into memory during gradient descent. More commonly we would employ something called <em>mini-batch gradient descent</em>, which will look at a batch of training data to &ldquo;guess&rdquo; the true gradient. As the batch size increases decrease in loss becomes smoother and approaches the value we might get using the full gradient descent. After we see a mini-batch we use the updated parameters to do another mini-batch gradient descent following Eq(<a href="#eqn6">6</a>), until the network, sees all the training data. We say that our network completed one <em>epoch</em> after the network has seen all the training data. Practitioners train their model until some certain criteria that are important for that specific problem are met.</p>
+<h2 id="why-do-neural-networks-work">
+  Why do neural networks work?
+  <a class="anchor" href="#why-do-neural-networks-work" aria-label="Link to section - Why do neural networks work?">#</a>
+</h2>
+
+<p>Neural networks could be equated to the <a href="https://en.wikipedia.org/wiki/Perceptron">perceptron</a> model with hidden layers and non-linear activation functions. Let&rsquo;s explore both these and see why adding these two provides a much powerful model.</p>
+<p>When we have multiple layers in the neural network, what we are doing is that we are stacking linear transformations followed by a non-linear function. If we are only stacking linear transformations, we can reduce this into a single linear transformation. Stacking both the linear and non-linear function together allows us to construct <em>approximately</em> any mathematical function that we desire. We call this property the <strong>Universal approximation theorem</strong>. A good read-up that covers a visual proof for this as well as the surrounding caveats for this is present in Michael Nielsen&rsquo;s <a href="http://neuralnetworksanddeeplearning.com/chap4.html">online book</a>.</p>
+<figure><img src="/articles/guide-to-neural-network/scatter_plot.webp"
+    alt="Fig 3. A concentric data problem to classify the points, a linear classifier such as SVM (without kernel) would not be able to distinguish the points properly in such cases." loading="lazy"><figcaption>
+      <h4>Single Neuron</h4><p>Fig 3. A concentric data problem to classify the points, a linear classifier such as SVM (without kernel) would not be able to distinguish the points properly in such cases.</p>
+    </figcaption>
+</figure>
+
+<p>So how does a neural network partition the data in a classification problem? Neural networks transform the feature space into space where we can distinguish each data point using a hyperplane. Figure 3 shows a toy problem of identifying the two classes when data is spread concentrically. One way to solve this is to warp this space into a bowl-shaped space and then use hyperplane to partition this space.</p>
+<figure><img src="/articles/guide-to-neural-network/bowl_shaped.webp"
+    alt="Fig 4. Bowl shaped 3-D space where we can easily partition the data points and space shown in Fig 3. using a plane" loading="lazy"><figcaption>
+      <h4>Bowl shaped 3 D space</h4><p>Fig 4. Bowl shaped 3-D space where we can easily partition the data points and space shown in Fig 3. using a plane</p>
+    </figcaption>
+</figure>
+
+<hr>
+<h2 id="why-would-one-use-neural-networks-or-why-not-use-it">
+  Why would one use neural networks or why not use it?
+  <a class="anchor" href="#why-would-one-use-neural-networks-or-why-not-use-it" aria-label="Link to section - Why would one use neural networks or why not use it?">#</a>
+</h2>
+
+<p>There are no &ldquo;cure-all&rdquo; solutions, each model has it&rsquo;s own strengths and it&rsquo;s own weaknesses. Let&rsquo;s try to explore the strengths of neural networks and why they are a popular model nowadays.</p>
+<h3 id="no-more-feature-engineering">
+  No more Feature Engineering
+  <a class="anchor" href="#no-more-feature-engineering" aria-label="Link to section - No more Feature Engineering">#</a>
+</h3>
+
+<p>In regular Machine learning techniques, one is provided hundreds of features, of which many are redundant or not useful. Feature engineering used to be an art and having domain knowledge was a prerequisite for creating an effective model. This is the key difference between classical Machine Learning and neural networks. For neural networks to work well, you don&rsquo;t need to do much of feature engineering, the networks would learn which features are relevant and which are not by themselves. This allows people who do not get assistance from subject-matter experts to also create very effective models.</p>
+<h3 id="decoupling-bias-and-variance">
+  Decoupling Bias and Variance
+  <a class="anchor" href="#decoupling-bias-and-variance" aria-label="Link to section - Decoupling Bias and Variance">#</a>
+</h3>
+
+<p>In classical machine learning we learn about the <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias variance tradeoff</a>
+curve and how we need to find the sweet spot that gets our model the best performance. In neural networks, however, we can decouple bias and variance and try to individually solve them. For instance, if our network has high bias we can just add more layers and units to our network. We can also add dropouts and l1/l2 regularization to the weights as well to counter high variance.</p>
+<p>Now let&rsquo;s look at reasons why one might not use a neural network.</p>
+<h3 id="weaknesses-of-neural-networks">
+  Weaknesses of neural networks
+  <a class="anchor" href="#weaknesses-of-neural-networks" aria-label="Link to section - Weaknesses of neural networks">#</a>
+</h3>
+
+<p>It used to be the case that if you did not have <em>massive amounts of data</em> then training a good is not possible. But these days for many problems we can utilize <a href="https://ruder.io/transfer-learning/">transfer learning</a>. In other scenarios, we might be able to generate more training samples using generative models. But if there are no transferable models available and the problem at hand is difficult, we might need lots of data.</p>
+<p>If we are building a deep neural network and training the full model, chances are high that we would need <em>lots of computing resources</em> - GPU, and RAM. Although these days there are very cost-effective solutions for obtaining such computational resources. For personal use, Google Colab and Kaggle kernels are available for free; while for commercial purposes there are multiple options available in Amazon AWS and Microsoft Azure.</p>
+<p>In certain studies, <em>reproducibility</em> is a key characteristic that researchers use to weigh the study along with the results it brings. Earlier it used to be quite difficult to exactly reproduce the results of a paper if we are using libraries. When we train a neural network, during initialization we are initializing a lot of parameters including Weight matrices, biases, and a few other parameters randomly. Although modern deep learning libraries do give the capability of setting pseudo-random number seeds, the user has to take some effort to maintain reproducibility.</p>
+<p>Neural networks had been characterized as &ldquo;black-boxes&rdquo; for a long time. Although this is slightly changing with more explainable models and visualizing what the layers are learning, these techniques are yet to be a common-place in industry.</p>
+<p>Finally, we have to deal with the <em>complexity of setting up neural networks</em> themselves. To get a really &ldquo;good&rdquo; neural network one needs to tune multiple hyperparameters. In addition to the number of hyperparameters, they could also take a wide range of values which makes hyperparameter tuning a pain. Although there are hundreds of hyperparameters available to tune in a network, in reality only tuning a handful of hyperparameters can result in training a good network. We can also use <a href="https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote15.html">Bayesian Optimization</a> using Gaussian Process to perform hyperparameter tuning which is more effective than a randomized grid search or a regular grid search.</p>
+<hr>
+<h2 id="different-types-of-neural-networks">
+  Different types of Neural Networks
+  <a class="anchor" href="#different-types-of-neural-networks" aria-label="Link to section - Different types of Neural Networks">#</a>
+</h2>
+
+<p>Although the neural networks we had seen so far are the ones people most identify when talking about neural networks, there are variants of this available. <em><a href="https://cs231n.github.io/convolutional-networks/#conv">Convolutional Neural Networks</a></em>(CNN) are some of the most widely used neural networks and machine learning models in general. They work well in identifying spatial patterns, hence have been used in image recognition tasks. In a few difficult tasks such as imagenet, state of the art models have beaten human-level accuracies.</p>
+<p>Another popular variant of the neural network is the <em><a href="https://en.wikipedia.org/wiki/Recurrent_neural_network">Recurrent Neural Network</a></em>(RNN). RNNs work well with sequential data and as such has been employed in Natural Language Processing (NLP) tasks and audio-related tasks as well.</p>
+<h2 id="getting-started-with-neural-networks-and-deep-learning">
+  Getting started with Neural Networks and deep learning
+  <a class="anchor" href="#getting-started-with-neural-networks-and-deep-learning" aria-label="Link to section - Getting started with Neural Networks and deep learning">#</a>
+</h2>
+
+<h3 id="resources">
+  Resources
+  <a class="anchor" href="#resources" aria-label="Link to section - Resources">#</a>
+</h3>
+
+<p>If all the above was very vague for you (don&rsquo;t worry, it is), there are a few resources that I think are good and are worth checking out;</p>
+<ul>
+<li>Andrew Ng&rsquo;s <a href="https://www.deeplearning.ai/">Deeplearning.ai</a></li>
+<li>Jeremy Howard &amp; Rachel Thomas&rsquo;s <a href="https://www.fast.ai/">Fast.ai</a></li>
+<li>Stanford&rsquo;s <a href="https://cs231n.stanford.edu/">CS231N</a></li>
+<li>Michael Nielsen&rsquo;s online <a href="http://neuralnetworksanddeeplearning.com/">Deep learning book</a>.</li>
+</ul>
+<p>There are quite a few people who post stuff on twitter, so following people on twitter is also very helpful.</p>
+<h3 id="toy-problems">
+  Toy problems
+  <a class="anchor" href="#toy-problems" aria-label="Link to section - Toy problems">#</a>
+</h3>
+
+<p>There are quite a few toy problems available for testing out what you learned in Machine Learning and Deep Learning. <a href="https://www.kaggle.com/">Kaggle</a> has quite a few playground competitions where there is a leaderboard to see how well your model is doing compared to others. If you get stuck somewhere or if you are looking for some ideas, these competitions have very active forums, so you can head over there. They also make the datasets available for past competitions which is nice.</p>
+<p>If kaggle competitions or others like kaggle is not your thing for starting out, you can look at the following problems:</p>
+<ul>
+<li><a href="http://yann.lecun.com/exdb/mnist/">MNIST</a></li>
+<li><a href="https://ai.stanford.edu/~amaas/data/sentiment/">IMDB sentiment analysis</a></li>
+<li><a href="https://www.kaggle.com/datasets">Kaggle datasets</a></li>
+<li><a href="https://lionbridge.ai/datasets/">Lionbridge datasets</a></li>
+</ul>
+<p>The <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset is a well-studied dataset that is almost always the first task one would try to solve using deep learning. It is a dataset that contains handwritten numbers from 0 to 9. Almost all deep learning architectures would get benchmarked on this dataset. State of the art architectures has reached the upper 99 percent in terms of accuracy. All these reasons together with the fact that it is small enough that you can run your model quite fast, makes it an ideal candidate dataset for people starting in deep learning. My objective was to learn the effects of tweaking various parameters of a neural network. My work can be viewed <a href="https://github.com/krispingal/Image-classification/blob/master/MNIST_pytorch.ipynb">here</a>.</p>
+<h3 id="deep-learning-libraries">
+  Deep Learning Libraries
+  <a class="anchor" href="#deep-learning-libraries" aria-label="Link to section - Deep Learning Libraries">#</a>
+</h3>
+
+<p>There are quite a few deep learning libraries that have emerged. Some of the popular ones include <a href="https://www.tensorflow.org/">Tensorflow</a>, <a href="http://deeplearning.net/software/theano/">Theano</a>, <a href="http://torch.ch/">Torch</a>, and <a href="https://pytorch.org/">Pytorch</a>. <a href="https://keras.io/">Keras</a> is also another popular deep learning library, which is a high-level one that sits on top of a library such as Tensorflow and Theano. As of 2017 Keras has been integrated into Tensorflow, allowing us to use the simpler UI to create networks. <em>Tensorflow-Keras</em> is more favored in industry when you need your model to be fast and run on mobiles as well. <em>Pytorch</em> is another popular open-source machine learning library in python that is more adopted in academia because it allows a lot of flexibility. Both of these libraries are well documented and have numerous tutorials online.</p>
+    </article>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/neural-networks/">Neural Networks</a></li>
+  </ul>
+
+    
+</div>
+
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2024 kbabuji. All rights reserved.</p>
+
+
+  </footer>
+</body>
+
+</html>

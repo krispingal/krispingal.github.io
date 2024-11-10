@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Structures on kbabuji</title>
+    <link>http://localhost:1313/tags/data-structures/</link>
+    <description>Recent content in Data Structures on kbabuji</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Nov 2024 00:00:00 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/data-structures/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Skip lists</title>
+      <link>http://localhost:1313/articles/understanding-skiplists/</link>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 -0500</pubDate>
+      <guid>http://localhost:1313/articles/understanding-skiplists/</guid>
+      <description>&lt;p&gt;Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.&lt;/p&gt;&#xA;&lt;p&gt;With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.&lt;/p&gt;&#xA;&lt;h2 id=&#34;how-skip-lists-improve-efficiency&#34;&gt;&#xA;  How Skip Lists improve efficiency&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#how-skip-lists-improve-efficiency&#34; aria-label=&#34;Link to section - How Skip Lists improve efficiency&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &amp;ldquo;express lane&amp;rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

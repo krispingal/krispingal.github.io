@@ -1,0 +1,16 @@
+<div class="profile-picture polaroid">
+    {{- $u := urls.Parse (.Get "src") -}}
+    {{- $src := $u.String -}}
+    {{- if not $u.IsAbs -}}
+      {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+        {{- $src = .RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  
+    <img src="{{ $src }}"
+      {{- with .Get "alt" }} alt="{{ . }}"{{ else }} alt="Profile picture"{{ end -}}
+      {{- with .Get "width" }} width="{{ . }}"{{ end -}}
+      {{- with .Get "height" }} height="{{ . }}"{{ end -}}
+      {{- with .Get "loading" }} loading="{{ . }}"{{ else }} loading="eager"{{ end -}}
+    >
+  </div>
