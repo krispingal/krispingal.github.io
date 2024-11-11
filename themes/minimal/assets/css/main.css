@@ -234,9 +234,12 @@ article hr::after {
 .tags ul {
   padding: 0px;
 }
+
 .tags li {
   display: inline;
+  margin: 0px 2px;
 }
+
 .tags a {
   font-size: .75rem;
   background-color: #0B3C5D;

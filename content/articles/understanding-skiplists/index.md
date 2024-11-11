@@ -3,6 +3,7 @@ date = '2024-11-01'
 draft = false
 title = 'Understanding Skip lists'
 description = 'An intro to skip lists three operations search, insert, and delete.'
+images = ['skipList.webp', 'skipListClassDiagram.webp']
 tags = ['Data structures', 'Python', 'Probabilistic']
 [params]
   math = true

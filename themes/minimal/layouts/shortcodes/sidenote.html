@@ -23,7 +23,7 @@
     <span class="sidenote__content-parenthesis
     "> (sidenote: </span>
     {{- with $.Get "content" }}
-      {{ . }}
+      {{ . | safeHTML }}
     {{- else }}
       {{- errorf "The %q shortcode requires a 'content' argument. See %s" .Name .Position }}
     {{- end }}

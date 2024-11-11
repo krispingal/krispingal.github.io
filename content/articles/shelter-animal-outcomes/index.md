@@ -3,11 +3,10 @@ date = 2016-08-24T04:14:54-08:00
 draft = false
 title = 'Shelter Animal Outcomes'
 description = 'adventures while doing shelter animal outcomes competition'
-keywords = 'kaggle'
-weight = 10
+keywords = ['kaggle']
+images = ['puppy.webp']
 [params]
   math = true
-
 +++
 
 {{< figure src="puppy.webp" title="A puppy taken in at a shelter" attr="Picture taken from SOS" attrlink="https://www.flickr.com/photos/pifaslt/" loading="lazy" >}}

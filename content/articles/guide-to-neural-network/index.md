@@ -2,7 +2,9 @@
 date = '2018-11-04'
 draft = false
 title = 'A guide to Neural Networks'
+description = 'A guide to neural networks'
 keywords = ['neural networks']
+images = ['nn.webp', 'neuron.webp']
 tags = ['neural networks']
 math = true
 +++

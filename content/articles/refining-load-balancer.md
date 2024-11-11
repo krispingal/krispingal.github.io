@@ -3,7 +3,7 @@ date = '2024-10-19'
 draft = false
 title = 'Refining Load Balancer'
 keywords = ['golang', 'layer 7 load balancer', 'Clean Architecture']
-tags = ['Scalability', 'load balancer', 'Golang']
+tags = ['Scalability', 'load balancer', 'golang']
 description = 'Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup'
 math = false
 +++

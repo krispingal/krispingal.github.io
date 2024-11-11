@@ -8,6 +8,6 @@
         {{ .Content }}
     </article>
     {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-    {{ template "_internal/disqus.html" . }}
+    {{ partial "related.html" .}}
 </div>
 {{ end }}

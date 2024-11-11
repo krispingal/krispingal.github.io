@@ -16,10 +16,10 @@
       <description>&lt;p&gt;In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.&lt;/p&gt;&#xA;&lt;p&gt;This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Building a Layer 7 Loadbalancer</title>
-      <link>http://localhost:1313/articles/building-a-layer7-loadbalancer/</link>
+      <title>Building a Layer 7 Load Balancer</title>
+      <link>http://localhost:1313/articles/building-a-layer7-load-balancer/</link>
       <pubDate>Sun, 15 Sep 2024 15:05:28 -0600</pubDate>
-      <guid>http://localhost:1313/articles/building-a-layer7-loadbalancer/</guid>
+      <guid>http://localhost:1313/articles/building-a-layer7-load-balancer/</guid>
       <description>&lt;p&gt;Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-a-load-balancer&#34;&gt;&#xA;  What is a load balancer?&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#what-is-a-load-balancer&#34; aria-label=&#34;Link to section - What is a load balancer?&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;Imagine you&amp;rsquo;re at an airport, standing in line for the security check. There is a single line of passengers, but there are five booths with agents checking boarding passes and IDs. At the front of the line, there is an agent directing passengers to available booths. This agent acts like a basic load balancer, distributing incoming requests (passengers) to backend servers (TSA agents) for processing.&lt;/p&gt;</description>
     </item>
   </channel>
