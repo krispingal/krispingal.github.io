@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>From Jekyll to Hugo | kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: '\\[', right: '\\]', display: true },   
+                { left: '$$', right: '$$', display: true },     
+                { left: '\\(', right: '\\)', display: false },  
+            ],
+            throwOnError: false
+        });
+    });
+</script>
+  <meta itemprop="name" content="From Jekyll to Hugo">
+  <meta itemprop="description" content="A Personal Journey in Static Site Migration from Jekyll to Hugo">
+  <meta itemprop="datePublished" content="2024-11-10T13:22:53-06:00">
+  <meta itemprop="dateModified" content="2024-11-10T13:22:53-06:00">
+  <meta itemprop="wordCount" content="1656">
+  <meta itemprop="image" content="http://localhost:1313/articles/from-jekyll-to-hugo/hugo-logo-wide.svg">
+  <meta itemprop="keywords" content="static site generator,hugo static site generator">
+<meta property="og:url" content="http://localhost:1313/articles/from-jekyll-to-hugo/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="From Jekyll to Hugo">
+  <meta property="og:description" content="A Personal Journey in Static Site Migration from Jekyll to Hugo">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-11-10T13:22:53-06:00">
+    <meta property="article:modified_time" content="2024-11-10T13:22:53-06:00">
+    <meta property="article:tag" content="Golang">
+    <meta property="article:tag" content="Web Development">
+    <meta property="og:image" content="http://localhost:1313/articles/from-jekyll-to-hugo/hugo-logo-wide.svg">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+<div class="content">
+    <h1>From Jekyll to Hugo</h1>
+    
+    
+    <time datetime="2024-11-10T13:22:53-06:00">November 10, 2024</time>
+    <article>
+        <figure><img src="/articles/from-jekyll-to-hugo/hugo-logo-wide.svg"
+    alt="Hugo logo" width="300px" height="250px" loading="lazy">
+</figure>
+
+<p>I recently moved my blog from <a href="https://jekyllrb.com/">Jekyll</a>, a Ruby-based static site generator, to <a href="https://gohugo.io/">Hugo</a>, a popular alternative built in Golang. In this article, I’ll walk through the rationale behind this migration, share the steps I took, and include a few custom code snippets I created along the way. This is not intended as a tutorial on setting up a blog with Hugo — there are plenty of excellent videos and documentation on <a href="https://gohugo.io/documentation/">Hugo’s site</a> for that. Instead, I’ll focus on my experience, insights, and the lessons learned that may be helpful for anyone considering a similar transition.</p>
+<p>You could find an older version of my site at <a href="https://web.archive.org/web/20200917235453/https://krispingal.github.io/">archive</a>.</p>
+<h2 id="why-i-chose-to-migrate-from-jekyll-to-hugo">
+  Why I Chose to Migrate from Jekyll to Hugo
+  <a class="anchor" href="#why-i-chose-to-migrate-from-jekyll-to-hugo" aria-label="Link to section - Why I Chose to Migrate from Jekyll to Hugo">#</a>
+</h2>
+
+<p>To provide a bit of background, I’d previously used Pelican and Jekyll as static site generators. With Pelican, I created my own theme, which gave me a lot of flexibility in structuring my site. However, poor design choices on my part made the site look a bit janky — both visually and in terms of the HTML/CSS structure. Eventually, I decided to move to Jekyll, where I found a theme I liked and was much happier with the blog’s overall look. The migration to Jekyll was very smooth, thanks to its excellent documentation. For users working with a theme, setup is straightforward.</p>
+<p>After some time, though, I encountered a few limitations. Jekyll offers a variety of plugins, but on GitHub Pages, I could only use a limited set due to deployment restrictions<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, though there are ways to get around this<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Hugo, on the other hand, provides many features out of the box, such as content organization, YouTube embedding, and figure rendering. It also includes a robust asset pipeline, with a built-in set of processing functions.</p>
+<p>Another deciding factor was Jekyll’s reliance on Ruby, which I only used for this project and found challenging to maintain and upgrade. Hugo, built on Golang — a language I use regularly for other projects — would streamline my workflow by eliminating the need for a separate language dependency just for my blog. Additionally, it seemed that Hugo’s active development and frequent updates would make it a more future-proof option.</p>
+<hr>
+<h2 id="the-migration-process">
+  The Migration Process
+  <a class="anchor" href="#the-migration-process" aria-label="Link to section - The Migration Process">#</a>
+</h2>
+
+<p>The migration process from Jekyll to Hugo is fairly straightforward. Although <a href="https://gohugo.io/tools/migrations/#jekyll">migration scripts</a> are available, I only had a few posts, so I moved them manually. During this process, I added some additional elements to the front matter, including dates (which Jekyll inferred from filenames), keywords, tags, images, and descriptions for OpenGraph — all helping improve SEO and social media visibility.</p>
+<p>For the theme, I decided to create a custom design, as I couldn’t find an existing theme that aligned with my vision. I prefer a simple, distraction-free theme that keeps the reader’s focus on the content without unnecessary features that would bloat the site. Additionally, I wanted a few unique features, such as alternative comment solutions, which aren’t offered out of the box in most themes. Building my own theme also allows me to take advantage of Hugo’s latest features as they are released, ensuring that my site remains flexible and future-proof.</p>
+<h3 id="building-my-own-theme">
+  Building My Own Theme
+  <a class="anchor" href="#building-my-own-theme" aria-label="Link to section - Building My Own Theme">#</a>
+</h3>
+
+<p>For inspiration, I referenced the layout of my previous Pelican site. Hugo’s documentation, while extensive, can be challenging in some areas. Since I needed to understand many components to create a custom theme, I watched a few YouTube tutorials (<a href="https://www.youtube.com/watch?v=ZFL09qhKi5I">Luke Smith&rsquo;s tutorial</a> and <a href="https://www.youtube.com/playlist?list=PLLAZ4kZ9dFpOnyRlyS-liKL5ReHDcj4G3">giraffe academy video tutorial playlist</a>), which helped clarify the structure, making the documentation much easier to navigate.</p>
+<p>In designing the HTML layout, I used <a href="https://www.whocanuse.com">Who Can Use</a> to plan an accessible color scheme, and for CSS styling, I relied on <a href="https://css-tricks.com">CSS-Tricks</a> and some code from <a href="https://samvdh.nl/">Sam van der Heijden</a> specifically for styling <a href="https://codepen.io/samvdh/pen/MmZzyR">links</a>. My goal was to create flexible layouts for different needs. For instance, my About page uses a two-column layout (column-left and column-right), while other pages use a single container for the content. I also wanted the option to expand layouts for potential future pages, like a &ldquo;Projects&rdquo; page. Hugo’s streamlined approach, with single and list templates, makes it easy to define different layouts, which I found more efficient than Jekyll’s approach to list-type pages.</p>
+<hr>
+<h2 id="new-features-and-improvements-in-hugo">
+  New Features and Improvements in Hugo
+  <a class="anchor" href="#new-features-and-improvements-in-hugo" aria-label="Link to section - New Features and Improvements in Hugo">#</a>
+</h2>
+
+<p>After moving the content, Hugo rendered my existing posts without any issues. I tested my theme with a sample post that included all the key features I wanted. Once the CSS and styling met my standards, the migration was essentially complete. However, a migration shouldn’t just be about replicating the previous platform on a new one — it’s a chance to utilize the unique strengths of the new platform. So, what Hugo features stood out to me? Right away, I appreciated Hugo’s shortcodes and render hooks.</p>
+<h3 id="render-hooks">
+  Render Hooks
+  <a class="anchor" href="#render-hooks" aria-label="Link to section - Render Hooks">#</a>
+</h3>
+
+<p>Render hooks allow Hugo’s Markdown parser (Goldmark) to process and render content in a customized way. For example, if you want to style all images across your site by wrapping them in a div element with specific classes, render hooks make this possible. Render hooks use Hugo’s templating language to stylize content without having to write repetitive HTML code each time.</p>
+<p>In my case, I used render hooks to automatically generate permalinks for anchor links:</p>
+<pre tabindex="0"><code>&lt;h{{ .Level }} id=&#34;{{ .Anchor | safeURL }}&#34;&gt;
+  {{ .Text }}
+  &lt;a class=&#34;anchor&#34; href=&#34;#{{ .Anchor | safeURL }}&#34; aria-label=&#34;Link to section - {{ .Text }}&#34;&gt;#&lt;/a&gt;
+&lt;/h{{ .Level }}&gt;
+</code></pre><h3 id="shortcodes">
+  Shortcodes
+  <a class="anchor" href="#shortcodes" aria-label="Link to section - Shortcodes">#</a>
+</h3>
+
+<p>Shortcodes offer similar templating flexibility but differ in their use and control. While render hooks are automatically invoked by the parser when it encounters certain Markdown elements (like inline code wrapped in backticks), shortcodes allow the content writer to decide when and how to render specific elements. As the writer, you can pass arguments to shortcodes, determining exactly how they should be rendered to HTML. This is particularly useful for custom elements like embedded media or complex layouts, as it reduces code duplication and allows for greater flexibility in content styling.</p>
+<p>In Jekyll, I used Liquid templates to render figures. Hugo, in its newer versions, includes several useful shortcodes out of the box for embedding YouTube videos, Instagram images, and figures. I also created custom shortcodes to display my profile picture on the About page and for adding sidenotes.</p>
+<p>My 
+<span class="sidenote">
+  <input
+    aria-label="Show sidenote"
+    type="checkbox"
+    id="sidenote__checkbox--1"
+    class="sidenote__checkbox">
+  <label
+    tabindex="0"
+    title="Sidenote content"
+    aria-describedby="sidenote-1"
+    for="sidenote__checkbox--1"
+    class="sidenote__button sidenote__button--number-1
+  ">
+        sidenotes
+</label>
+  <small
+    id="sidenote-1"
+    class="sidenote__content sidenote__content--number-1">
+    <span class="sidenote__content-parenthesis
+    "> (sidenote: </span>
+      Speaking of sidenotes in web pages Gwern has an <a href="https://gwern.net/sidenote">article</a>:  that has an in-depth discussion and compares multiple implementations.
+    <span class="sidenote__content-parenthesis">)</span>
+  </small>
+</span> were based off of <a href="https://www.kooslooijesteijn.net/blog/sidenotes-without-js">Koos Looijesteijn&rsquo;s implementation</a>. For me, sidenotes are a step up from traditional footnotes, allowing room for tangential details — something I enjoy including! Here’s the shortcode I used for sidenotes, which requires CSS available in Koos Looijesteijn&rsquo;s <a href="https://github.com/kslstn/sidenotes">github repository</a>.</p>
+<pre tabindex="0"><code>&lt;span class=&#34;sidenote&#34;&gt;
+  &lt;input
+    aria-label=&#34;Show sidenote&#34;
+    type=&#34;checkbox&#34;
+    id=&#34;sidenote__checkbox--{{ $id }}&#34;
+    class=&#34;sidenote__checkbox&#34;&gt;
+  &lt;label
+    tabindex=&#34;0&#34;
+    title=&#34;Sidenote content&#34;
+    aria-describedby=&#34;sidenote-{{ $id }}&#34;
+    for=&#34;sidenote__checkbox--{{ $id }}&#34;
+    class=&#34;sidenote__button sidenote__button--number-{{ $id }}
+  &#34;&gt; {{- with $.Get &#34;label&#34; }}
+        {{ . }}
+      {{- else }}
+        {{- errorf &#34;The %q shortcode requires a &#39;label&#39; argument. See %s&#34; .Name .Position }}
+      {{- end }}
+&lt;/label&gt;
+  &lt;small
+    id=&#34;sidenote-{{ $id }}&#34;
+    class=&#34;sidenote__content sidenote__content--number-{{ $id }}&#34;&gt;
+    &lt;span class=&#34;sidenote__content-parenthesis
+    &#34;&gt; (sidenote: &lt;/span&gt;
+    {{- with $.Get &#34;content&#34; }}
+      {{ . | safeHTML }}
+    {{- else }}
+      {{- errorf &#34;The %q shortcode requires a &#39;content&#39; argument. See %s&#34; .Name .Position }}
+    {{- end }}
+    &lt;span class=&#34;sidenote__content-parenthesis&#34;&gt;)&lt;/span&gt;
+  &lt;/small&gt;
+&lt;/span&gt;
+</code></pre><h3 id="katex">
+  Katex
+  <a class="anchor" href="#katex" aria-label="Link to section - Katex">#</a>
+</h3>
+
+<p>I also switched from using MathJax to \( \KaTeX \) for typesetting math equations on my site. <a href="https://katex.org">KaTeX</a>, developed by Khan Academy, is a fast, lightweight alternative for rendering math on the web. Newer versions of MathJax have grown in size, with even the smallest minified version around 800KB, which can slow down page loading times. While neither KaTeX nor MathJax come bundled with Jekyll or Hugo, adding KaTeX was straightforward and made a noticeable difference in page performance.</p>
+<hr>
+<h2 id="features-i-left-behind">
+  Features I Left Behind
+  <a class="anchor" href="#features-i-left-behind" aria-label="Link to section - Features I Left Behind">#</a>
+</h2>
+
+<p>This section will be brief, as I only dropped two features when moving my blog from Jekyll to Hugo: Google Analytics and Disqus. While Hugo supports both of these natively — just a matter of adding a line to include the template and configuring settings in hugo.toml — I chose not to include them. I wasn’t actively using Google Analytics, and I often see Disqus blocked by my own browser extension. Rather than subject readers to tools I had privacy concerns about, I opted to leave them out.</p>
+<p>On the topic of comments, I’m considering <a href="https://cusdis.com/">Cusdis</a> as a privacy-friendly alternative to Disqus. It seems to align better with my use case and may be something I add to the site down the road.</p>
+<hr>
+<h2 id="final-thoughts-and-recommendations">
+  Final Thoughts and Recommendations
+  <a class="anchor" href="#final-thoughts-and-recommendations" aria-label="Link to section - Final Thoughts and Recommendations">#</a>
+</h2>
+
+<p>Overall, I’m satisfied with the new look of my blog. Through this migration, I had the chance to learn — and relearn — a fair amount about HTML5 and CSS. While parts of the journey were frustrating, I’m happy with where I ended up. There are still a few more features I’d like to add over time, but the heavy lifting is done.</p>
+<p>For anyone considering Jekyll or Hugo, here are my thoughts: if you’re happy with Jekyll or just starting out, Jekyll is still one of the easiest ways to create a static blog. Both Jekyll and Hugo are powerful static site generators that can bring your ideas to life. You can build your site locally with any plugins you need and then push the rendered static site to GitHub or another hosting service — and that’s it. However, if you’d prefer not to work with Ruby, or if you’re already familiar with Go, or if you have specific ideas for rendering components, Hugo could be a great fit. Hugo is ideal if you like to get your hands dirty with custom configurations.</p>
+<p>In the end, whether you go with Jekyll, Hugo, or another tool, remember that the true value of your blog is in the content itself, not in the tools you use to build it.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#plugins">https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#plugins</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>You can build locally and push the generated assets onto github page to circumvent this though. See more about this <a href="https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#building-your-site-locally">here.</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+    </article>
+    
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/golang/">Golang</a></li>
+      <li><a href="/tags/web-development/">Web Development</a></li>
+  </ul>
+
+    
+
+<h3>See Also</h3>
+<ul>
+ 
+ <li><a href="/articles/refining-load-balancer/">Refining Load Balancer</a></li>
+ 
+ <li><a href="/articles/building-a-layer7-load-balancer/">Building a Layer 7 Load Balancer</a></li>
+ 
+</ul>
+
+
+
+</div>
+
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2016 &ndash; 2024 kbabuji. All rights reserved.</p>
+
+  </footer>
+</body>
+
+</html>
