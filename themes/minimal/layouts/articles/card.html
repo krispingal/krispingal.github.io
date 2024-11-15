@@ -1,9 +1,9 @@
 <div class="card">
     <h1><a style="color:#0B3C5D" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    <span class="article-date">{{ .Date | time.Format ":date_medium" }} </span>
+    {{- partial "article-meta.html" . }}
     <article>
         {{ .Summary }}
     </article>
     <a class="button read-more" href="{{ .RelPermalink }}">Read more ...</a>
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 </div>

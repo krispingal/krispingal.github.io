@@ -5,7 +5,6 @@ title = 'Refining Load Balancer'
 keywords = ['golang', 'layer 7 load balancer', 'Clean Architecture']
 tags = ['Scalability', 'load balancer', 'golang']
 description = 'Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup'
-math = false
 +++
 
 In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.

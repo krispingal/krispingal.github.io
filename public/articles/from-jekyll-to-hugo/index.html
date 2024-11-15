@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/css/main.css">
 
       <script src="/js/main.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
@@ -72,9 +72,11 @@
     
 <div class="content">
     <h1>From Jekyll to Hugo</h1>
-    
-    
+<div class="article-meta">
     <time datetime="2024-11-10T13:22:53-06:00">November 10, 2024</time>
+    <span class="separator">|</span>
+    <p>8 min</p>
+</div>
     <article>
         <figure><img src="/articles/from-jekyll-to-hugo/hugo-logo-wide.svg"
     alt="Hugo logo" width="300px" height="250px" loading="lazy">
@@ -119,11 +121,11 @@
 
 <p>Render hooks allow Hugo’s Markdown parser (Goldmark) to process and render content in a customized way. For example, if you want to style all images across your site by wrapping them in a div element with specific classes, render hooks make this possible. Render hooks use Hugo’s templating language to stylize content without having to write repetitive HTML code each time.</p>
 <p>In my case, I used render hooks to automatically generate permalinks for anchor links:</p>
-<pre tabindex="0"><code>&lt;h{{ .Level }} id=&#34;{{ .Anchor | safeURL }}&#34;&gt;
-  {{ .Text }}
-  &lt;a class=&#34;anchor&#34; href=&#34;#{{ .Anchor | safeURL }}&#34; aria-label=&#34;Link to section - {{ .Text }}&#34;&gt;#&lt;/a&gt;
-&lt;/h{{ .Level }}&gt;
-</code></pre><h3 id="shortcodes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">h</span><span style="color:#960050;background-color:#1e0010">{{</span> <span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">Level</span> <span style="color:#960050;background-color:#1e0010">}}</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Anchor | safeURL }}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  {{ .Text }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anchor&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#{{ .Anchor | safeURL }}&#34;</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Link to section - {{ .Text }}&#34;</span>&gt;#&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;</span>/h{{ .Level }}&gt;
+</span></span></code></pre></div><h3 id="shortcodes">
   Shortcodes
   <a class="anchor" href="#shortcodes" aria-label="Link to section - Shortcodes">#</a>
 </h3>
@@ -155,38 +157,38 @@
     <span class="sidenote__content-parenthesis">)</span>
   </small>
 </span> were based off of <a href="https://www.kooslooijesteijn.net/blog/sidenotes-without-js">Koos Looijesteijn&rsquo;s implementation</a>. For me, sidenotes are a step up from traditional footnotes, allowing room for tangential details — something I enjoy including! Here’s the shortcode I used for sidenotes, which requires CSS available in Koos Looijesteijn&rsquo;s <a href="https://github.com/kslstn/sidenotes">github repository</a>.</p>
-<pre tabindex="0"><code>&lt;span class=&#34;sidenote&#34;&gt;
-  &lt;input
-    aria-label=&#34;Show sidenote&#34;
-    type=&#34;checkbox&#34;
-    id=&#34;sidenote__checkbox--{{ $id }}&#34;
-    class=&#34;sidenote__checkbox&#34;&gt;
-  &lt;label
-    tabindex=&#34;0&#34;
-    title=&#34;Sidenote content&#34;
-    aria-describedby=&#34;sidenote-{{ $id }}&#34;
-    for=&#34;sidenote__checkbox--{{ $id }}&#34;
-    class=&#34;sidenote__button sidenote__button--number-{{ $id }}
-  &#34;&gt; {{- with $.Get &#34;label&#34; }}
-        {{ . }}
-      {{- else }}
-        {{- errorf &#34;The %q shortcode requires a &#39;label&#39; argument. See %s&#34; .Name .Position }}
-      {{- end }}
-&lt;/label&gt;
-  &lt;small
-    id=&#34;sidenote-{{ $id }}&#34;
-    class=&#34;sidenote__content sidenote__content--number-{{ $id }}&#34;&gt;
-    &lt;span class=&#34;sidenote__content-parenthesis
-    &#34;&gt; (sidenote: &lt;/span&gt;
-    {{- with $.Get &#34;content&#34; }}
-      {{ . | safeHTML }}
-    {{- else }}
-      {{- errorf &#34;The %q shortcode requires a &#39;content&#39; argument. See %s&#34; .Name .Position }}
-    {{- end }}
-    &lt;span class=&#34;sidenote__content-parenthesis&#34;&gt;)&lt;/span&gt;
-  &lt;/small&gt;
-&lt;/span&gt;
-</code></pre><h3 id="katex">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Show sidenote&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__checkbox--{{ $id }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__checkbox&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">label</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tabindex</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Sidenote content&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aria-describedby</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote-{{ $id }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__checkbox--{{ $id }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__button sidenote__button--number-{{ $id }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;</span>&gt; {{- with $.Get &#34;label&#34; }}
+</span></span><span style="display:flex;"><span>        {{ . }}
+</span></span><span style="display:flex;"><span>      {{- else }}
+</span></span><span style="display:flex;"><span>        {{- errorf &#34;The %q shortcode requires a &#39;label&#39; argument. See %s&#34; .Name .Position }}
+</span></span><span style="display:flex;"><span>      {{- end }}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">small</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote-{{ $id }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__content sidenote__content--number-{{ $id }}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__content-parenthesis
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;</span>&gt; (sidenote: &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>    {{- with $.Get &#34;content&#34; }}
+</span></span><span style="display:flex;"><span>      {{ . | safeHTML }}
+</span></span><span style="display:flex;"><span>    {{- else }}
+</span></span><span style="display:flex;"><span>      {{- errorf &#34;The %q shortcode requires a &#39;content&#39; argument. See %s&#34; .Name .Position }}
+</span></span><span style="display:flex;"><span>    {{- end }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidenote__content-parenthesis&#34;</span>&gt;)&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">small</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span></code></pre></div><h3 id="katex">
   Katex
   <a class="anchor" href="#katex" aria-label="Link to section - Katex">#</a>
 </h3>
@@ -221,27 +223,49 @@
 </ol>
 </div>
     </article>
-    
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/golang/">Golang</a></li>
       <li><a href="/tags/web-development/">Web Development</a></li>
   </ul>
 
-    
 
-<h3>See Also</h3>
-<ul>
+<hr class="divider">
+<h3 class="further-reading-heading">Further Reading</h3>
+
+
+
+
+<div class="related-cards">
  
- <li><a href="/articles/refining-load-balancer/">Refining Load Balancer</a></li>
  
- <li><a href="/articles/building-a-layer7-load-balancer/">Building a Layer 7 Load Balancer</a></li>
+ <div class="related-card">
+   
+    <h3><a href="/articles/refining-load-balancer/">Refining Load Balancer</a></h3>
+<div class="article-meta">
+    <time datetime="2024-10-19T00:00:00-05:00">October 19, 2024</time>
+    <span class="separator">|</span>
+    <p>9 min</p>
+</div>
+    <p>Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup</p>
+ </div>
  
-</ul>
+ 
+ <div class="related-card">
+   
+    <h3><a href="/articles/building-a-layer7-load-balancer/">Building a Layer 7 Load Balancer</a></h3>
+<div class="article-meta">
+    <time datetime="2024-09-15T15:05:28-06:00">September 15, 2024</time>
+    <span class="separator">|</span>
+    <p>10 min</p>
+</div>
+    <p>Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.</p>
+ </div>
+ 
+</div>
 
 
 
 </div>
-
   </main>
   <footer>
     

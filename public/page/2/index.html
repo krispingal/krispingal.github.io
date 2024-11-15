@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="/css/main.css">
 
       <script src="/js/main.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
@@ -29,12 +29,13 @@
         });
     });
 </script>
-  <meta itemprop="name" content="kbabuji">
+  <meta itemprop="name" content="Home">
   <meta itemprop="datePublished" content="2024-11-10T13:22:53-06:00">
   <meta itemprop="dateModified" content="2024-11-10T13:22:53-06:00">
+  <meta itemprop="keywords" content="Home page of blog">
 <meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
-  <meta property="og:title" content="kbabuji">
+  <meta property="og:title" content="Home">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
@@ -67,13 +68,16 @@
     
       <div class="card">
     <h1><a style="color:#0B3C5D" href="/articles/topic-modeling-with-gensim/">Topic modeling with Gensim</a></h2>
-    <span class="article-date">Mar 26, 2017 </span>
+<div class="article-meta">
+    <time datetime="2017-03-26T00:00:00-05:00">March 26, 2017</time>
+    <span class="separator">|</span>
+    <p>5 min</p>
+</div>
     <article>
         <p>I first started doing topic modeling when I used to play around with the <a href="https://www.kaggle.com/benhamner/nips-papers">nips dataset</a>. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think <a href="http://scikit-learn.org/stable/">scikit-learn</a> is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library <a href="https://radimrehurek.com/gensim/index.html">gensim</a> which is focused on topic modeling. Among many features it provides, it includes transformations such as <em>online</em> LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, <a href="http://hunch.net/~vw/">vowpal wabbit</a>, and <a href="http://mallet.cs.umass.edu/">Mallet</a>.</p>
 <p>The code can be viewed at my <a href="https://github.com/krispingal/topic_modeling">Github repository</a>.</p>
     </article>
     <a class="button read-more" href="/articles/topic-modeling-with-gensim/">Read more ...</a>
-    
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/gensim/">Gensim</a></li>
       <li><a href="/tags/nlp/">NLP</a></li>
@@ -84,7 +88,11 @@
     
       <div class="card">
     <h1><a style="color:#0B3C5D" href="/articles/shelter-animal-outcomes/">Shelter Animal Outcomes</a></h2>
-    <span class="article-date">Aug 24, 2016 </span>
+<div class="article-meta">
+    <time datetime="2016-08-24T04:14:54-08:00">August 24, 2016</time>
+    <span class="separator">|</span>
+    <p>6 min</p>
+</div>
     <article>
         <figure><img src="/articles/shelter-animal-outcomes/puppy.webp" loading="lazy"><figcaption>
       <h4>A puppy taken in at a shelter</h4><p>
@@ -106,7 +114,6 @@ we are provided with outcome subtypes too.</p>
 <a href="https://github.com/krispingal/shelterAnimalOutcomes">github repository</a>, it houses my jupyter notebooks.</p>
     </article>
     <a class="button read-more" href="/articles/shelter-animal-outcomes/">Read more ...</a>
-    
 
 </div>
     

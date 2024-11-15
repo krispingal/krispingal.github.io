@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/css/main.css">
 
       <script src="/js/main.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
@@ -73,9 +73,11 @@
     
 <div class="content">
     <h1>A guide to Neural Networks</h1>
-    
-    
+<div class="article-meta">
     <time datetime="2018-11-04T00:00:00-05:00">November 4, 2018</time>
+    <span class="separator">|</span>
+    <p>14 min</p>
+</div>
     <article>
         <figure><img src="/articles/guide-to-neural-network/nn.webp"
     alt="Fig 1. Neural net with Input layer ∈ ℝ16; hidden layer 1 ∈ ℝ12; hidden layer 2 ∈ ℝ10 and finally a single unit ∈ ℝ in the output layer" loading="lazy"><figcaption>
@@ -242,17 +244,14 @@ curve and how we need to find the sweet spot that gets our model the best perfor
 
 <p>There are quite a few deep learning libraries that have emerged. Some of the popular ones include <a href="https://www.tensorflow.org/">Tensorflow</a>, <a href="http://deeplearning.net/software/theano/">Theano</a>, <a href="http://torch.ch/">Torch</a>, and <a href="https://pytorch.org/">Pytorch</a>. <a href="https://keras.io/">Keras</a> is also another popular deep learning library, which is a high-level one that sits on top of a library such as Tensorflow and Theano. As of 2017 Keras has been integrated into Tensorflow, allowing us to use the simpler UI to create networks. <em>Tensorflow-Keras</em> is more favored in industry when you need your model to be fast and run on mobiles as well. <em>Pytorch</em> is another popular open-source machine learning library in python that is more adopted in academia because it allows a lot of flexibility. Both of these libraries are well documented and have numerous tutorials online.</p>
     </article>
-    
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/neural-networks/">Neural Networks</a></li>
   </ul>
 
-    
 
 
 
 </div>
-
   </main>
   <footer>
     

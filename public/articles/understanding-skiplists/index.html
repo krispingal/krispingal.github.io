@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/css/main.css">
 
       <script src="/js/main.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         renderMathInElement(document.body, {
@@ -75,9 +75,11 @@
     
 <div class="content">
     <h1>Understanding Skip lists</h1>
-    
-    
+<div class="article-meta">
     <time datetime="2024-11-01T00:00:00-05:00">November 1, 2024</time>
+    <span class="separator">|</span>
+    <p>11 min</p>
+</div>
     <article>
         <p>Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.</p>
 <p>With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.</p>
@@ -309,7 +311,7 @@ play. We can assign the level of a node randomly provided the probability for ea
   <a class="anchor" href="#closing-notes-when-to-use-skip-lists" aria-label="Link to section - Closing notes: When to use Skip Lists">#</a>
 </h2>
 
-<p>Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of $O(\log{n})$ for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
+<p>Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of \(O(\log{n})\) for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
 <strong>Range Queries</strong></p>
 <ul>
 <li><strong>Efficient range searches</strong>: Skip lists excel in range queries, as they allow for quick traversal over nodes within specified bounds. By leveraging the multi-level structure, skip lists can efficiently identify all elements within a given range.</li>
@@ -331,19 +333,16 @@ play. We can assign the level of a node randomly provided the probability for ea
 </ul>
 <p>You can see the full implementation <a href="https://github.com/krispingal/DSA/blob/main/src/dsa/datastructures/skip_lists.py">here</a>.</p>
     </article>
-    
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/data-structures/">Data Structures</a></li>
       <li><a href="/tags/python/">Python</a></li>
       <li><a href="/tags/probabilistic/">Probabilistic</a></li>
   </ul>
 
-    
 
 
 
 </div>
-
   </main>
   <footer>
     

@@ -6,7 +6,7 @@ timezone = 'America/Chicago'
 enableRobotsTXT = true
 
 [params]
-  math = true
+  math = false
   [params.contact]
     email = 'krishna.pingal@gmail.com'
 

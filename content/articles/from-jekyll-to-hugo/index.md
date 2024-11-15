@@ -44,7 +44,7 @@ After moving the content, Hugo rendered my existing posts without any issues. I 
 Render hooks allow Hugo’s Markdown parser (Goldmark) to process and render content in a customized way. For example, if you want to style all images across your site by wrapping them in a div element with specific classes, render hooks make this possible. Render hooks use Hugo’s templating language to stylize content without having to write repetitive HTML code each time.
 
 In my case, I used render hooks to automatically generate permalinks for anchor links:
-```
+```html
 <h{{ .Level }} id="{{ .Anchor | safeURL }}">
   {{ .Text }}
   <a class="anchor" href="#{{ .Anchor | safeURL }}" aria-label="Link to section - {{ .Text }}">#</a>
@@ -58,7 +58,7 @@ In Jekyll, I used Liquid templates to render figures. Hugo, in its newer version
 
 My {{< sidenote id="1" label="sidenotes" content="Speaking of sidenotes in web pages Gwern has an <a href=\"https://gwern.net/sidenote\">article</a>:  that has an in-depth discussion and compares multiple implementations." >}} were based off of [Koos Looijesteijn's implementation][kooslooijesteijn]. For me, sidenotes are a step up from traditional footnotes, allowing room for tangential details — something I enjoy including! Here’s the shortcode I used for sidenotes, which requires CSS available in Koos Looijesteijn's [github repository][sidenotes_repo].
 
-```
+```html
 <span class="sidenote">
   <input
     aria-label="Show sidenote"

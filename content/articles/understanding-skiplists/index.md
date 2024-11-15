@@ -219,7 +219,7 @@ def delete(self, target: int) -> bool:
 
 ## Closing notes: When to use Skip Lists
 
-Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of $O(\log{n})$ for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
+Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of \\(O(\log{n})\\) for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
 **Range Queries**
 
 - **Efficient range searches**: Skip lists excel in range queries, as they allow for quick traversal over nodes within specified bounds. By leveraging the multi-level structure, skip lists can efficiently identify all elements within a given range.

@@ -6,7 +6,6 @@ description = 'Building a layer 7 Load balancer in go that routes requests, SSL 
 keywords = ['golang', 'layer 7 load balancer']
 tags = ['golang', 'load balancer']
 images = ['load_balancer.webp']
-math = false
 +++
 
 Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.

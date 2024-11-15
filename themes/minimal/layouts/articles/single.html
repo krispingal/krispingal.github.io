@@ -1,13 +1,11 @@
-{{ define "main" }}
+{{- define "main" }}
 <div class="content">
-    <h1>{{ .Title }}</h1>
-    {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-    {{ $dateHuman := .Date | time.Format ":date_long" }}
-    <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    <h1>{{- .Title }}</h1>
+    {{- partial "article-meta.html" . }}
     <article>
         {{ .Content }}
     </article>
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-    {{ partial "related.html" .}}
+    {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    {{- partial "related.html" .}}
 </div>
-{{ end }}
+{{- end }}
