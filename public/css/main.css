@@ -182,8 +182,8 @@ article ul li::before {
 
 article hr {
   border: none;
-  border-top: 3px double #333;
-  color: #333;
+  border-top: 3px double #1D2731;
+  color: #1D2731;
   overflow: visible;
   text-align: center;
   height: 5px;
