@@ -31,7 +31,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0em 3em;
+  max-width: 70em;
+  padding: 0 2em;
+  margin: auto;
   color: #fff;
 }
 
