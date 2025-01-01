@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<title>Promises in Python | kbabuji</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+      <script src="/js/main.js"></script>
+
+  <meta itemprop="name" content="Promises in Python">
+  <meta itemprop="description" content="Exploring Async Patterns and alternatives in python. This article explores how to implement Promises in Python, inspired by JavaScript&#39;s async programming model. You&#39;ll learn about Python&#39;s asyncio, build a simple Promise implementation, and see practical examples of its use.">
+  <meta itemprop="datePublished" content="2024-12-31T00:00:00-06:00">
+  <meta itemprop="dateModified" content="2024-12-31T00:00:00-06:00">
+  <meta itemprop="wordCount" content="1339">
+  <meta itemprop="keywords" content="Python concurrency,Python Promises">
+<meta property="og:url" content="http://localhost:1313/articles/promises-in-python/">
+  <meta property="og:site_name" content="kbabuji">
+  <meta property="og:title" content="Promises in Python">
+  <meta property="og:description" content="Exploring Async Patterns and alternatives in python. This article explores how to implement Promises in Python, inspired by JavaScript&#39;s async programming model. You&#39;ll learn about Python&#39;s asyncio, build a simple Promise implementation, and see practical examples of its use.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-12-31T00:00:00-06:00">
+    <meta property="article:modified_time" content="2024-12-31T00:00:00-06:00">
+    <meta property="article:tag" content="Concurrency">
+    <meta property="article:tag" content="Python">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="masthead">
+    <h2 ><a class="site-title" href="/">kbabuji</a></h2>
+    <nav class="nav-links">
+        <a href="/about">About</a>
+        <a href="/articles">Archives</a>
+        <a href="/tags">Tags</a>
+    </nav>
+</div>
+  </header>
+  <main class="wrapper">
+    
+<div class="content">
+    <h1>Promises in Python</h1>
+<div class="article-meta">
+    <time datetime="2024-12-31T00:00:00-06:00">December 31, 2024</time>
+    <span class="separator">|</span>
+    <p>7 min</p>
+</div>
+    <article>
+        <h2 id="what-are-promises">
+  What Are Promises?
+  <a class="anchor" href="#what-are-promises" aria-label="Link to section - What Are Promises?">#</a>
+</h2>
+
+<p>In JavaScript, Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a powerful way to manage asynchronous code, enabling developers to write cleaner and more maintainable logic.</p>
+<p>Promises allow us to associate handlers for both the success and failure of an asynchronous operation. By treating asynchronous code similarly to synchronous code, they reduce the complexity and improve the readability of workflows that would otherwise be riddled with convoluted callbacks—commonly referred to as &ldquo;callback hell.&rdquo;</p>
+<p>With Promises, you can chain operations seamlessly using .then for successful resolution and .catch for error handling. Here&rsquo;s an example in JavaScript:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">myPromise</span>
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and bar`</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and bar again`</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and again`</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>  .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">err</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  });
+</span></span></code></pre></div><p>In this example, the chain begins with myPromise. If myPromise resolves to the string &ldquo;Timon&rdquo;, the output on the console would be:
+<code>Timon and bar and bar again and again</code>.</p>
+<p>Promises simplify the orchestration of sequential and dependent asynchronous operations, making them an essential feature for modern JavaScript development.</p>
+<hr>
+<h2 id="breaking-down-a-promise">
+  Breaking Down a Promise
+  <a class="anchor" href="#breaking-down-a-promise" aria-label="Link to section - Breaking Down a Promise">#</a>
+</h2>
+
+<p>A Promise operates as a container for an asynchronous operation and its eventual result. To understand how Promises work, we can break them into two main parts:</p>
+<ol>
+<li><strong>The Executor Function</strong>: This is the method that performs the main asynchronous operation. It takes two callbacks: resolve, which is invoked on success, and reject, which is invoked on failure.</li>
+<li><strong>Callback Handlers</strong>: Promises allow chaining of operations with two categories of callbacks:
+<em>Resolve Callbacks (then)</em>: These are executed after the main asynchronous operation completes successfully.
+<em>Reject Callbacks (catch)</em>: These handle errors or failures in the asynchronous operation.</li>
+</ol>
+<p>Promises make it possible to execute a series of asynchronous steps in sequence or handle errors gracefully, all while maintaining cleaner, more readable code.</p>
+<hr>
+<h2 id="a-python-implementation-of-promises">
+  A Python Implementation of Promises
+  <a class="anchor" href="#a-python-implementation-of-promises" aria-label="Link to section - A Python Implementation of Promises">#</a>
+</h2>
+
+<p>Let’s look at a small implementation of Promises in Python using asyncio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> asyncio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Promise</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, executor):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_then_callbacks <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_catch_callbacks <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_exec</span>():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> executor(self<span style="color:#f92672">.</span>_resolve, self<span style="color:#f92672">.</span>_reject)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>_reject(e)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        asyncio<span style="color:#f92672">.</span>create_task(_exec())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_resolve</span>(self, value):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> callback <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_then_callbacks:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>_handle_callback(callback, value)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>_reject(e)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_reject</span>(self, error):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> callback <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_catch_callbacks:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>_handle_callback(callback, error)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error in reject callback: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_handle_callback</span>(self, callback, value):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> callback(value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">then</span>(self, callback):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_then_callbacks<span style="color:#f92672">.</span>append(callback)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">catch</span>(self, callback):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_catch_callbacks<span style="color:#f92672">.</span>append(callback)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self
+</span></span></code></pre></div><p>Key Features of This Implementation:</p>
+<ol>
+<li><strong>Executor Function</strong>: The <code>executor</code> is passed to the <code>Promise</code> constructor and is expected to perform an asynchronous operation. It calls <code>self._resolve</code> on success and <code>self._reject</code> on failure.</li>
+<li><strong>Chaining with</strong> <code>then</code> <strong>and</strong> <code>catch</code>: Both methods append callbacks to their respective lists and return <code>self</code>, enabling method chaining similar to JavaScript Promises.</li>
+<li><strong>Error Handling</strong>: Any exception raised during the execution or callbacks is passed to the reject chain for graceful error handling.</li>
+</ol>
+<p>This implementation mirrors the behavior of JavaScript Promises in Python using <code>asyncio</code>, providing a clean and intuitive way to handle asynchronous workflows.</p>
+<hr>
+<h2 id="a-working-example-with-promises">
+  A Working Example with Promises
+  <a class="anchor" href="#a-working-example-with-promises" aria-label="Link to section - A Working Example with Promises">#</a>
+</h2>
+
+<p>In the previous section, we explored a Python implementation of Promises. Now, let’s see it in action with a real-world example. We’ll perform an asynchronous operation to fetch a post from <a href="https://dummyjson.com/">dummyjson.com</a>. The fetching logic will be wrapped within the Promise executor, and we’ll attach <code>then</code> (resolve) and <code>catch</code> (reject) handlers to manage success and failure scenarios.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> aiohttp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fetch_post</span>(post_id: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">executor</span>(resolve, reject):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> aiohttp<span style="color:#f92672">.</span>ClientSession() <span style="color:#66d9ef">as</span> session:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://dummyjson.com/posts/</span><span style="color:#e6db74">{</span>post_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> session<span style="color:#f92672">.</span>get(url) <span style="color:#66d9ef">as</span> response:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
+</span></span><span style="display:flex;"><span>                        data <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> response<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">await</span> resolve(data)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">await</span> reject(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;HTTP Error: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>status<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> reject(e)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Promise(executor)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    done <span style="color:#f92672">=</span> asyncio<span style="color:#f92672">.</span>Future()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_result</span>(post):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Post title: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Post body: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;body&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        done<span style="color:#f92672">.</span>set_result(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_error</span>(error):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Got error: </span><span style="color:#e6db74">{</span>error<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        done<span style="color:#f92672">.</span>set_result(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Test success case with post id 1</span>
+</span></span><span style="display:flex;"><span>    promise <span style="color:#f92672">=</span> fetch_post(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    promise<span style="color:#f92672">.</span>then(handle_result)<span style="color:#f92672">.</span>catch(handle_error)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> done
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Reset future for error case</span>
+</span></span><span style="display:flex;"><span>    done <span style="color:#f92672">=</span> asyncio<span style="color:#f92672">.</span>Future()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Test error case with invalid post id</span>
+</span></span><span style="display:flex;"><span>    promise <span style="color:#f92672">=</span> fetch_post(<span style="color:#ae81ff">999999</span>)  <span style="color:#75715e"># Non-existent post</span>
+</span></span><span style="display:flex;"><span>    promise<span style="color:#f92672">.</span>then(handle_result)<span style="color:#f92672">.</span>catch(handle_error)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> done
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    asyncio<span style="color:#f92672">.</span>run(main())
+</span></span></code></pre></div><h3 id="explanation">
+  Explanation
+  <a class="anchor" href="#explanation" aria-label="Link to section - Explanation">#</a>
+</h3>
+
+<ol>
+<li><strong>The</strong> <code>fetch_post</code> <strong>Function</strong>: This function creates a Promise that fetches a post from the API endpoint.
+On a successful response (<code>status == 200</code>), it calls the <code>resolve</code> function with the fetched data.
+On failure, such as an HTTP error or network issue, it calls the <code>reject</code> function with an error message.</li>
+<li><strong>The <code>main</code> Coroutine</strong>:
+It tests both success and failure cases using two Promise instances.
+<code>then</code> is used to process the result when the Promise resolves successfully, and <code>catch</code> handles errors gracefully.</li>
+<li><strong>Testing Success and Failure Scenarios</strong>:
+In the success case, fetching a valid post (e.g., <code>post_id</code>=1) prints the post title and body.
+In the failure case, attempting to fetch a non-existent post (e.g., <code>post_id=999999</code>) triggers the error handler and prints an error message.
+4.<strong>Chaining with <code>then</code> and <code>catch</code></strong>: The Promise implementation supports chaining, enabling a clean and readable flow for asynchronous tasks.</li>
+</ol>
+<hr>
+<h2 id="alternative-pythonic-way-of-completing-the-task">
+  Alternative Pythonic Way of Completing the Task
+  <a class="anchor" href="#alternative-pythonic-way-of-completing-the-task" aria-label="Link to section - Alternative Pythonic Way of Completing the Task">#</a>
+</h2>
+
+<p>While implementing a Promise system in Python is an interesting exercise, it&rsquo;s worth noting that Python has built-in support for asynchronous programming with async/await. Using coroutines and asyncio utilities is the more Pythonic approach and avoids reinventing the wheel.</p>
+<p>Let’s revisit the same task of fetching posts from dummyjson.com, but this time using Python’s native async programming idioms:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> asyncio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> aiohttp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>POSTS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://dummyjson.com/posts&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fetch_post_title</span>(session: aiohttp<span style="color:#f92672">.</span>ClientSession, id: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> session<span style="color:#f92672">.</span>get(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>POSTS<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">as</span> response:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
+</span></span><span style="display:flex;"><span>                data <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> response<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> data
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;HTTP Error: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>status<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This is like the &#34;catch&#34; part of our Promise</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error fetching post </span><span style="color:#e6db74">{</span>id<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_post</span>(post):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This is like our &#34;then&#34; callback</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> post:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Title: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Body: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;body&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> post
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(num_posts<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> aiohttp<span style="color:#f92672">.</span>ClientSession() <span style="color:#66d9ef">as</span> session:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Create tasks for fetching posts</span>
+</span></span><span style="display:flex;"><span>        fetch_tasks <span style="color:#f92672">=</span> [fetch_post_title(session, i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, num_posts <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Fetch all posts</span>
+</span></span><span style="display:flex;"><span>        posts <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> asyncio<span style="color:#f92672">.</span>gather(<span style="color:#f92672">*</span>fetch_tasks, return_exceptions<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Process posts (equivalent to our &#34;then&#34; chain)</span>
+</span></span><span style="display:flex;"><span>        process_tasks <span style="color:#f92672">=</span> [process_post(post) <span style="color:#66d9ef">for</span> post <span style="color:#f92672">in</span> posts <span style="color:#66d9ef">if</span> post <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> asyncio<span style="color:#f92672">.</span>gather(<span style="color:#f92672">*</span>process_tasks)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    asyncio<span style="color:#f92672">.</span>run(main())
+</span></span></code></pre></div><h3 id="explanation-1">
+  Explanation
+  <a class="anchor" href="#explanation-1" aria-label="Link to section - Explanation">#</a>
+</h3>
+
+<ol>
+<li><strong>Direct Coroutines</strong>:
+<ul>
+<li><code>fetch_post_title</code> fetches a post asynchronously, raising an exception if the request fails. This is functionally similar to the <code>Promise</code> executor.</li>
+</ul>
+</li>
+<li><strong>Error Handling</strong>:
+<ul>
+<li>Errors are caught within <code>fetch_post_title</code> using a <code>try-except</code> block, much like the catch handler in the Promise implementation.</li>
+</ul>
+</li>
+<li><strong>Processing Results</strong>:
+<ul>
+<li>The <code>process_post</code> coroutine handles the fetched post data, mirroring the <code>then</code> chain functionality.</li>
+</ul>
+</li>
+<li><strong>Concurrent Execution</strong>:
+<ul>
+<li>The <code>asyncio.gather</code> function is used to execute fetch and process tasks concurrently, avoiding the need for manual chaining or custom Promise logic.</li>
+</ul>
+</li>
+<li><strong>Comparison with Promises</strong>:
+<ul>
+<li>This approach directly leverages Python’s async programming model, resulting in less boilerplate and a cleaner, more idiomatic codebase.</li>
+<li>Instead of chaining methods (<code>then</code>, <code>catch</code>), coroutines are structured as discrete steps, making the control flow explicit.</li>
+</ul>
+</li>
+</ol>
+<h3 id="a-note-on-alternatives-threadpoolexecutor-vs-aiohttp">
+  A Note on Alternatives: <code>ThreadPoolExecutor</code> vs. <code>aiohttp</code>
+  <a class="anchor" href="#a-note-on-alternatives-threadpoolexecutor-vs-aiohttp" aria-label="Link to section - A Note on Alternatives: ThreadPoolExecutor vs. aiohttp">#</a>
+</h3>
+
+<p>While this post focuses on implementing Promises in Python and showcasing asynchronous programming with <code>aiohttp</code>, it&rsquo;s worth noting that similar functionality can be achieved using <code>ThreadPoolExecutor</code> with the <code>requests</code> library.</p>
+<p>The ThreadPoolExecutor approach is more familiar to Python developers who haven&rsquo;t worked extensively with <code>asyncio</code>. However, it may not provide significant performance improvements over <code>aiohttp</code> for handling many HTTP requests due to thread overhead. Here’s an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>POSTS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://dummyjson.com/posts&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fetch_post</span>(post_id: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>POSTS<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>post_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        response<span style="color:#f92672">.</span>raise_for_status()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> response<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error fetching post </span><span style="color:#e6db74">{</span>id<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_post</span>(post):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> post:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Title: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Body: </span><span style="color:#e6db74">{</span>post[<span style="color:#e6db74">&#39;body&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> post
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(num_posts<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> ThreadPoolExecutor() <span style="color:#66d9ef">as</span> executor:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Fetch posts concurrently</span>
+</span></span><span style="display:flex;"><span>        post_ids <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">1</span>, num_posts <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        results <span style="color:#f92672">=</span> list(executor<span style="color:#f92672">.</span>map(fetch_post, post_ids))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Process posts (equivalent to our &#34;then&#34; chain)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> post <span style="color:#f92672">in</span> results:
+</span></span><span style="display:flex;"><span>            process_post(post)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>This alternative doesn&rsquo;t rely on aiohttp or Python&rsquo;s <code>asyncio</code> event loop, making it simpler to understand and implement. However, for high-concurrency tasks, <code>aiohttp</code> typically offers better performance by avoiding thread management overhead.</p>
+    </article>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/concurrency/">Concurrency</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+  </ul>
+
+
+
+
+</div>
+  </main>
+  <footer>
+    
+<div class="footer-icons">
+    <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
+    <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>
+    <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+    <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
+</div>
+<p class="footer-copyright">© 2016 &ndash; 2025 kbabuji. All rights reserved.</p>
+
+  </footer>
+</body>
+
+</html>

@@ -6,8 +6,15 @@
     <description>Recent content in Archives on kbabuji</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Nov 2024 13:22:53 -0600</lastBuildDate>
+    <lastBuildDate>Tue, 31 Dec 2024 00:00:00 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Promises in Python</title>
+      <link>http://localhost:1313/articles/promises-in-python/</link>
+      <pubDate>Tue, 31 Dec 2024 00:00:00 -0600</pubDate>
+      <guid>http://localhost:1313/articles/promises-in-python/</guid>
+      <description>&lt;h2 id=&#34;what-are-promises&#34;&gt;&#xA;  What Are Promises?&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#what-are-promises&#34; aria-label=&#34;Link to section - What Are Promises?&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&#xA;&lt;p&gt;In JavaScript, Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a powerful way to manage asynchronous code, enabling developers to write cleaner and more maintainable logic.&lt;/p&gt;&#xA;&lt;p&gt;Promises allow us to associate handlers for both the success and failure of an asynchronous operation. By treating asynchronous code similarly to synchronous code, they reduce the complexity and improve the readability of workflows that would otherwise be riddled with convoluted callbacks—commonly referred to as &amp;ldquo;callback hell.&amp;rdquo;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>From Jekyll to Hugo</title>
       <link>http://localhost:1313/articles/from-jekyll-to-hugo/</link>

@@ -11,5 +11,5 @@ Here are some commands that I use, when writing articles
 
 ## Shortcodes for templating
 
-**sidenotes**: {{< sidenote id="1" label="sidenote text" content="sidenote content." >}}
-**figure**: {{< figure src="[image-name.format]" alt="[Alt text]" title="[Title] loading="lazy" >}} - there are other options here, it is best practice to provide height and width as well.
+- **sidenotes**: {{< sidenote id="1" label="sidenote text" content="sidenote content." >}}
+- **figure**: {{< figure src="[image-name.format]" alt="[Alt text]" title="[Title] loading="lazy" >}} - there are other options here, it is best practice to provide height and width as well.

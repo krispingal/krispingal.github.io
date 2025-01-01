@@ -79,13 +79,13 @@ if we know the proximity of other elements. In practice when we have `inserts` a
 distribution of data we will have no way to know what level is optimal for a node. Here is where probability comes into
 play. We can assign the level of a node randomly provided the probability for each node decreases exponentially.
 
-The level structure is also such that if a node is at level $k$ it has pointers to forwards for all levels less than $k$.
+The level structure is also such that if a node is at level \\(k\\) it has pointers to forwards for all levels less than \\(k\\).
 
 So far, we've discussed levels in skip lists. Ideally, we could manually select which elements to place on higher levels if we had information about the distribution or proximity of elements. However, in dynamic scenarios where `insert` and `delete` operations occur without any predefined data distribution, it’s difficult to predict an optimal level for each new node. Probability provides an elegant solution here.
 
-By using a random level assignment governed by a probability factor, we ensure that the number of nodes decreases exponentially with each increasing level. This probabilistic approach keeps the skip list balanced on average, allowing it to maintain efficient $O(\log{n})$ performance across `search`, `insert`, and `delete` operations.
+By using a random level assignment governed by a probability factor, we ensure that the number of nodes decreases exponentially with each increasing level. This probabilistic approach keeps the skip list balanced on average, allowing it to maintain efficient \\(O(\log{n})\\) performance across `search`, `insert`, and `delete` operations.
 
-Additionally, each node’s level is structured such that if a node is at level $k$, it has forward pointers for all levels below $k$. This ensures seamless traversal between levels during search operations.
+Additionally, each node’s level is structured such that if a node is at level \\(k\\), it has forward pointers for all levels below \\(k\\). This ensures seamless traversal between levels during search operations.
 
 ---
 

@@ -170,10 +170,10 @@ Till now we talked about the levels in skip lists. One could carefully choose wh
 if we know the proximity of other elements. In practice when we have <code>inserts</code> and <code>deletes</code> with no information on the
 distribution of data we will have no way to know what level is optimal for a node. Here is where probability comes into
 play. We can assign the level of a node randomly provided the probability for each node decreases exponentially.</p>
-<p>The level structure is also such that if a node is at level $k$ it has pointers to forwards for all levels less than $k$.</p>
+<p>The level structure is also such that if a node is at level \(k\) it has pointers to forwards for all levels less than \(k\).</p>
 <p>So far, we&rsquo;ve discussed levels in skip lists. Ideally, we could manually select which elements to place on higher levels if we had information about the distribution or proximity of elements. However, in dynamic scenarios where <code>insert</code> and <code>delete</code> operations occur without any predefined data distribution, it’s difficult to predict an optimal level for each new node. Probability provides an elegant solution here.</p>
-<p>By using a random level assignment governed by a probability factor, we ensure that the number of nodes decreases exponentially with each increasing level. This probabilistic approach keeps the skip list balanced on average, allowing it to maintain efficient $O(\log{n})$ performance across <code>search</code>, <code>insert</code>, and <code>delete</code> operations.</p>
-<p>Additionally, each node’s level is structured such that if a node is at level $k$, it has forward pointers for all levels below $k$. This ensures seamless traversal between levels during search operations.</p>
+<p>By using a random level assignment governed by a probability factor, we ensure that the number of nodes decreases exponentially with each increasing level. This probabilistic approach keeps the skip list balanced on average, allowing it to maintain efficient \(O(\log{n})\) performance across <code>search</code>, <code>insert</code>, and <code>delete</code> operations.</p>
+<p>Additionally, each node’s level is structured such that if a node is at level \(k\), it has forward pointers for all levels below \(k\). This ensures seamless traversal between levels during search operations.</p>
 <hr>
 <h2 id="search-operation-in-skip-lists">
   Search operation in Skip Lists
@@ -352,7 +352,7 @@ play. We can assign the level of a node randomly provided the probability for ea
     <a href="https://linkedin.com/in/krishna-babuji" target="_blank" aria-label="LinkedIn"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
     <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a>
 </div>
-<p class="footer-copyright">© 2016 &ndash; 2024 kbabuji. All rights reserved.</p>
+<p class="footer-copyright">© 2016 &ndash; 2025 kbabuji. All rights reserved.</p>
 
   </footer>
 </body>
