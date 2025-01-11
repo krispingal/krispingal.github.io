@@ -1,14 +1,16 @@
 {{ define "main" }}
+<main>
   <div class="content">
-    {{ .Content }}
-    {{ $pages := where .Site.RegularPages "Section" "articles" }}
-    {{ $paginator := .Paginate $pages.ByDate.Reverse 5}}
-    {{ range $paginator.Pages }}
-      {{ .Render "card" }}
-    {{ end }}
+    {{- .Content }}
+    {{- $pages := where .Site.RegularPages "Section" "articles" }}
+    {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
+    {{- range $paginator.Pages }}
+    {{- .Render "card" }}
+    {{- end }}
 
-    {{ if or ($paginator.HasPrev) ($paginator.HasNext) }}
-      {{ partial "pagination.html" . }}
-    {{ end}}
+    {{- if or ($paginator.HasPrev) ($paginator.HasNext) }}
+    {{- partial "pagination.html" . }}
+    {{- end}}
   </div>
-{{ end }}
+</main>
+{{- end }}

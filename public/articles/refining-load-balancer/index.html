@@ -6,16 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
 <title>Refining Load Balancer | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
-
       <script src="/js/main.js"></script>
-
   <meta itemprop="name" content="Refining Load Balancer">
   <meta itemprop="description" content="Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup">
   <meta itemprop="datePublished" content="2024-10-19T00:00:00-05:00">
   <meta itemprop="dateModified" content="2024-10-19T00:00:00-05:00">
   <meta itemprop="wordCount" content="1768">
-  <meta itemprop="keywords" content="golang,layer 7 load balancer,Clean Architecture">
-<meta property="og:url" content="http://localhost:1313/articles/refining-load-balancer/">
+  <meta itemprop="keywords" content="golang,layer 7 load balancer,Clean Architecture"><meta property="og:url" content="http://localhost:1313/articles/refining-load-balancer/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Refining Load Balancer">
   <meta property="og:description" content="Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup">
@@ -27,7 +24,6 @@
     <meta property="article:tag" content="Scalability">
     <meta property="article:tag" content="Load Balancer">
     <meta property="article:tag" content="Golang">
-
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -123,25 +119,25 @@
 
 <p>The shift to a configuration-driven approach has boosted maintainability. As an open-source tool, the load balancer now allows users to customize features like route mapping and rate limiting through simple configuration changes, making it easier for others to adapt it to their needs.</p>
 <p>Here&rsquo;s a snippet of what my config file looks like</p>
-<div class="highlight" id="config"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>[[<span style="color:#a6e22e">routes</span>]]
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;/apiB&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8082&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8084&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>[[<span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">backends</span>]]
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;http://localhost:8085&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span><span style="color:#a6e22e">health</span> = <span style="color:#e6db74">&#34;/health&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>[<span style="color:#a6e22e">rateLimiter</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span><span style="color:#a6e22e">type</span> = <span style="color:#e6db74">&#34;none&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span><span style="color:#75715e">#type = &#34;fixed_window&#34;  # can be &#34;fixed_window&#34;, &#34;token_bucket&#34;, &#34;none&#34;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span><span style="color:#75715e">#limit = 100</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span><span style="color:#75715e">#window = &#34;1m&#34;</span>
+<div class="highlight" id="config"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 1</span><span>[[routes]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 2</span><span>path = <span style="color:#a6da95">&#34;/apiB&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 3</span><span>[[routes.backends]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 4</span><span>url = <span style="color:#a6da95">&#34;http://localhost:8082&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 5</span><span>health = <span style="color:#a6da95">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 6</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 7</span><span>[[routes.backends]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 8</span><span>url = <span style="color:#a6da95">&#34;http://localhost:8084&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 9</span><span>health = <span style="color:#a6da95">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">11</span><span>[[routes.backends]]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">12</span><span>url = <span style="color:#a6da95">&#34;http://localhost:8085&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">13</span><span>health = <span style="color:#a6da95">&#34;/health&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">14</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span>[rateLimiter]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">16</span><span>type = <span style="color:#a6da95">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">17</span><span><span style="color:#6e738d;font-style:italic">#type = &#34;fixed_window&#34;  # can be &#34;fixed_window&#34;, &#34;token_bucket&#34;, &#34;none&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">18</span><span><span style="color:#6e738d;font-style:italic">#limit = 100</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">19</span><span><span style="color:#6e738d;font-style:italic">#window = &#34;1m&#34;</span>
 </span></span></code></pre></div><hr>
 <h2 id="improving-throughput-with-connection-pooling">
   Improving Throughput with Connection Pooling
@@ -161,16 +157,16 @@
 </h3>
 
 <p>Instead of relying on an external library, I implemented connection pooling using Go’s built-in net/http library. Below is a code snippet demonstrating the pooling setup used in the health checkers:</p>
-<div class="highlight" id="connection-pooling"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#a6e22e">transport</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Transport</span>{
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>	<span style="color:#a6e22e">MaxIdleConns</span>:        <span style="color:#ae81ff">50</span>, <span style="color:#75715e">// Maximum number of idle connections
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">MaxIdleConnsPerHost</span>: <span style="color:#ae81ff">10</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>	<span style="color:#a6e22e">IdleConnTimeout</span>:     <span style="color:#ae81ff">30</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>	<span style="color:#a6e22e">DisableKeepAlives</span>:   <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// Ensure keep-alives are enabled for connection reuse
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#a6e22e">pooledClient</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Client</span>{
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>	<span style="color:#a6e22e">Transport</span>: <span style="color:#a6e22e">transport</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>	<span style="color:#a6e22e">Timeout</span>:   <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>	}
+<div class="highlight" id="connection-pooling"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 1</span><span>transport <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>http.Transport{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 2</span><span>	MaxIdleConns:        <span style="color:#f5a97f">50</span>, <span style="color:#6e738d;font-style:italic">// Maximum number of idle connections
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 3</span><span><span style="color:#6e738d;font-style:italic"></span>	MaxIdleConnsPerHost: <span style="color:#f5a97f">10</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 4</span><span>	IdleConnTimeout:     <span style="color:#f5a97f">30</span> <span style="color:#91d7e3;font-weight:bold">*</span> time.Second,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 5</span><span>	DisableKeepAlives:   <span style="color:#f5a97f">false</span>, <span style="color:#6e738d;font-style:italic">// Ensure keep-alives are enabled for connection reuse
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 6</span><span><span style="color:#6e738d;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 7</span><span>pooledClient <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>http.Client{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 8</span><span>	Transport: transport,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 9</span><span>	Timeout:   <span style="color:#f5a97f">3</span> <span style="color:#91d7e3;font-weight:bold">*</span> time.Second,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">10</span><span>	}
 </span></span></code></pre></div><p>This setup allows multiple connections to stay alive, ready for reuse, and ensures that requests do not have to constantly establish new connections. The <code>MaxIdleConns</code> and <code>MaxIdleConnsPerHost</code> parameters ensure that idle connections are reused, while the <code>IdleConnTimeout</code> controls how long idle connections remain open. The DisableKeepAlives flag ensures connection persistence.</p>
 <h3 id="health-checkers-vs-load-balancer">
   Health Checkers vs. Load Balancer
@@ -269,50 +265,44 @@
 <p>As I continue developing the load balancer, these improvements set a solid foundation for future feature additions—whether it&rsquo;s implementing new routing strategies, rate-limiting algorithms, or custom plugins.</p>
 <p>In the next article, I’ll dive deeper into the improvements made to the health checkers, highlighting the changes that make backend monitoring more robust and responsive.</p>
 <p>You can see the <a href="https://github.com/krispingal/l7lb">github repository</a> here.</p>
-    </article>
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/scalability/">Scalability</a></li>
       <li><a href="/tags/load-balancer/">Load Balancer</a></li>
       <li><a href="/tags/golang/">Golang</a></li>
   </ul>
 
-
 <hr class="divider">
 <h3 class="further-reading-heading">Further Reading</h3>
-<div class="related-cards">
- 
- 
- <div class="related-card">
-   
-    <h3><a href="/articles/building-a-layer7-load-balancer/">Building a Layer 7 Load Balancer</a></h3>
+<aside>
+  <div class="related-cards">
+    
+    
+    <div class="related-card">
+      
+      <h3><a href="/articles/building-a-layer7-load-balancer/">Building a Layer 7 Load Balancer</a></h3>
 <div class="article-meta">
     <time datetime="2024-09-15T15:05:28-06:00">September 15, 2024</time>
     <span class="separator">|</span>
     <p>10 min</p>
 </div>
-    <p>Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.</p>
- </div>
- 
- 
- <div class="related-card">
-   
-    <h3><a href="/articles/from-jekyll-to-hugo/">From Jekyll to Hugo</a></h3>
+      <p>Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.</p>
+    </div>
+    
+    <div class="related-card">
+      
+      <h3><a href="/articles/from-jekyll-to-hugo/">From Jekyll to Hugo</a></h3>
 <div class="article-meta">
     <time datetime="2024-11-10T13:22:53-06:00">November 10, 2024</time>
     <span class="separator">|</span>
     <p>8 min</p>
 </div>
-    <p>A Personal Journey in Static Site Migration from Jekyll to Hugo</p>
- </div>
- 
-</div>
-
-
-
+      <p>A Personal Journey in Static Site Migration from Jekyll to Hugo</p>
+    </div>
+  </div>
+</aside>
 </div>
   </main>
   <footer>
-    
 <div class="footer-icons">
     <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
     <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>

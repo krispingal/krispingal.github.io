@@ -18,7 +18,7 @@ main {
   padding: 1em 1em;
   position: relative;
   min-width: 25em;
-  max-width: 33em;
+  max-width: 38em;
 }
 
 header {
@@ -432,9 +432,11 @@ a.button.read-more:hover:before, a.button.read-more:hover:after{
   object-fit: cover;
 }
 pre {
-  white-space: pre-wrap;
   tab-size: 4;
-  border-radius: 10px;
+  overflow-x: auto;
+  padding: 6px;
+  border-radius: 2px;
+  font-size: 14px;
 }
 
 /* Sidenote */

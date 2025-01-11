@@ -31,6 +31,19 @@ enableRobotsTXT = true
     name = "date"
     weight = 10
 
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    noHl = false
+    style = 'catppuccin-macchiato'
+    tabWidth = 4
 
 [sitemap]
   changeFreq = 'monthly'

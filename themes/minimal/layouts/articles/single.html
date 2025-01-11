@@ -4,7 +4,6 @@
     {{- partial "article-meta.html" . }}
     <article>
         {{ .Content }}
-    </article>
     {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
     {{- partial "related.html" .}}
 </div>
