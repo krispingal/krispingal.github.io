@@ -6,13 +6,13 @@
 </head>
 
 <body>
-  <header>
+  <header class="navbar">
     {{ partialCached "header.html" . }}
   </header>
   <main class="wrapper">
     {{ block "main" . }}{{ end }}
   </main>
-  <footer>
+  <footer class="footer-nav">
     {{- partialCached "footer.html" . }}
   </footer>
 </body>

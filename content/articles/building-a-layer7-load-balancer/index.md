@@ -2,8 +2,9 @@
 date = '2024-09-15T15:05:28-06:00'
 draft = false
 title = 'Building a Layer 7 Load Balancer'
-description = 'Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.'
+description = 'Behind every high-performing system lies a load balancer making invisible yet critical decisions—discover how these unsung heroes shape the digital world.'
 keywords = ['golang', 'layer 7 load balancer']
+categories = ['sda']
 tags = ['golang', 'load balancer']
 images = ['load_balancer.webp']
 +++

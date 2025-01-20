@@ -2,9 +2,10 @@
 date = '2024-11-01'
 draft = false
 title = 'Understanding Skip lists'
-description = 'An intro to skip lists three operations search, insert, and delete.'
+description = 'Could skipping through data be faster than balancing trees? Dive into the fascinating mechanics of skip lists, where probability shapes efficiency.'
 images = ['skipList.webp', 'skipListClassDiagram.webp']
 tags = ['Data structures', 'Python', 'Probabilistic']
+categories = ['dsa']
 [params]
   math = true
 +++

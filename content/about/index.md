@@ -3,6 +3,7 @@ menus = 'main'
 title = 'About'
 weight = 4
 layout = 'about'
+description = 'About me and site'
 [params]
   math = false
 +++

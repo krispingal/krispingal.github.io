@@ -1,10 +1,32 @@
 {{- define "main" }}
-<div class="content">
-    <h1>{{- .Title }}</h1>
-    {{- partial "article-meta.html" . }}
-    <article>
+{{- $category := index (.GetTerms "categories") 0 }}
+<article class="article-container">
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="category">{{ $category.LinkTitle }}</div>
+        <h1 class="title">{{- .Title }}</h1>
+        <p class="description">{{- .Description }}</p>
+        <div class="meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "January 2, 2006" }}
+            </time>
+        </div>
+    </header>
+    <div class="minimal-divider"></div>
+
+    <!-- Article Content -->
+    <div class="content">
         {{ .Content }}
-    {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="article-footer">
+        <nav class="article-tags">
+            {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+        </nav>
+    </footer>
+</article>
+<aside class="related-posts">
     {{- partial "related.html" .}}
-</div>
+</aside>
 {{- end }}

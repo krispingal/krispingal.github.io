@@ -3,7 +3,7 @@
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
 <title>Shelter Animal Outcomes | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
       <script src="/js/main.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
@@ -27,15 +27,15 @@
     });
 </script>
   <meta itemprop="name" content="Shelter Animal Outcomes">
-  <meta itemprop="description" content="adventures while doing shelter animal outcomes competition">
+  <meta itemprop="description" content="How do you predict the life paths of cats and dogs in shelters? This journey takes you through Kaggle’s shelter animal outcomes competition, from feature engineering to parameter tuning, with lessons learned at every step.">
   <meta itemprop="datePublished" content="2016-08-24T04:14:54-08:00">
   <meta itemprop="dateModified" content="2016-08-24T04:14:54-08:00">
-  <meta itemprop="wordCount" content="1118">
+  <meta itemprop="wordCount" content="1107">
   <meta itemprop="image" content="http://localhost:1313/articles/shelter-animal-outcomes/puppy.webp">
   <meta itemprop="keywords" content="kaggle"><meta property="og:url" content="http://localhost:1313/articles/shelter-animal-outcomes/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Shelter Animal Outcomes">
-  <meta property="og:description" content="adventures while doing shelter animal outcomes competition">
+  <meta property="og:description" content="How do you predict the life paths of cats and dogs in shelters? This journey takes you through Kaggle’s shelter animal outcomes competition, from feature engineering to parameter tuning, with lessons learned at every step.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -47,31 +47,40 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-
-
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
 </head>
 
 <body>
-  <header>
+  <header class="navbar">
     <div class="masthead">
     <h2 ><a class="site-title" href="/">kbabuji</a></h2>
     <nav class="nav-links">
         <a href="/about">About</a>
         <a href="/articles">Archives</a>
-        <a href="/tags">Tags</a>
+        <a href="/categories">Categories</a>
     </nav>
 </div>
   </header>
   <main class="wrapper">
     
-<div class="content">
-    <h1>Shelter Animal Outcomes</h1>
-<div class="article-meta">
-    <time datetime="2016-08-24T04:14:54-08:00">August 24, 2016</time>
-    <span class="separator">|</span>
-    <p>6 min</p>
-</div>
-    <article>
+<article class="article-container">
+    
+    <header class="article-header">
+        <div class="category">AI &amp; ML</div>
+        <h1 class="title">Shelter Animal Outcomes</h1>
+        <p class="description">How do you predict the life paths of cats and dogs in shelters? This journey takes you through Kaggle’s shelter animal outcomes competition, from feature engineering to parameter tuning, with lessons learned at every step.</p>
+        <div class="meta">
+            <time datetime="2016-08-24">
+                August 24, 2016
+            </time>
+        </div>
+    </header>
+    <div class="minimal-divider"></div>
+
+    
+    <div class="content">
         <figure><img src="/articles/shelter-animal-outcomes/puppy.webp" loading="lazy"><figcaption>
       <h4>A puppy taken in at a shelter</h4><p>
           <a href="https://www.flickr.com/photos/pifaslt/">Picture taken from SOS</a></p>
@@ -81,10 +90,10 @@
 <p><a href="https://www.kaggle.com/c/shelter-animal-outcomes">Shelter animal outcomes</a> is a knowledge
 competition hosted by <a href="https://www.kaggle.com/">kaggle</a>. My goal was to learn and get
 familiarized with the different techniques, methods and tools required to
-solve classification problems. In my adventures I used <a href="http://pandas.pydata.org/">pandas</a>,
+solve classification problems. Throughout this journey, I utilized <a href="http://pandas.pydata.org/">pandas</a>,
 <a href="http://matplotlib.org/">matplotlib</a>, <a href="https://stanford.edu/~mwaskom/software/seaborn/index.html">seaborn</a>, <a href="http://jupyter.org/">jupyter</a> and
 <a href="http://scikit-learn.org/stable/index.html">scikit-learn</a>. The goal of this competition
-is to predict the outcome of a cat or a dog, given it&rsquo;s age, gender(also
+is to predict the outcome of a cat or a dog, based on its age, gender(also
 whether spayed/neutered or not), breed, color. The outcomes are
 return-to-owner, adoption, transfer, euthanasia and died. In some cases
 we are provided with outcome subtypes too.</p>
@@ -156,16 +165,16 @@ passes and learned new things in every one of them.</p>
 some knowledge on how the data is spread and what features might be
 important. Next I did a crude feature manipulation and feature selection
 to finally get the following features: <code>AnimalType</code>, <code>AgeInDays</code>,
-<code>Sex+Neutered</code>, <code>HasName</code>. Finally I feed this data to scikit-learn&rsquo;s
-algorithms to get predictions. I tried to use as many algorithms I
+<code>Sex+Neutered</code>, <code>HasName</code>. This data was fed into Scikit-learn&rsquo;s algorithms
+to generate predictions. I tried to use as many algorithms I
 could but the evaluation metric log loss would need to get probability
 confidence for each outcome.</p>
 <p>\[
 \text{log loss} = -\frac{1}{N}\sum_{i=1}^{N} \sum_{j=1}^{M} y_{ij}\log(p_{ij}) \tag{1}
 \]</p>
 <p>Apart from using the score which Kaggle provides, I used cross-validation
-to get an estimate on how well the models are doing. I got scores which
-I was pretty much satisfied for an in initial pass.</p>
+to get an estimate on how well the models are doing.
+The results of this initial pass were satisfactory for a first attempt.</p>
 <p>Key learning point for me from the first pass was, I got familiar
 with scikit-learn&rsquo;s api for classification tasks as well as
 cross-validation.</p>
@@ -222,15 +231,15 @@ of parameters and the list of values these can take, then internally it
 will do a search over all the given parameters, and finally it will give
 you the combination which gives the best score. As you can imagine this
 is a computationally intensive operation.</p>
-<p>For certain classifiers, like SVM and gradientBoosting classsifiers,
+<p>For certain classifiers, like SVM and GradientTreeBoosting classsifiers,
 GridSearchCV even running on multiple cores could take hours to complete.
 In these cases I used the alternative <em>RandomizedSearchCV</em>, in which you
 can specify how many iterations it should perform. One can also provide
 random numbers from a range, for these parameters. Hence if you have low
 computational resources and want a solution which is good but not the best,<br>
 in limited time, this is a good solution, if you set low number of
-iterations. RandomizedSearchCV can also be used if you have plenty of
-computational resource and no set restrictions on time to iterate
+iterations. RandomizedSearchCV can also be used if you have ample
+computational resources and no time restrictions to iterate
 through many parameters that you might not want to list down. The
 drawback for RandomizedSearchCV is you might repeat an iteration with a
 set of parameters that might have already been tried.</p>
@@ -259,14 +268,22 @@ presumptions I held in my mind.</p>
   
   
     <blockquote>
-      <p>P.S: This post and related work is dedicated to my family&rsquo;s cat that
-passed away on 20 Aug. You are dearly missed. RIP kitty.</p>
+      <p>P.S.: This post and related work are dedicated to my family&rsquo;s cat, who passed away on August 20.</p>
 
     </blockquote>
+    </div>
 
-</div>
+    
+    <footer class="article-footer">
+        <nav class="article-tags">
+
+        </nav>
+    </footer>
+</article>
+<aside class="related-posts">
+</aside>
   </main>
-  <footer>
+  <footer class="footer-nav">
 <div class="footer-icons">
     <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
     <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>

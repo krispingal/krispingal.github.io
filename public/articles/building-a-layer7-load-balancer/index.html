@@ -3,12 +3,12 @@
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
 <title>Building a Layer 7 Load Balancer | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
       <script src="/js/main.js"></script>
   <meta itemprop="name" content="Building a Layer 7 Load Balancer">
-  <meta itemprop="description" content="Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.">
+  <meta itemprop="description" content="Behind every high-performing system lies a load balancer making invisible yet critical decisions—discover how these unsung heroes shape the digital world.">
   <meta itemprop="datePublished" content="2024-09-15T15:05:28-06:00">
   <meta itemprop="dateModified" content="2024-09-15T15:05:28-06:00">
   <meta itemprop="wordCount" content="2005">
@@ -16,7 +16,7 @@
   <meta itemprop="keywords" content="golang,layer 7 load balancer"><meta property="og:url" content="http://localhost:1313/articles/building-a-layer7-load-balancer/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Building a Layer 7 Load Balancer">
-  <meta property="og:description" content="Building a layer 7 Load balancer in go that routes requests, SSL termination, rate limiting.">
+  <meta property="og:description" content="Behind every high-performing system lies a load balancer making invisible yet critical decisions—discover how these unsung heroes shape the digital world.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -30,31 +30,40 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-
-
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
 </head>
 
 <body>
-  <header>
+  <header class="navbar">
     <div class="masthead">
     <h2 ><a class="site-title" href="/">kbabuji</a></h2>
     <nav class="nav-links">
         <a href="/about">About</a>
         <a href="/articles">Archives</a>
-        <a href="/tags">Tags</a>
+        <a href="/categories">Categories</a>
     </nav>
 </div>
   </header>
   <main class="wrapper">
     
-<div class="content">
-    <h1>Building a Layer 7 Load Balancer</h1>
-<div class="article-meta">
-    <time datetime="2024-09-15T15:05:28-06:00">September 15, 2024</time>
-    <span class="separator">|</span>
-    <p>10 min</p>
-</div>
-    <article>
+<article class="article-container">
+    
+    <header class="article-header">
+        <div class="category">System Design &amp; Architecture</div>
+        <h1 class="title">Building a Layer 7 Load Balancer</h1>
+        <p class="description">Behind every high-performing system lies a load balancer making invisible yet critical decisions—discover how these unsung heroes shape the digital world.</p>
+        <div class="meta">
+            <time datetime="2024-09-15">
+                September 15, 2024
+            </time>
+        </div>
+    </header>
+    <div class="minimal-divider"></div>
+
+    
+    <div class="content">
         <p>Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.</p>
 <h2 id="what-is-a-load-balancer">
   What is a load balancer?
@@ -109,8 +118,8 @@
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">23</span><span>	next <span style="color:#91d7e3;font-weight:bold">:=</span> atomic.<span style="color:#8aadf4">AddUint32</span>(<span style="color:#91d7e3;font-weight:bold">&amp;</span>lb.current, <span style="color:#f5a97f">1</span>)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">24</span><span>	<span style="color:#c6a0f6">return</span> lb.backends[next<span style="color:#91d7e3;font-weight:bold">%</span><span style="color:#91d7e3">uint32</span>(<span style="color:#91d7e3">len</span>(lb.backends))]
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">25</span><span>}
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">26</span><span><span style="color:#6e738d;font-style:italic">// Periodically check all backends for health
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">27</span><span><span style="color:#6e738d;font-style:italic"></span><span style="color:#ed8796">func</span> (lb <span style="color:#91d7e3;font-weight:bold">*</span>LoadBalancer) <span style="color:#8aadf4">healthCheck</span>() {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">26</span><span><span style="color:#6e738d;font-style:italic">// Periodically check all backends for health</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">27</span><span><span style="color:#ed8796">func</span> (lb <span style="color:#91d7e3;font-weight:bold">*</span>LoadBalancer) <span style="color:#8aadf4">healthCheck</span>() {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">28</span><span>	<span style="color:#c6a0f6">for</span> _, backend <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#c6a0f6">range</span> lb.backends {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">29</span><span>		<span style="color:#c6a0f6">go</span> <span style="color:#ed8796">func</span>(b <span style="color:#91d7e3;font-weight:bold">*</span>Backend) {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">30</span><span>			<span style="color:#c6a0f6">for</span> {
@@ -127,20 +136,20 @@
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">41</span><span>		}(backend)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">42</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">43</span><span>}
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">44</span><span><span style="color:#6e738d;font-style:italic">// Proxy forwards the request r to a backend and returns response w
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">45</span><span><span style="color:#6e738d;font-style:italic"></span><span style="color:#ed8796">func</span> (lb <span style="color:#91d7e3;font-weight:bold">*</span>LoadBalancer) <span style="color:#8aadf4">proxy</span>(w http.ResponseWriter, r <span style="color:#91d7e3;font-weight:bold">*</span>http.Request) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">44</span><span><span style="color:#6e738d;font-style:italic">// Proxy forwards the request r to a backend and returns response w</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">45</span><span><span style="color:#ed8796">func</span> (lb <span style="color:#91d7e3;font-weight:bold">*</span>LoadBalancer) <span style="color:#8aadf4">proxy</span>(w http.ResponseWriter, r <span style="color:#91d7e3;font-weight:bold">*</span>http.Request) {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">46</span><span>	backend <span style="color:#91d7e3;font-weight:bold">:=</span> lb.<span style="color:#8aadf4">getNextBackend</span>()
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">47</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">48</span><span>    <span style="color:#6e738d;font-style:italic">// Forward request to backend
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">49</span><span><span style="color:#6e738d;font-style:italic"></span>	resp, err <span style="color:#91d7e3;font-weight:bold">:=</span> http.<span style="color:#8aadf4">Get</span>(backend.URL <span style="color:#91d7e3;font-weight:bold">+</span> r.URL.Path)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">48</span><span>    <span style="color:#6e738d;font-style:italic">// Forward request to backend</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">49</span><span>	resp, err <span style="color:#91d7e3;font-weight:bold">:=</span> http.<span style="color:#8aadf4">Get</span>(backend.URL <span style="color:#91d7e3;font-weight:bold">+</span> r.URL.Path)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">50</span><span>	<span style="color:#c6a0f6">if</span> err <span style="color:#91d7e3;font-weight:bold">!=</span> <span style="color:#f5a97f">nil</span> <span style="color:#91d7e3;font-weight:bold">||</span> !backend.Alive {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">51</span><span>		http.<span style="color:#8aadf4">Error</span>(w, <span style="color:#a6da95">&#34;Backend unavailable&#34;</span>, http.StatusServiceUnavailable)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">52</span><span>		<span style="color:#c6a0f6">return</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">53</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">54</span><span>	<span style="color:#c6a0f6">defer</span> resp.Body.<span style="color:#8aadf4">Close</span>()
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">55</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">56</span><span>    <span style="color:#6e738d;font-style:italic">// Copies the response back to client
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">57</span><span><span style="color:#6e738d;font-style:italic"></span>	<span style="color:#c6a0f6">for</span> k, v <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#c6a0f6">range</span> resp.Header {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">56</span><span>    <span style="color:#6e738d;font-style:italic">// Copies the response back to client</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">57</span><span>	<span style="color:#c6a0f6">for</span> k, v <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#c6a0f6">range</span> resp.Header {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">58</span><span>		w.<span style="color:#8aadf4">Header</span>()[k] = v
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">59</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">60</span><span>
@@ -152,8 +161,8 @@
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">66</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">67</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">68</span><span><span style="color:#ed8796">func</span> <span style="color:#8aadf4">main</span>() {
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">69</span><span>    <span style="color:#6e738d;font-style:italic">// This can be any list of backends that you have
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">70</span><span><span style="color:#6e738d;font-style:italic"></span>	backends <span style="color:#91d7e3;font-weight:bold">:=</span> []<span style="color:#91d7e3;font-weight:bold">*</span>Backend{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">69</span><span>    <span style="color:#6e738d;font-style:italic">// This can be any list of backends that you have</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">70</span><span>	backends <span style="color:#91d7e3;font-weight:bold">:=</span> []<span style="color:#91d7e3;font-weight:bold">*</span>Backend{
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">71</span><span>		{URL: <span style="color:#a6da95">&#34;http://localhost:8081&#34;</span>, Alive: <span style="color:#f5a97f">true</span>, Health: <span style="color:#a6da95">&#34;/health&#34;</span>},
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">72</span><span>		{URL: <span style="color:#a6da95">&#34;http://localhost:8082&#34;</span>, Alive: <span style="color:#f5a97f">true</span>, Health: <span style="color:#a6da95">&#34;/health&#34;</span>},
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">73</span><span>	}
@@ -201,25 +210,25 @@
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 8</span><span>)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 9</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">10</span><span><span style="color:#ed8796">func</span> <span style="color:#8aadf4">main</span>() {
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">11</span><span>	<span style="color:#6e738d;font-style:italic">// Load the SSL certificate and key (You need to generate SSL certificates)
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">12</span><span><span style="color:#6e738d;font-style:italic"></span>	certFile <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#a6da95">&#34;cert.pem&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">11</span><span>	<span style="color:#6e738d;font-style:italic">// Load the SSL certificate and key (You need to generate SSL certificates)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">12</span><span>	certFile <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#a6da95">&#34;cert.pem&#34;</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">13</span><span>	keyFile <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#a6da95">&#34;key.pem&#34;</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">14</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span>	<span style="color:#6e738d;font-style:italic">// Define your LoadBalancer handler
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">16</span><span><span style="color:#6e738d;font-style:italic"></span>	lb <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>LoadBalancer{}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span>	<span style="color:#6e738d;font-style:italic">// Define your LoadBalancer handler</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">16</span><span>	lb <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>LoadBalancer{}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">17</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">18</span><span>	<span style="color:#6e738d;font-style:italic">// Create an HTTPS server with SSL termination
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">19</span><span><span style="color:#6e738d;font-style:italic"></span>	server <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>http.Server{
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">20</span><span>		Addr:    <span style="color:#a6da95">&#34;:8443&#34;</span>, <span style="color:#6e738d;font-style:italic">// or any other port
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">21</span><span><span style="color:#6e738d;font-style:italic"></span>		Handler: http.<span style="color:#8aadf4">HandlerFunc</span>(lb.proxy),
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">18</span><span>	<span style="color:#6e738d;font-style:italic">// Create an HTTPS server with SSL termination</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">19</span><span>	server <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>http.Server{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">20</span><span>		Addr:    <span style="color:#a6da95">&#34;:8443&#34;</span>, <span style="color:#6e738d;font-style:italic">// or any other port</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">21</span><span>		Handler: http.<span style="color:#8aadf4">HandlerFunc</span>(lb.proxy),
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">22</span><span>		TLSConfig: <span style="color:#91d7e3;font-weight:bold">&amp;</span>tls.Config{
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">23</span><span>			MinVersion: tls.VersionTLS13, <span style="color:#6e738d;font-style:italic">// or TLS12 if compatibility is needed
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">24</span><span><span style="color:#6e738d;font-style:italic"></span>		},
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">23</span><span>			MinVersion: tls.VersionTLS13, <span style="color:#6e738d;font-style:italic">// or TLS12 if compatibility is needed</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">24</span><span>		},
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">25</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">26</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">27</span><span>	fmt.<span style="color:#8aadf4">Println</span>(<span style="color:#a6da95">&#34;Load Balancer with SSL started at :8443&#34;</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">28</span><span>	<span style="color:#6e738d;font-style:italic">// Start the HTTPS server with SSL
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">29</span><span><span style="color:#6e738d;font-style:italic"></span>	log.<span style="color:#8aadf4">Fatal</span>(server.<span style="color:#8aadf4">ListenAndServeTLS</span>(certFile, keyFile))
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">28</span><span>	<span style="color:#6e738d;font-style:italic">// Start the HTTPS server with SSL</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">29</span><span>	log.<span style="color:#8aadf4">Fatal</span>(server.<span style="color:#8aadf4">ListenAndServeTLS</span>(certFile, keyFile))
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">30</span><span>}
 </span></span></code></pre></div><p>Key Steps for SSL Termination:</p>
 <ul>
@@ -252,22 +261,22 @@ Example: Minimal Request Router in Go</p>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">11</span><span>	URL <span style="color:#ed8796">string</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">12</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">13</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">14</span><span><span style="color:#6e738d;font-style:italic">// RouteTable maps paths to specific backends
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span><span style="color:#6e738d;font-style:italic"></span><span style="color:#ed8796">type</span> RouteTable <span style="color:#ed8796">map</span>[<span style="color:#ed8796">string</span>]<span style="color:#91d7e3;font-weight:bold">*</span>Backend
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">14</span><span><span style="color:#6e738d;font-style:italic">// RouteTable maps paths to specific backends</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span><span style="color:#ed8796">type</span> RouteTable <span style="color:#ed8796">map</span>[<span style="color:#ed8796">string</span>]<span style="color:#91d7e3;font-weight:bold">*</span>Backend
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">16</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">17</span><span><span style="color:#ed8796">type</span> SimpleRouter <span style="color:#ed8796">struct</span> {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">18</span><span>	routes RouteTable
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">19</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">20</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">21</span><span><span style="color:#6e738d;font-style:italic">// NewSimpleRouter initializes a router with predefined routes
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">22</span><span><span style="color:#6e738d;font-style:italic"></span><span style="color:#ed8796">func</span> <span style="color:#8aadf4">NewSimpleRouter</span>(routes RouteTable) <span style="color:#91d7e3;font-weight:bold">*</span>SimpleRouter {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">21</span><span><span style="color:#6e738d;font-style:italic">// NewSimpleRouter initializes a router with predefined routes</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">22</span><span><span style="color:#ed8796">func</span> <span style="color:#8aadf4">NewSimpleRouter</span>(routes RouteTable) <span style="color:#91d7e3;font-weight:bold">*</span>SimpleRouter {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">23</span><span>	<span style="color:#c6a0f6">return</span> <span style="color:#91d7e3;font-weight:bold">&amp;</span>SimpleRouter{routes: routes}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">24</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">25</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">26</span><span><span style="color:#6e738d;font-style:italic">// ServeHTTP implements http.Handler and performs routing
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">27</span><span><span style="color:#6e738d;font-style:italic"></span><span style="color:#ed8796">func</span> (sr <span style="color:#91d7e3;font-weight:bold">*</span>SimpleRouter) <span style="color:#8aadf4">ServeHTTP</span>(w http.ResponseWriter, r <span style="color:#91d7e3;font-weight:bold">*</span>http.Request) {
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">28</span><span>	<span style="color:#6e738d;font-style:italic">// Extract the base path (e.g., /apiA, /apiB)
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">29</span><span><span style="color:#6e738d;font-style:italic"></span>	basePath <span style="color:#91d7e3;font-weight:bold">:=</span> strings.<span style="color:#8aadf4">Split</span>(r.URL.Path, <span style="color:#a6da95">&#34;/&#34;</span>)[<span style="color:#f5a97f">1</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">26</span><span><span style="color:#6e738d;font-style:italic">// ServeHTTP implements http.Handler and performs routing</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">27</span><span><span style="color:#ed8796">func</span> (sr <span style="color:#91d7e3;font-weight:bold">*</span>SimpleRouter) <span style="color:#8aadf4">ServeHTTP</span>(w http.ResponseWriter, r <span style="color:#91d7e3;font-weight:bold">*</span>http.Request) {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">28</span><span>	<span style="color:#6e738d;font-style:italic">// Extract the base path (e.g., /apiA, /apiB)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">29</span><span>	basePath <span style="color:#91d7e3;font-weight:bold">:=</span> strings.<span style="color:#8aadf4">Split</span>(r.URL.Path, <span style="color:#a6da95">&#34;/&#34;</span>)[<span style="color:#f5a97f">1</span>]
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">30</span><span>	backend, exists <span style="color:#91d7e3;font-weight:bold">:=</span> sr.routes[<span style="color:#a6da95">&#34;/&#34;</span><span style="color:#91d7e3;font-weight:bold">+</span>basePath]
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">31</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">32</span><span>	<span style="color:#c6a0f6">if</span> !exists {
@@ -275,16 +284,16 @@ Example: Minimal Request Router in Go</p>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">34</span><span>		<span style="color:#c6a0f6">return</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">35</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">36</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">37</span><span>	<span style="color:#6e738d;font-style:italic">// Forward the request to the appropriate backend
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">38</span><span><span style="color:#6e738d;font-style:italic"></span>	resp, err <span style="color:#91d7e3;font-weight:bold">:=</span> http.<span style="color:#8aadf4">Get</span>(backend.URL <span style="color:#91d7e3;font-weight:bold">+</span> r.URL.Path)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">37</span><span>	<span style="color:#6e738d;font-style:italic">// Forward the request to the appropriate backend</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">38</span><span>	resp, err <span style="color:#91d7e3;font-weight:bold">:=</span> http.<span style="color:#8aadf4">Get</span>(backend.URL <span style="color:#91d7e3;font-weight:bold">+</span> r.URL.Path)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">39</span><span>	<span style="color:#c6a0f6">if</span> err <span style="color:#91d7e3;font-weight:bold">!=</span> <span style="color:#f5a97f">nil</span> {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">40</span><span>		http.<span style="color:#8aadf4">Error</span>(w, <span style="color:#a6da95">&#34;Backend unavailable&#34;</span>, http.StatusServiceUnavailable)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">41</span><span>		<span style="color:#c6a0f6">return</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">42</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">43</span><span>	<span style="color:#c6a0f6">defer</span> resp.Body.<span style="color:#8aadf4">Close</span>()
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">44</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">45</span><span>	<span style="color:#6e738d;font-style:italic">// Copy backend response back to client
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">46</span><span><span style="color:#6e738d;font-style:italic"></span>	<span style="color:#c6a0f6">for</span> k, v <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#c6a0f6">range</span> resp.Header {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">45</span><span>	<span style="color:#6e738d;font-style:italic">// Copy backend response back to client</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">46</span><span>	<span style="color:#c6a0f6">for</span> k, v <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#c6a0f6">range</span> resp.Header {
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">47</span><span>		w.<span style="color:#8aadf4">Header</span>()[k] = v
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">48</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">49</span><span>	_, err = http.<span style="color:#8aadf4">Copy</span>(w, resp.Body)
@@ -294,16 +303,16 @@ Example: Minimal Request Router in Go</p>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">53</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">54</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">55</span><span><span style="color:#ed8796">func</span> <span style="color:#8aadf4">main</span>() {
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">56</span><span>	<span style="color:#6e738d;font-style:italic">// Register routes to backend services
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">57</span><span><span style="color:#6e738d;font-style:italic"></span>	routes <span style="color:#91d7e3;font-weight:bold">:=</span> RouteTable{
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">56</span><span>	<span style="color:#6e738d;font-style:italic">// Register routes to backend services</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">57</span><span>	routes <span style="color:#91d7e3;font-weight:bold">:=</span> RouteTable{
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">58</span><span>		<span style="color:#a6da95">&#34;/apiA&#34;</span>: {URL: <span style="color:#a6da95">&#34;http://localhost:8081&#34;</span>},
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">59</span><span>		<span style="color:#a6da95">&#34;/apiB&#34;</span>: {URL: <span style="color:#a6da95">&#34;http://localhost:8082&#34;</span>},
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">60</span><span>	}
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">61</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">62</span><span>	router <span style="color:#91d7e3;font-weight:bold">:=</span> <span style="color:#8aadf4">NewSimpleRouter</span>(routes)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">63</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">64</span><span>	<span style="color:#6e738d;font-style:italic">// Start the HTTP server with the router
-</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">65</span><span><span style="color:#6e738d;font-style:italic"></span>	fmt.<span style="color:#8aadf4">Println</span>(<span style="color:#a6da95">&#34;Load Balancer started at :8080&#34;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">64</span><span>	<span style="color:#6e738d;font-style:italic">// Start the HTTP server with the router</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">65</span><span>	fmt.<span style="color:#8aadf4">Println</span>(<span style="color:#a6da95">&#34;Load Balancer started at :8080&#34;</span>)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">66</span><span>	log.<span style="color:#8aadf4">Fatal</span>(http.<span style="color:#8aadf4">ListenAndServe</span>(<span style="color:#a6da95">&#34;:8080&#34;</span>, router))
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">67</span><span>}
 </span></span></code></pre></div><hr>
@@ -405,43 +414,44 @@ Example: Minimal Request Router in Go</p>
 <li>Cache requests to reduce load on backends and improve response times for repeated requests.</li>
 </ul>
 <p>See the <a href="https://github.com/krispingal/l7lb">github repository</a>.</p>
+    </div>
+
+    
+    <footer class="article-footer">
+        <nav class="article-tags">
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/golang/">Golang</a></li>
       <li><a href="/tags/load-balancer/">Load Balancer</a></li>
   </ul>
 
+        </nav>
+    </footer>
+</article>
+<aside class="related-posts">
 <hr class="divider">
-<h3 class="further-reading-heading">Further Reading</h3>
+<h3 class="further-reading-heading">Continue Reading</h3>
 <aside>
   <div class="related-cards">
     
-    
-    <div class="related-card">
-      
-      <h3><a href="/articles/refining-load-balancer/">Refining Load Balancer</a></h3>
-<div class="article-meta">
-    <time datetime="2024-10-19T00:00:00-05:00">October 19, 2024</time>
-    <span class="separator">|</span>
-    <p>9 min</p>
-</div>
-      <p>Refining Go-Based Load Balancers with Clean Architecture and Configuration-Driven Setup</p>
-    </div>
-    
-    <div class="related-card">
-      
-      <h3><a href="/articles/from-jekyll-to-hugo/">From Jekyll to Hugo</a></h3>
-<div class="article-meta">
-    <time datetime="2024-11-10T13:22:53-06:00">November 10, 2024</time>
-    <span class="separator">|</span>
-    <p>8 min</p>
-</div>
-      <p>A Personal Journey in Static Site Migration from Jekyll to Hugo</p>
-    </div>
+    <a href="/articles/refining-load-balancer/" aria-label="Read more about Refining Load Balancer">
+      <div class="related-card">
+        <div class="card-category">System Design &amp; Architecture</div>
+        <h3>Refining Load Balancer</h3>
+        <p class="card-description">What lies beneath a scalable and efficient load balancer? Explore the transformative techniques that turn a basic implementation into a powerhouse of modularity and speed.</p>
+      </div>
+    </a>
+    <a href="/articles/from-jekyll-to-hugo/" aria-label="Read more about From Jekyll to Hugo">
+      <div class="related-card">
+        <div class="card-category">Programming Patterns &amp; Languages</div>
+        <h3>From Jekyll to Hugo</h3>
+        <p class="card-description">What makes a developer leave behind a well-loved tool for something new? Dive into the motivations, discoveries, and lessons learned in the shift from Jekyll to Hugo — and uncover the secrets to crafting a custom theme.</p>
+      </div>
+    </a>
   </div>
 </aside>
-</div>
+</aside>
   </main>
-  <footer>
+  <footer class="footer-nav">
 <div class="footer-icons">
     <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
     <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>

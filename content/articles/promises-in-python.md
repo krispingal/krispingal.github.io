@@ -4,7 +4,8 @@ draft = false
 title = 'Promises in Python'
 keywords = ['Python concurrency', 'Python Promises']
 tags = ['Concurrency', 'python']
-description = "Exploring Async Patterns and alternatives in python. This article explores how to implement Promises in Python, inspired by JavaScript's async programming model. You'll learn about Python's asyncio, build a simple Promise implementation, and see practical examples of its use."
+categories = ['ppl']
+description = "What makes JavaScript Promises so powerful, and how can we replicate their magic in Python? Follow this journey from JavaScript’s then and catch to Python’s asyncio, and uncover the pros, cons, and alternative approaches along the way."
 +++
 
 ## What Are Promises?
@@ -14,7 +15,7 @@ In JavaScript, Promises are objects that represent the eventual completion (or f
 Promises allow us to associate handlers for both the success and failure of an asynchronous operation. By treating asynchronous code similarly to synchronous code, they reduce the complexity and improve the readability of workflows that would otherwise be riddled with convoluted callbacks—commonly referred to as "callback hell."
 
 <!--more-->
-With Promises, you can chain operations seamlessly using .then for successful resolution and .catch for error handling. Here's an example in JavaScript:
+With Promises, you can chain operations seamlessly using `.then` for successful resolution and `.catch` for error handling. Here's an example in JavaScript:
 
 ``` javascript
 myPromise

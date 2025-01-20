@@ -2,10 +2,11 @@
 date = '2018-11-04'
 draft = false
 title = 'A guide to Neural Networks'
-description = 'A guide to neural networks'
+description = 'Imagine teaching a machine to recognize patterns in the world just like you do. This guide takes you on a journey from basic neural networks to building your own, one step at a time.'
 keywords = ['neural networks']
 images = ['nn.webp', 'neuron.webp']
 tags = ['neural networks']
+categories = ['aiml']
 math = true
 +++
 

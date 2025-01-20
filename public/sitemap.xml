@@ -13,7 +13,15 @@
     <loc>http://localhost:1313/about/</loc>
     <changefreq>monthly</changefreq>
   </url><url>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2024-12-31T00:00:00-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
     <loc>http://localhost:1313/tags/concurrency/</loc>
+    <lastmod>2024-12-31T00:00:00-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>http://localhost:1313/categories/ppl/</loc>
     <lastmod>2024-12-31T00:00:00-06:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
@@ -45,6 +53,10 @@
     <lastmod>2024-11-01T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
+    <loc>http://localhost:1313/categories/dsa/</loc>
+    <lastmod>2024-11-01T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
     <loc>http://localhost:1313/tags/probabilistic/</loc>
     <lastmod>2024-11-01T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -65,11 +77,19 @@
     <lastmod>2024-10-19T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
+    <loc>http://localhost:1313/categories/sda/</loc>
+    <lastmod>2024-10-19T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
     <loc>http://localhost:1313/articles/building-a-layer7-load-balancer/</loc>
     <lastmod>2024-09-15T15:05:28-06:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/articles/guide-to-neural-network/</loc>
+    <lastmod>2018-11-04T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>http://localhost:1313/categories/aiml/</loc>
     <lastmod>2018-11-04T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
@@ -95,9 +115,6 @@
   </url><url>
     <loc>http://localhost:1313/articles/shelter-animal-outcomes/</loc>
     <lastmod>2016-08-24T04:14:54-08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>

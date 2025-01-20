@@ -1,17 +1,18 @@
-{{- $related := .Site.RegularPages.Related . | first 5 }}
+{{- $related := .Site.RegularPages.Related . | first 6 }}
 {{- with $related }}
 <hr class="divider">
-<h3 class="further-reading-heading">Further Reading</h3>
+<h3 class="further-reading-heading">Continue Reading</h3>
 <aside>
   <div class="related-cards">
     {{ range . }}
-    {{ $dateHuman := .Date | time.Format ":date_long" }}
-    <div class="related-card">
-      <!-- <hr/> -->
-      <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-      {{- partial "article-meta" . }}
-      <p>{{ .Description | truncate 180 }}</p>
-    </div>
+    <a href="{{ .RelPermalink }}" aria-label="Read more about {{ .LinkTitle }}">
+      <div class="related-card">
+        {{- $category := index (.GetTerms "categories") 0 }}
+        <div class="card-category">{{ $category.LinkTitle }}</div>
+        <h3>{{ .LinkTitle }}</h3>
+        <p class="card-description">{{ .Description  }}</p>
+      </div>
+    </a>
     {{- end }}
   </div>
 </aside>

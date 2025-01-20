@@ -1,9 +1,11 @@
+{{- $category := index (.GetTerms "categories") 0 }}
 <div class="card">
-    <h1><a style="color:#0B3C5D" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+    <div class="category">{{ $category.LinkTitle }}</div>
+    <h2><a style="color:#0B3C5D" href="{{ .RelPermalink }}" aria-label="Read more about {{ .LinkTitle }}">{{ .LinkTitle }}</a></h2>
     {{- partial "article-meta.html" . }}
     <article>
         {{ .Summary }}
     </article>
-    <a class="button read-more" href="{{ .RelPermalink }}">Read more ...</a>
+    <a class="button read-more" href="{{ .RelPermalink }}" aria-label="Read full article: {{ .LinkTitle }}">Read more &#8594;</a>
     {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 </div>

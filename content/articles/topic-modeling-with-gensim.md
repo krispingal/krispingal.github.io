@@ -2,9 +2,10 @@
 date = '2017-03-26'
 draft = false
 title = 'Topic modeling with Gensim'
-description = 'Topic modeling with Gensim'
+description = 'Like unlocking hidden themes in a great novel, topic modeling unveils the unspoken threads in vast datasets. From scikit-learn’s reliable tools to gensim’s transformative power, join a journey into the art of teaching machines to understand text.'
 keywords = ['gensim', 'topic-modeling']
 tags = ['gensim', 'NLP', 'topic-modeling']
+categories = ['aiml']
 +++
 
 I first started doing topic modeling when I used to play around with the [nips dataset][nips]. The first time I tried it, I used scikit-learn for this. I used LDA and NMF for this, and I received results that I was happy with. In this way, I think [scikit-learn][sklearn] is one of the most appropriate tools available for exploratory data science tasks. But I had bigger plans, of tackling even bigger datasets. Then I got introduced to another python library [gensim][gensim] which is focused on topic modeling. Among many features it provides, it includes transformations such as _online_ LDA, LSA and HDP, and wrappers to other popular libraries like scikit-learn, [vowpal wabbit][vowpal_wabbit], and [Mallet][mallet].

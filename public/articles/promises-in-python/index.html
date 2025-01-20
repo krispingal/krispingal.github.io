@@ -3,19 +3,19 @@
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
 <title>Promises in Python | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
       <script src="/js/main.js"></script>
   <meta itemprop="name" content="Promises in Python">
-  <meta itemprop="description" content="Exploring Async Patterns and alternatives in python. This article explores how to implement Promises in Python, inspired by JavaScript&#39;s async programming model. You&#39;ll learn about Python&#39;s asyncio, build a simple Promise implementation, and see practical examples of its use.">
+  <meta itemprop="description" content="What makes JavaScript Promises so powerful, and how can we replicate their magic in Python? Follow this journey from JavaScript’s then and catch to Python’s asyncio, and uncover the pros, cons, and alternative approaches along the way.">
   <meta itemprop="datePublished" content="2024-12-31T00:00:00-06:00">
   <meta itemprop="dateModified" content="2024-12-31T00:00:00-06:00">
   <meta itemprop="wordCount" content="1339">
   <meta itemprop="keywords" content="Python concurrency,Python Promises"><meta property="og:url" content="http://localhost:1313/articles/promises-in-python/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Promises in Python">
-  <meta property="og:description" content="Exploring Async Patterns and alternatives in python. This article explores how to implement Promises in Python, inspired by JavaScript&#39;s async programming model. You&#39;ll learn about Python&#39;s asyncio, build a simple Promise implementation, and see practical examples of its use.">
+  <meta property="og:description" content="What makes JavaScript Promises so powerful, and how can we replicate their magic in Python? Follow this journey from JavaScript’s then and catch to Python’s asyncio, and uncover the pros, cons, and alternative approaches along the way.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -28,31 +28,40 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-
-
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
 </head>
 
 <body>
-  <header>
+  <header class="navbar">
     <div class="masthead">
     <h2 ><a class="site-title" href="/">kbabuji</a></h2>
     <nav class="nav-links">
         <a href="/about">About</a>
         <a href="/articles">Archives</a>
-        <a href="/tags">Tags</a>
+        <a href="/categories">Categories</a>
     </nav>
 </div>
   </header>
   <main class="wrapper">
     
-<div class="content">
-    <h1>Promises in Python</h1>
-<div class="article-meta">
-    <time datetime="2024-12-31T00:00:00-06:00">December 31, 2024</time>
-    <span class="separator">|</span>
-    <p>7 min</p>
-</div>
-    <article>
+<article class="article-container">
+    
+    <header class="article-header">
+        <div class="category">Programming Patterns &amp; Languages</div>
+        <h1 class="title">Promises in Python</h1>
+        <p class="description">What makes JavaScript Promises so powerful, and how can we replicate their magic in Python? Follow this journey from JavaScript’s then and catch to Python’s asyncio, and uncover the pros, cons, and alternative approaches along the way.</p>
+        <div class="meta">
+            <time datetime="2024-12-31">
+                December 31, 2024
+            </time>
+        </div>
+    </header>
+    <div class="minimal-divider"></div>
+
+    
+    <div class="content">
         <h2 id="what-are-promises">
   What Are Promises?
   <a class="anchor" href="#what-are-promises" aria-label="Link to section - What Are Promises?">#</a>
@@ -60,7 +69,7 @@
 
 <p>In JavaScript, Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a powerful way to manage asynchronous code, enabling developers to write cleaner and more maintainable logic.</p>
 <p>Promises allow us to associate handlers for both the success and failure of an asynchronous operation. By treating asynchronous code similarly to synchronous code, they reduce the complexity and improve the readability of workflows that would otherwise be riddled with convoluted callbacks—commonly referred to as &ldquo;callback hell.&rdquo;</p>
-<p>With Promises, you can chain operations seamlessly using .then for successful resolution and .catch for error handling. Here&rsquo;s an example in JavaScript:</p>
+<p>With Promises, you can chain operations seamlessly using <code>.then</code> for successful resolution and <code>.catch</code> for error handling. Here&rsquo;s an example in JavaScript:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>myPromise
 </span></span><span style="display:flex;"><span>  .then((value) =&gt; <span style="color:#a6da95">`</span><span style="color:#a6da95">${</span>value<span style="color:#a6da95">}</span><span style="color:#a6da95"> and bar`</span>)
 </span></span><span style="display:flex;"><span>  .then((value) =&gt; <span style="color:#a6da95">`</span><span style="color:#a6da95">${</span>value<span style="color:#a6da95">}</span><span style="color:#a6da95"> and bar again`</span>)
@@ -337,14 +346,23 @@ In the failure case, attempting to fetch a non-existent post (e.g., <code>post_i
 </span></span><span style="display:flex;"><span><span style="color:#c6a0f6">if</span> <span style="color:#f4dbd6">__name__</span> <span style="color:#91d7e3;font-weight:bold">==</span> <span style="color:#a6da95">&#34;__main__&#34;</span>:
 </span></span><span style="display:flex;"><span>    main()
 </span></span></code></pre></div><p>This alternative doesn&rsquo;t rely on aiohttp or Python&rsquo;s <code>asyncio</code> event loop, making it simpler to understand and implement. However, for high-concurrency tasks, <code>aiohttp</code> typically offers better performance by avoiding thread management overhead.</p>
+    </div>
+
+    
+    <footer class="article-footer">
+        <nav class="article-tags">
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/concurrency/">Concurrency</a></li>
       <li><a href="/tags/python/">Python</a></li>
   </ul>
 
-</div>
+        </nav>
+    </footer>
+</article>
+<aside class="related-posts">
+</aside>
   </main>
-  <footer>
+  <footer class="footer-nav">
 <div class="footer-icons">
     <a href="/" aria-label="Home"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></a>
     <a href="https://github.com/krispingal" target="_blank" aria-label="GitHub"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>

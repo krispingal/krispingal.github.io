@@ -2,10 +2,11 @@
 date = '2024-11-10T13:22:53-06:00'
 draft = false
 title = 'From Jekyll to Hugo'
-description = 'A Personal Journey in Static Site Migration from Jekyll to Hugo'
+description = 'What makes a developer leave behind a well-loved tool for something new? Dive into the motivations, discoveries, and lessons learned in the shift from Jekyll to Hugo — and uncover the secrets to crafting a custom theme.'
 keywords = ['static site generator', 'hugo static site generator']
 images = ['hugo-logo-wide.svg']
 tags = ['golang', 'web development']
+categories = ['ppl']
 math = true
 +++
 {{< figure src="hugo-logo-wide.svg" alt="Hugo logo" height="250px" width="300px" loading="lazy" >}}

@@ -4,12 +4,16 @@
     {{- .Content }}
     {{- $pages := where .Site.RegularPages "Section" "articles" }}
     {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
-    {{- range $paginator.Pages }}
-    {{- .Render "card" }}
-    {{- end }}
+    <section class="articles-list">
+      {{- range $paginator.Pages }}
+      {{- .Render "card" }}
+      {{- end }}
+    </section>
 
     {{- if or ($paginator.HasPrev) ($paginator.HasNext) }}
-    {{- partial "pagination.html" . }}
+    <div class="pagination-container">
+      {{- partial "pagination.html" . }}
+    </div>
     {{- end}}
   </div>
 </main>
