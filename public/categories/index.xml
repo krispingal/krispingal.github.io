@@ -6,20 +6,20 @@
     <description>Recent content in Categories on kbabuji</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2024 00:00:00 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jan 2025 14:27:31 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Structures &amp; Algorithms</title>
+      <link>http://localhost:1313/categories/dsa/</link>
+      <pubDate>Sun, 26 Jan 2025 14:27:31 -0600</pubDate>
+      <guid>http://localhost:1313/categories/dsa/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Programming Patterns &amp; Languages</title>
       <link>http://localhost:1313/categories/ppl/</link>
       <pubDate>Tue, 31 Dec 2024 00:00:00 -0600</pubDate>
       <guid>http://localhost:1313/categories/ppl/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Data Structures &amp; Algorithms</title>
-      <link>http://localhost:1313/categories/dsa/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 -0500</pubDate>
-      <guid>http://localhost:1313/categories/dsa/</guid>
       <description></description>
     </item>
     <item>

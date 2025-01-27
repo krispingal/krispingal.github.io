@@ -29,8 +29,8 @@
 </script>
   <meta itemprop="name" content="Home">
   <meta itemprop="description" content="A software engineer&#39;s field notes from the frontier, where we peel back the layers of complex systems to reveal their hidden elegance.">
-  <meta itemprop="datePublished" content="2024-12-31T00:00:00-06:00">
-  <meta itemprop="dateModified" content="2024-12-31T00:00:00-06:00">
+  <meta itemprop="datePublished" content="2025-01-26T14:27:31-06:00">
+  <meta itemprop="dateModified" content="2025-01-26T14:27:31-06:00">
   <meta itemprop="keywords" content="Home page of blog"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Home">
@@ -63,6 +63,30 @@
 <main>
   <div class="content">
     <section class="articles-list">
+<div class="card">
+    <div class="category">Data Structures &amp; Algorithms</div>
+    <h2><a style="color:#0B3C5D" href="/articles/linked-hashmap/" aria-label="Read more about The Linked Hashmap Blueprint">The Linked Hashmap Blueprint</a></h2>
+<div class="article-meta">
+    <time datetime="2025-01-26T14:27:31-06:00">January 26, 2025</time>
+    <span class="separator">|</span>
+    <span>8 min</span>
+</div>
+    <article>
+        <p><figure><img src="/articles/linked-hashmap/LinkHashMapInternals.webp"
+    alt="Hugo logo" height="400px" loading="lazy">
+</figure>
+
+Hash maps (or hash tables) are foundational implementations of the dictionary data structure, natively supported by most high-level programming languages. They provide an efficient way to store and retrieve records using unique identifiers, such as keys, and are widely used in scenarios where random access and fast lookups are required.</p>
+<p>For instance, consider a pharmacy like CVS or Walgreens, which uses patients&rsquo; Social Security Numbers (SSNs)—a nine-digit unique identifier—to manage patient information. Not all patients visit the pharmacy regularly, so it would be inefficient to store data in a large array indexed by SSNs. Instead, dictionaries allow us to store, retrieve, or delete patient information efficiently, even when the SSNs are sparsely distributed.</p>
+    </article>
+    <a class="button read-more" href="/articles/linked-hashmap/" aria-label="Read full article: The Linked Hashmap Blueprint">Read more &#8594;</a>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/data-structures/">Data Structures</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+      <li><a href="/tags/concurrency/">Concurrency</a></li>
+  </ul>
+
+</div>
 <div class="card">
     <div class="category">Programming Patterns &amp; Languages</div>
     <h2><a style="color:#0B3C5D" href="/articles/promises-in-python/" aria-label="Read more about Promises in Python">Promises in Python</a></h2>
@@ -153,30 +177,6 @@
       <li><a href="/tags/scalability/">Scalability</a></li>
       <li><a href="/tags/load-balancer/">Load Balancer</a></li>
       <li><a href="/tags/golang/">Golang</a></li>
-  </ul>
-
-</div>
-<div class="card">
-    <div class="category">System Design &amp; Architecture</div>
-    <h2><a style="color:#0B3C5D" href="/articles/building-a-layer7-load-balancer/" aria-label="Read more about Building a Layer 7 Load Balancer">Building a Layer 7 Load Balancer</a></h2>
-<div class="article-meta">
-    <time datetime="2024-09-15T15:05:28-06:00">September 15, 2024</time>
-    <span class="separator">|</span>
-    <span>10 min</span>
-</div>
-    <article>
-        <p>Load balancers are essential for applications or services that handle high volumes of traffic, ensuring that they can scale efficiently to meet demand. Modern load balancers have evolved into comprehensive traffic management solutions, often incorporating rate limiting, caching, DDoS protection, and more, making them indispensable for high-scale systems.</p>
-<h2 id="what-is-a-load-balancer">
-  What is a load balancer?
-  <a class="anchor" href="#what-is-a-load-balancer" aria-label="Link to section - What is a load balancer?">#</a>
-</h2>
-
-<p>Imagine you&rsquo;re at an airport, standing in line for the security check. There is a single line of passengers, but there are five booths with agents checking boarding passes and IDs. At the front of the line, there is an agent directing passengers to available booths. This agent acts like a basic load balancer, distributing incoming requests (passengers) to backend servers (TSA agents) for processing.</p>
-    </article>
-    <a class="button read-more" href="/articles/building-a-layer7-load-balancer/" aria-label="Read full article: Building a Layer 7 Load Balancer">Read more &#8594;</a>
-  <ul class="tags" style="padding-left: 0px;padding-top:10px">
-      <li><a href="/tags/golang/">Golang</a></li>
-      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
   </ul>
 
 </div>

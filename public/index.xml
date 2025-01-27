@@ -6,7 +6,7 @@
     <description>Recent content in Home on kbabuji</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2024 00:00:00 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jan 2025 14:27:31 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -14,6 +14,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/about/</guid>
       <description>&lt;div class=&#34;profile-picture polaroid&#34;&gt;&lt;img src=&#34;http://localhost:1313/about/images/portrait.webp&#34; alt=&#34;Profile picture&#34; width=&#34;200px&#34; height=&#34;200px&#34; loading=&#34;eager&#34;&gt;&#xA;  &lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>The Linked Hashmap Blueprint</title>
+      <link>http://localhost:1313/articles/linked-hashmap/</link>
+      <pubDate>Sun, 26 Jan 2025 14:27:31 -0600</pubDate>
+      <guid>http://localhost:1313/articles/linked-hashmap/</guid>
+      <description>&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/articles/linked-hashmap/LinkHashMapInternals.webp&#34;&#xA;    alt=&#34;Hugo logo&#34; height=&#34;400px&#34; loading=&#34;lazy&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;Hash maps (or hash tables) are foundational implementations of the dictionary data structure, natively supported by most high-level programming languages. They provide an efficient way to store and retrieve records using unique identifiers, such as keys, and are widely used in scenarios where random access and fast lookups are required.&lt;/p&gt;&#xA;&lt;p&gt;For instance, consider a pharmacy like CVS or Walgreens, which uses patients&amp;rsquo; Social Security Numbers (SSNs)—a nine-digit unique identifier—to manage patient information. Not all patients visit the pharmacy regularly, so it would be inefficient to store data in a large array indexed by SSNs. Instead, dictionaries allow us to store, retrieve, or delete patient information efficiently, even when the SSNs are sparsely distributed.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Promises in Python</title>

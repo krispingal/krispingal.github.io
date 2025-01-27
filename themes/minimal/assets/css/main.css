@@ -481,9 +481,9 @@ article img {
 /* Individual card styling */
 .related-card {
   position: relative;
-  height: 15rem;
+  min-height: 16rem;
   max-width: 16rem;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   background: #fff;
   display: flex;
   flex-direction: column;
