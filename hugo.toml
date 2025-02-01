@@ -9,6 +9,18 @@ enableRobotsTXT = true
   math = false
   [params.contact]
     email = 'krishna.pingal@gmail.com'
+  [params.giscus]
+    repo = "krispingal/krispingal.github.io"
+    repoID = "R_kgDONNB2Ng"
+    category = "Announcements"
+    categoryID = "DIC_kwDONNB2Ns4CmciE"
+    mapping = "url"
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    inputPosition = "bottom"
+    theme = "catppuccin_latte"
+    lang = "en"
+    loading = "lazy"
 
 [related]
   includeNewer = true

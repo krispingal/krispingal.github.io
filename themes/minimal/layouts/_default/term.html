@@ -1,14 +1,11 @@
-{{ define "main" }}
-    <div class="content">
-        <h1 class="montserrat-heading">{{ .Title }}</h1>
-        <h3>{{ .Params.description }}</h3>
+{{- define "main" }}
+<div class="slim-padding">
+    <h1 class="montserrat-heading">{{ .Title }}</h1>
         {{ .Content }}
-        {{ range .Pages.ByDate.Reverse }}
-            <div class="article-item-right-date">
-                <a href="{{ .RelPermalink }}" class="article-link">{{ .LinkTitle }}</a>
-                <span class="article-date">{{ .Date | time.Format ":date_medium" }}</span>
-            </div>
-        {{ end }}
+        <div class="detailed-articles-list">
+            {{- range .Pages.ByDate.Reverse }}
+                {{- .Render "detailed-card"}}
+            {{- end }}
+        </div>
     </div>
-{{ end }}
-
+{{- end }}

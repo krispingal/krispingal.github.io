@@ -8,17 +8,12 @@
             <div class="term-info">
                 <h2 class="montserrat-heading-bold">{{ .Page.LinkTitle }}</h2>
                 <p>{{ .Page.Params.description }}</p>
-                <a href="{{ .Page.RelPermalink }}" class="montserrat-heading-bold">SEE MORE</a>
+                <a href="{{ .Page.RelPermalink }}" class="see-more montserrat-heading-bold">SEE MORE <span class="arrow-icon">&#8594;</span> </a>
             </div>
             
             <div class="minimal-articles-list">
                 {{ range first 3 .Pages }}
-                <div class="minimal-article-card">
-                    <a href="{{ .RelPermalink }}" class="article-link" aria-label="Read more about {{ .LinkTitle }}">
-                        <h3 class="montserrat-heading">{{ .LinkTitle }}</h3>
-                        <p class="card-description">{{ .Description }}</p>
-                    </a>
-                </div>
+                    {{ .Render "minimal-card"}}
                 {{ end }}
             </div>
         </div>

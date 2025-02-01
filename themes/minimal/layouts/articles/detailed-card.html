@@ -1,0 +1,17 @@
+{{- $images := partial "_funcs/get-page-images" . }}
+{{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+{{- $dateHuman := .Date | time.Format ":date_long" }}
+<div class="detailed-article-card">
+    {{- with $images}}
+    {{- range first 1 $images }}
+    <img src="{{ .Permalink }}" width="100%" height="225px">
+    {{- end }}
+    {{- end }}
+    <a href="{{ .RelPermalink }}" class="article-link" aria-label="Read more about {{ .LinkTitle }}">
+        <h3 class="montserrat-heading">{{ .LinkTitle }}</h3>
+        <div class="article-meta montserrat-heading">
+            <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+        </div>
+        <p class="card-description">{{ .Description }}</p>
+    </a>
+</div>

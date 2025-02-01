@@ -52,10 +52,10 @@ main {
 .term-row {
   display: flex;
   align-items: flex-start;
-  padding: 1em;
+  padding: 1.5em 1em;
   gap: 0em 3em;
   margin-bottom: 1.5rem;
-  height: 16rem;
+  min-height: 16rem;
 }
 
 .term-info {
@@ -102,6 +102,23 @@ main {
   margin: 1.5rem 0;
   padding: 0 0.5rem;
 }
+
+.detailed-articles-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+  gap: 2rem; /* Space between cards */
+  margin: 2rem 0;
+}
+
+.detailed-article-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* In case you add images with different aspect ratios */
+  min-height: 450px;
+  padding: 2em 1em;
+  border-bottom: 1px solid #777;
+}
+
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
@@ -152,6 +169,9 @@ main {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+  }
+  .detailed-articles-list {
+    grid-template-columns: 1fr; /* 1 column on mobile */
   }
 }
 
@@ -229,7 +249,7 @@ svg.icon {
 
 /* Link and Hover Styling */
 .footer-icons a {
-  color: #ddd; /* Default color for the icons */
+  color: #f5faff; /* Default color for the icons */
   text-decoration: none;
 }
 
@@ -594,6 +614,9 @@ article img {
   
   .related-cards:has(.related-card:only-child) {
     grid-template-columns: minmax(300px, 400px);
+  }
+  .detailed-articles-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
   }
 }
 

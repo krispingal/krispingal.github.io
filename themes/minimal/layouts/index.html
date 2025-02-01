@@ -6,7 +6,7 @@
     {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
     <section class="articles-list">
       {{- range $paginator.Pages }}
-      {{- .Render "card" }}
+      {{- .Render "homepage-card" }}
       {{- end }}
     </section>
 
