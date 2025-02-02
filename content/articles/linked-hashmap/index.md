@@ -9,7 +9,7 @@ categories = ['dsa']
 tags = ['Data structures', 'Python', 'Concurrency']
 math = true
 +++
-{{< figure src="LinkHashMapInternals.webp" alt="Hugo logo" height="400px" loading="lazy" >}}
+{{< figure src="LinkHashMapInternals.webp" alt="Hugo logo" height="400px" loading="eager" >}}
 Hash maps (or hash tables) are foundational implementations of the dictionary data structure, natively supported by most high-level programming languages. They provide an efficient way to store and retrieve records using unique identifiers, such as keys, and are widely used in scenarios where random access and fast lookups are required.
 
 For instance, consider a pharmacy like CVS or Walgreens, which uses patients' Social Security Numbers (SSNs)—a nine-digit unique identifier—to manage patient information. Not all patients visit the pharmacy regularly, so it would be inefficient to store data in a large array indexed by SSNs. Instead, dictionaries allow us to store, retrieve, or delete patient information efficiently, even when the SSNs are sparsely distributed.

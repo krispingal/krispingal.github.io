@@ -4,7 +4,7 @@
 <div class="detailed-article-card">
     {{- with $images}}
     {{- range first 1 $images }}
-    <img src="{{ .Permalink }}" width="100%" height="225px">
+    <img src="{{ .Permalink }}" width="100%" height="225px" loading="lazy">
     {{- end }}
     {{- end }}
     <a href="{{ .RelPermalink }}" class="article-link" aria-label="Read more about {{ .LinkTitle }}">

@@ -6,6 +6,8 @@ timezone = 'America/Chicago'
 enableRobotsTXT = true
 
 [params]
+  title = 'kbabuji'
+  description = "A software engineer's field notes from the frontier, where we peel back the layers of complex systems to reveal their hidden elegance."
   math = false
   [params.contact]
     email = 'krishna.pingal@gmail.com'
@@ -62,3 +64,13 @@ enableRobotsTXT = true
   disable = false
   filename = 'sitemap.xml'
   priority = -1
+
+
+
+[outputs]
+  home = ['html']
+  section = ['html', 'rss']
+  taxonomy = ['html']
+  term = ['html']
+
+
