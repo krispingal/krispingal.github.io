@@ -2,7 +2,7 @@
 <html lang="en-us" dir="ltr">
 
 <head>
-	<meta name="generator" content="Hugo 0.141.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.144.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
 <title>kbabuji</title>
@@ -29,8 +29,8 @@
 </script>
   <meta itemprop="name" content="Home">
   <meta itemprop="description" content="Home page of blog">
-  <meta itemprop="datePublished" content="2025-01-26T14:27:31-06:00">
-  <meta itemprop="dateModified" content="2025-01-26T14:27:31-06:00">
+  <meta itemprop="datePublished" content="2025-02-16T13:20:14-06:00">
+  <meta itemprop="dateModified" content="2025-02-16T13:20:14-06:00">
   <meta itemprop="keywords" content="Home page of blog"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Home">
@@ -63,6 +63,39 @@
 <main>
   <div class="content">
     <section class="articles-list">
+<div class="card">
+    <div class="category">System Design &amp; Architecture</div>
+    <h2><a style="color:#0B3C5D" href="/articles/geohash/" aria-label="Read more about Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It">Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It</a></h2>
+<div class="article-meta">
+    <time datetime="2025-02-16T13:20:14-06:00">February 16, 2025</time>
+    <span class="separator">|</span>
+    <span>18 min</span>
+</div>
+    <article>
+        <p>Suppose you are building a location-based service like Yelp or DoorDash.
+A customer wants to find restaurants near them that match certain preferences.
+Their device provides a GPS location (latitude, longitude), and your app needs
+to quickly retrieve relevant restaurants in their vicinity.</p>
+<p>But how do you efficiently query locations in a database? Traditional indexing
+methods, such as B-Trees, are optimized for sorting and searching one-dimensional
+data (e.g., numbers or strings). However, geographic locations exist in two
+dimensions, making proximity-based searches challenging.</p>
+<p>A naive approach—scanning all locations and filtering those within a given radius—is
+inefficient at scale. To handle this, modern applications use geospatial indexes, which
+structure location data in a way that enables efficient retrieval of nearby points.</p>
+<p>One such indexing method is <strong>geohashing</strong>, which encodes latitude and longitude into
+a compact, searchable format that allows for efficient range queries and neighbor lookups.
+In this article, we’ll explore how geohashing works, how to encode and decode locations,
+and how it is used in real-world applications like ride-sharing and food delivery services.</p>
+    </article>
+    <a class="button read-more" href="/articles/geohash/" aria-label="Read full article: Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It">Read more &#8594;</a>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/python/">Python</a></li>
+      <li><a href="/tags/redis/">Redis</a></li>
+      <li><a href="/tags/spatial-data/">Spatial Data</a></li>
+  </ul>
+
+</div>
 <div class="card">
     <div class="category">Data Structures &amp; Algorithms</div>
     <h2><a style="color:#0B3C5D" href="/articles/linked-hashmap/" aria-label="Read more about The Linked Hashmap Blueprint">The Linked Hashmap Blueprint</a></h2>
@@ -157,26 +190,6 @@ Hash maps (or hash tables) are foundational implementations of the dictionary da
       <li><a href="/tags/data-structures/">Data Structures</a></li>
       <li><a href="/tags/python/">Python</a></li>
       <li><a href="/tags/probabilistic/">Probabilistic</a></li>
-  </ul>
-
-</div>
-<div class="card">
-    <div class="category">System Design &amp; Architecture</div>
-    <h2><a style="color:#0B3C5D" href="/articles/refining-load-balancer/" aria-label="Read more about Refining Load Balancer">Refining Load Balancer</a></h2>
-<div class="article-meta">
-    <time datetime="2024-10-19T00:00:00-05:00">October 19, 2024</time>
-    <span class="separator">|</span>
-    <span>9 min</span>
-</div>
-    <article>
-        <p>In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.</p>
-<p>This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.</p>
-    </article>
-    <a class="button read-more" href="/articles/refining-load-balancer/" aria-label="Read full article: Refining Load Balancer">Read more &#8594;</a>
-  <ul class="tags" style="padding-left: 0px;padding-top:10px">
-      <li><a href="/tags/scalability/">Scalability</a></li>
-      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
-      <li><a href="/tags/golang/">Golang</a></li>
   </ul>
 
 </div>

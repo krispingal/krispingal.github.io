@@ -320,6 +320,37 @@ blockquote {
   background-color: rgba(0,0,0,5%);
 }
 
+p code {
+  background-color: #ececec;
+  font-family: monospace;
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-weight: 500;
+}
+
+table {
+  width: 100%; /* Or a specific width if needed */
+  border-collapse: collapse; /* Collapses cell borders into a single border */
+}
+
+th, td {
+  border: 1px solid #d1d1d1; /* Light gray border */
+  padding: 8px; /* Adds some spacing inside cells */
+  text-align: left; /* Aligns text to the left by default */
+}
+
+th {
+  background-color: #e5e5e5;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #eaeaea;
+}
+
+
+
 .taxonomy {
   column-count: 3;
   width: 90%;
@@ -339,7 +370,7 @@ article ul {
   padding-inline-start: 1.5ch;
   margin-bottom: .25rem;
   list-style-type: "—";
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 article ul li::before {
   content: "";

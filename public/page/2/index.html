@@ -2,7 +2,7 @@
 <html lang="en-us" dir="ltr">
 
 <head>
-	<meta name="generator" content="Hugo 0.141.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.144.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
 <title>kbabuji</title>
@@ -29,8 +29,8 @@
 </script>
   <meta itemprop="name" content="Home">
   <meta itemprop="description" content="Home page of blog">
-  <meta itemprop="datePublished" content="2025-01-26T14:27:31-06:00">
-  <meta itemprop="dateModified" content="2025-01-26T14:27:31-06:00">
+  <meta itemprop="datePublished" content="2025-02-16T13:20:14-06:00">
+  <meta itemprop="dateModified" content="2025-02-16T13:20:14-06:00">
   <meta itemprop="keywords" content="Home page of blog"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Home">
@@ -63,6 +63,26 @@
 <main>
   <div class="content">
     <section class="articles-list">
+<div class="card">
+    <div class="category">System Design &amp; Architecture</div>
+    <h2><a style="color:#0B3C5D" href="/articles/refining-load-balancer/" aria-label="Read more about Refining Load Balancer">Refining Load Balancer</a></h2>
+<div class="article-meta">
+    <time datetime="2024-10-19T00:00:00-05:00">October 19, 2024</time>
+    <span class="separator">|</span>
+    <span>9 min</span>
+</div>
+    <article>
+        <p>In the last article, we covered the basics of building a Layer 7 load balancer in Go, touching on routing, SSL termination, and rate limiting. Since then, the focus has been on improving performance, maintainability, and scalability.</p>
+<p>This article highlights key upgrades like adopting clean architecture, switching to configuration files, and using connection pooling to enhance backend communication. These changes make the system more flexible and set the stage for even more optimizations, including advanced health checkers, which we’ll explore in the next article.</p>
+    </article>
+    <a class="button read-more" href="/articles/refining-load-balancer/" aria-label="Read full article: Refining Load Balancer">Read more &#8594;</a>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/scalability/">Scalability</a></li>
+      <li><a href="/tags/load-balancer/">Load Balancer</a></li>
+      <li><a href="/tags/golang/">Golang</a></li>
+  </ul>
+
+</div>
 <div class="card">
     <div class="category">System Design &amp; Architecture</div>
     <h2><a style="color:#0B3C5D" href="/articles/building-a-layer7-load-balancer/" aria-label="Read more about Building a Layer 7 Load Balancer">Building a Layer 7 Load Balancer</a></h2>
@@ -108,7 +128,6 @@
     <blockquote>
       <p>TLDR:
 Neural Networks are computational models that stacks units called neurons into layers to create predictions after we have trained the network. Each unit performs a linear transformation on the data followed by a non-linear transformation to produce a result. Forward propagation computes the network result and backward propagation computes the changes in weights and biases for the network in subsequent epochs. The non-linear activation function supports the network to assume any mathematical function, this is called the Universal Approximation theorem.</p>
-
     </blockquote>
   
   
