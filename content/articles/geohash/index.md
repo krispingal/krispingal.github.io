@@ -53,7 +53,7 @@ Geohashing transforms two-dimensional latitude and longitude coordinates into a 
 
 This hierarchical structure enables geohashes to be used for efficient spatial indexing—shorter geohashes cover larger areas, while longer geohashes provide pinpoint accuracy.
 
-{{< figure src="Geohash_world.webp" title="Fig 1. Entire world split into 32 top level geohash cells." attr="https://geohash.softeng.co/" loading="lazy" >}}
+{{< figure src="Geohash_world.webp" title="Fig 1. Entire world split into 32 top level geohash cells." alt= "Entire world split into 32 top level geohash cells." attr="https://geohash.softeng.co/" loading="lazy" >}}
 
 ### Advantages and Limitations of Geohashes
 #### Why Geohashing is Useful
@@ -73,7 +73,7 @@ spatial locality. {{< sidenote id="1" label="Space-filling curves" content="Spac
 - Maintain **spatial proximity**, meaning nearby points in 2D space often remain close in 1D geohash representation.
 - Enable **fast neighbor computations**, as neighboring geohashes can be determined using bitwise operations.
 
-{{< figure src="EnhancedZCurve.webp" title="Fig 2. Z-Curve Space-Filling Pattern (4x4 Grid)" caption="Points are visited in Z-shaped patterns at multiple scales, creating a space-filling curve that preserves locality" loading="lazy" >}}
+{{< figure src="EnhancedZCurve.webp" title="Fig 2. Z-Curve Space-Filling Pattern (4x4 Grid)" alt="Z-Curve Space-Filling Pattern (4x4 Grid)" caption="Points are visited in Z-shaped patterns at multiple scales, creating a space-filling curve that preserves locality" loading="lazy" >}}
 
 However, Z-curves are not perfect. Some cases require additional checks to ensure proper neighbor retrieval, especially at cell boundaries.
 
@@ -192,7 +192,7 @@ Now, we **convert every 5-bit chunk** to Base32:
 - `11110` → **z**
 
 Final **Base32 Geohash: `"dp3wjz"`**
-{{< figure src="Geohash_Chicago.webp" title="Fig 3. Geohash of the Willis Tower in Chicago" attr="Jorren Hendricks: https://geohash.jorren.nl/#dp3wjz" loading="lazy" >}}
+{{< figure src="Geohash_Chicago.webp" title="Fig 3. Geohash of the Willis Tower in Chicago" alt="Geohash of the Willis Tower in Chicago"  attr="Jorren Hendricks: https://geohash.jorren.nl/#dp3wjz" loading="lazy" >}}
 
 ### Python Implementation
 
@@ -607,7 +607,7 @@ R-Trees are widely used in spatial databases and systems such as [PostGIS](https
 
 
 ### S2Geometry
-{{< figure src="S2.webp" title="Fig 4. An illustration of the S2 curve after 5 levels of subdivision" attr="S2Geometry: https://s2geometry.io" loading="lazy" >}}
+{{< figure src="S2.webp" title="Fig 4. An illustration of the S2 curve after 5 levels of subdivision" alt="An illustration of the S2 curve after 5 levels of subdivision" attr="S2Geometry: https://s2geometry.io" loading="lazy" >}}
 
 **S2Geometry**, developed by Google, uses a **Hilbert space-filling curve** to map the sphere into cells, 
 providing a hierarchical spatial index.
@@ -621,7 +621,7 @@ S2Geometry is employed in systems like [Google Spanner](https://cloud.google.com
 
 
 ### H3
-{{< figure src="H3.avif" title="Fig 5. How Uber's H3 hierarchical spatial index allow users to partition the world into hexagons" attr="Uber engineering blog https://www.uber.com/blog/h3/"loading="lazy" >}}
+{{< figure src="H3.avif" title="Fig 5. How Uber's H3 hierarchical spatial index allow users to partition the world into hexagons" alt="How Uber's H3 hierarchical spatial index allow users to partition the world into hexagons" attr="Uber engineering blog https://www.uber.com/blog/h3/"loading="lazy" >}}
 
 **H3**, developed by Uber, is a hierarchical spatial index that uses **hexagonal cells** (with a few pentagons to cover the sphere) to represent geographic areas.
 - **Advantages:**  

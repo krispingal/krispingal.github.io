@@ -36,7 +36,7 @@ A Layer 4 load balancer operates at the transport layer (OSI Layer 4), distribut
 
 Below is a diagram of a simple load balancer. Requests (R1, R2, R3, R4) are distributed to three backend servers, and the forwarded requests are shown as FR1, FR2, FR3, and FR4.
 
-{{< figure src="load_balancer.webp" title="Diagram of a load balancer" loading="lazy" >}}
+{{< figure src="load_balancer.webp" title="Diagram of a load balancer" alt="Diagram of a load balancer showing incoming requests to the layer 4 LB and forwarded requests to the replicated servers" loading="lazy" >}}
 
 Below is code for a simple load balancer that supports HTTP routes request in a Round Robin fashion.
 

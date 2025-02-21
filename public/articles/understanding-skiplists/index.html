@@ -4,6 +4,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
+  <meta name="description" content="Could skipping through data be faster than balancing trees? Dive into the fascinating mechanics of skip lists, where probability shapes efficiency.">
 <title>Understanding Skip lists | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
       <script src="/js/main.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
@@ -95,7 +96,8 @@
 
 <p>So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &ldquo;express lane&rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.</p>
 <p>To make the analogy clearer, think of these levels as a series of express lanes on a highway. As you travel along an express lane, you occasionally find exits that let you drop down to slower lanes with more nodes, offering greater detail for precise adjustments. This balance of speed and accuracy allows skip lists to achieve efficient search, insert, and delete operations.</p>
-<figure><img src="/articles/understanding-skiplists/skipList.webp" loading="lazy"><figcaption>
+<figure><img src="/articles/understanding-skiplists/skipList.webp"
+    alt="An example visaulization of a skip list"><figcaption>
       <h4>Fig 1. An example Skip List</h4>
     </figcaption>
 </figure>
@@ -134,7 +136,8 @@
 </h2>
 
 <p>Like a linked list, a skip list also consists of &ldquo;nodes&rdquo; and a primary data structure that encapsulates the nodes, providing <code>insert</code>, <code>delete</code>, and <code>search</code> operations. Each node in a skip list, represented here as <code>SkipListNode</code>, stores a value and a forward list of pointers to the next nodes at various levels. This list enables the &ldquo;express lanes&rdquo; that allow for efficient traversal and manipulation of the list.</p>
-<figure><img src="/articles/understanding-skiplists/SkipListClassDiagram.webp" loading="lazy"><figcaption>
+<figure><img src="/articles/understanding-skiplists/SkipListClassDiagram.webp"
+    alt="A diagram depicting internal state of a skip list - [cur_level: (int), max_level: (int), probability: (float), Node: (SkipListNode: (value: int, forward: list[SkipListNode]))]" loading="lazy"><figcaption>
       <h4>Fig 2. Skip List state</h4>
     </figcaption>
 </figure>
@@ -233,7 +236,8 @@ play. We can assign the level of a node randomly provided the probability for ea
 </h3>
 
 <p>Finally, reconnect the marked forward links to the new node. Starting from the node’s assigned level down to level 0, adjust each marked node’s forward pointer to include the new node. This effectively “weaves” the new node into its position at every level, integrating it fully into the skip list structure.</p>
-<figure><img src="/articles/understanding-skiplists/skiplist_insert.gif" loading="lazy"><figcaption>
+<figure><img src="/articles/understanding-skiplists/skiplist_insert.gif"
+    alt="An animation that shows the operations occuring an insertion" loading="lazy"><figcaption>
       <h4>Fig 3. An example of an insert operation on Skip List</h4>
     </figcaption>
 </figure>

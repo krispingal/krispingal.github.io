@@ -10,7 +10,7 @@ images = ['puppy.webp']
   math = true
 +++
 
-{{< figure src="puppy.webp" title="A puppy taken in at a shelter" attr="Picture taken from SOS" attrlink="https://www.flickr.com/photos/pifaslt/" loading="lazy" >}}
+{{< figure src="puppy.webp" title="A puppy taken in at a shelter" alt="Image of a puppt taken in at a shelter" attr="Picture taken from SOS" attrlink="https://www.flickr.com/photos/pifaslt/" loading="lazy" >}}
 
 
 [Shelter animal outcomes][animal-shelter-outcomes] is a knowledge

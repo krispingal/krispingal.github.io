@@ -22,7 +22,7 @@ So, how do skip lists achieve \\(O(\log{n})\\) efficiency for all three operatio
 
 To make the analogy clearer, think of these levels as a series of express lanes on a highway. As you travel along an express lane, you occasionally find exits that let you drop down to slower lanes with more nodes, offering greater detail for precise adjustments. This balance of speed and accuracy allows skip lists to achieve efficient search, insert, and delete operations.
 
-{{< figure src="skipList.webp" title="Fig 1. An example Skip List" loading="lazy" >}}
+{{< figure src="skipList.webp" title="Fig 1. An example Skip List" alt="An example visaulization of a skip list" skiploading="lazy" >}}
 
 **Note on Bidirectional traversal**
 
@@ -36,7 +36,7 @@ Now, let’s take a look at initializing a skip list.
 
 Like a linked list, a skip list also consists of "nodes" and a primary data structure that encapsulates the nodes, providing `insert`, `delete`, and `search` operations. Each node in a skip list, represented here as `SkipListNode`, stores a value and a forward list of pointers to the next nodes at various levels. This list enables the "express lanes" that allow for efficient traversal and manipulation of the list.
 
-{{< figure src="skipListClassDiagram.webp" title="Fig 2. Skip List state" loading="lazy" >}}
+{{< figure src="skipListClassDiagram.webp" title="Fig 2. Skip List state" alt="A diagram depicting internal state of a skip list - [cur_level: (int), max_level: (int), probability: (float), Node: (SkipListNode: (value: int, forward: list[SkipListNode]))]" loading="lazy" >}}
 
 **Components of SkipListNode**
 
@@ -139,7 +139,7 @@ Once the position is identified, create a new SkipListNode with the specified ta
 
 Finally, reconnect the marked forward links to the new node. Starting from the node’s assigned level down to level 0, adjust each marked node’s forward pointer to include the new node. This effectively “weaves” the new node into its position at every level, integrating it fully into the skip list structure.
 
-{{< figure src="skiplist_insert.gif" title="Fig 3. An example of an insert operation on Skip List" loading="lazy" >}}
+{{< figure src="skiplist_insert.gif" title="Fig 3. An example of an insert operation on Skip List" alt="An animation that shows the operations occuring an insertion" loading="lazy" >}}
 
 
 ```python {id="insert" lineNos=inline tabWidth=4}

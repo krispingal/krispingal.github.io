@@ -320,13 +320,13 @@ blockquote {
   background-color: rgba(0,0,0,5%);
 }
 
-p code {
+p code, li code {
   background-color: #ececec;
   font-family: monospace;
   padding: 2px 4px;
   border-radius: 3px;
   border: 1px solid #ccc;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 table {

@@ -9,7 +9,7 @@ categories = ['dsa']
 tags = ['Data structures', 'Python', 'Concurrency']
 math = true
 +++
-{{< figure src="LinkHashMapInternals.webp" alt="Hugo logo" height="400px" loading="eager" >}}
+{{< figure src="LinkHashMapInternals.webp" alt="An illustration of a LinkHashMap showing a hash function, an array/vector holding doubly linked list and the map/dictionary state." height="400px" loading="eager" >}}
 Hash maps (or hash tables) are foundational implementations of the dictionary data structure, natively supported by most high-level programming languages. They provide an efficient way to store and retrieve records using unique identifiers, such as keys, and are widely used in scenarios where random access and fast lookups are required.
 
 For instance, consider a pharmacy like CVS or Walgreens, which uses patients' Social Security Numbers (SSNs)—a nine-digit unique identifier—to manage patient information. Not all patients visit the pharmacy regularly, so it would be inefficient to store data in a large array indexed by SSNs. Instead, dictionaries allow us to store, retrieve, or delete patient information efficiently, even when the SSNs are sparsely distributed.
@@ -77,7 +77,8 @@ A **doubly linked list** enables \\( O(1) \\) insertion and deletion at arbitrar
 The doubly linked list strikes a balance, making it a natural choice for managing collisions efficiently.
 
 Although this implementation uses chaining with a doubly linked list, alternative strategies such as **open addressing** with probing also exist. These strategies will be briefly discussed later in this article and explored in detail in a future piece.
-Resizing
+
+#### Resizing
 
 To maintain efficiency as the hashmap grows, resizing is necessary. When the number of elements in the hashmap exceeds a certain threshold (determined by the load factor), the hashmap's capacity is doubled, and all elements are rehashed to their new indices.
 

@@ -4,6 +4,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
+  <meta name="description" content="Behind every high-performing system lies a load balancer making invisible yet critical decisions—discover how these unsung heroes shape the digital world.">
 <title>Building a Layer 7 Load Balancer | kbabuji</title>
     <link rel="stylesheet" href="/css/main.css">
       <script src="/js/main.js"></script>
@@ -87,7 +88,8 @@
 
 <p>A Layer 4 load balancer operates at the transport layer (OSI Layer 4), distributing network traffic based on information from the TCP/UDP protocol. It does not inspect the application-level data, meaning it forwards packets to the backend servers without interpreting their content. Layer 4 load balancers make decisions based on the destination IP address and port.</p>
 <p>Below is a diagram of a simple load balancer. Requests (R1, R2, R3, R4) are distributed to three backend servers, and the forwarded requests are shown as FR1, FR2, FR3, and FR4.</p>
-<figure><img src="/articles/building-a-layer7-load-balancer/load_balancer.webp" loading="lazy"><figcaption>
+<figure><img src="/articles/building-a-layer7-load-balancer/load_balancer.webp"
+    alt="Diagram of a load balancer showing incoming requests to the layer 4 LB and forwarded requests to the replicated servers" loading="lazy"><figcaption>
       <h4>Diagram of a load balancer</h4>
     </figcaption>
 </figure>
