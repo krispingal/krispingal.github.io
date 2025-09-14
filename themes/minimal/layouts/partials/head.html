@@ -10,8 +10,8 @@
 {{- if .Param "math" }}
 {{- partialCached "math.html" . -}}
 {{- end }}
-{{- template "_internal/schema.html" . -}}
-{{- template "_internal/opengraph.html" . -}}
+{{- partial "schema.html" . -}}
+{{- partial "opengraph.html" . -}}
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
