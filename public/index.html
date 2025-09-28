@@ -30,8 +30,8 @@
 </script>
   <meta itemprop="name" content="Home">
   <meta itemprop="description" content="Home page of blog">
-  <meta itemprop="datePublished" content="2025-02-16T13:20:14-06:00">
-  <meta itemprop="dateModified" content="2025-02-16T13:20:14-06:00">
+  <meta itemprop="datePublished" content="2025-09-14T18:02:58+05:30">
+  <meta itemprop="dateModified" content="2025-09-14T18:02:58+05:30">
   <meta itemprop="keywords" content="Home page of blog"><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Home">
@@ -65,6 +65,32 @@
 <main>
   <div class="content">
     <section class="articles-list">
+<div class="card">
+    <div class="category">Data Structures &amp; Algorithms</div>
+    <h2><a style="color:#0B3C5D" href="/articles/open-addressing-hashmap/" aria-label="Read more about The Fragile Elegance of Open Addressing">The Fragile Elegance of Open Addressing</a></h2>
+<div class="article-meta">
+    <time datetime="2025-09-14T18:02:58&#43;05:30">September 14, 2025</time>
+    <span class="separator">|</span>
+    <span>10 min</span>
+</div>
+    <article>
+        <p>In the last article, we explored chaining, where collisions are resolved by attaching an external structure—typically a doubly linked list—to each bucket. This works, but it comes with a hidden cost. Linked lists scatter elements across the heap, turning each lookup into a sequence of random memory accesses. That destroys much of the performance advantage that arrays (or vectors) usually give us: tight, contiguous storage and cache efficiency.</p>
+<p>Open addressing flips this philosophy on its head. Instead of pushing collisions outward into auxiliary structures, it insists that every key-value pair must live inside the array itself. No lists, no nodes, no extra indirection. At first glance, this seems elegant—one flat array, no messy pointers. Even better, the memory layout is cache-friendly, and linear scans often outperform linked structures despite doing “more work.”</p>
+<p>But this internal simplicity comes with its own challenges. Once you commit to storing everything in the array, you now need careful strategies for:</p>
+<ul>
+<li><strong>Probing</strong>: how to find the next open slot when a collision occurs.</li>
+<li><strong>Deletion</strong>: how to remove elements without breaking probe chains (the infamous tombstone problem).</li>
+<li><strong>Load management</strong>: how to keep the table from getting too crowded, since performance degrades rapidly as it fills.</li>
+</ul>
+<p>In other words: open addressing hash tables offer elegance and speed in the best case, but force us to wrestle with subtleties in the worst.</p>
+    </article>
+    <a class="button read-more" href="/articles/open-addressing-hashmap/" aria-label="Read full article: The Fragile Elegance of Open Addressing">Read more &#8594;</a>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/data-structures/">Data Structures</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+  </ul>
+
+</div>
 <div class="card">
     <div class="category">System Design &amp; Architecture</div>
     <h2><a style="color:#0B3C5D" href="/articles/geohash/" aria-label="Read more about Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It">Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It</a></h2>
@@ -166,32 +192,6 @@ Hash maps (or hash tables) are foundational implementations of the dictionary da
   <ul class="tags" style="padding-left: 0px;padding-top:10px">
       <li><a href="/tags/golang/">Golang</a></li>
       <li><a href="/tags/web-development/">Web Development</a></li>
-  </ul>
-
-</div>
-<div class="card">
-    <div class="category">Data Structures &amp; Algorithms</div>
-    <h2><a style="color:#0B3C5D" href="/articles/understanding-skiplists/" aria-label="Read more about Understanding Skip lists">Understanding Skip lists</a></h2>
-<div class="article-meta">
-    <time datetime="2024-11-01T00:00:00-05:00">November 1, 2024</time>
-    <span class="separator">|</span>
-    <span>11 min</span>
-</div>
-    <article>
-        <p>Suppose you have a sorted collection of elements and need to perform add, delete, and search operations efficiently. Skip lists offer an efficient, probabilistic approach to these operations, achieving an average time complexity of \(O(\log{n})\) for search, insertion, and deletion. While other data structures, such as red-black trees and AVL trees, can provide the same \(O(\log{n})\) efficiency guarantees in both the average and worst cases, skip lists have the advantage of being simpler to implement and understand.</p>
-<p>With basic data structures like sorted arrays, you can search for elements in \(O(\log{n})\) time using binary search. However, insertion and deletion require shifting elements, leading to \(O(n)\) time complexity for these operations. Conversely, linked lists allow efficient \(O(1)\) insertions and deletions once the target location is found, but finding that location requires \(O(n)\) time in the worst case.</p>
-<h2 id="how-skip-lists-improve-efficiency">
-  How Skip Lists improve efficiency
-  <a class="anchor" href="#how-skip-lists-improve-efficiency" aria-label="Link to section - How Skip Lists improve efficiency">#</a>
-</h2>
-
-<p>So, how do skip lists achieve \(O(\log{n})\) efficiency for all three operations? Skip lists accomplish this by introducing multiple levels, each serving as an &ldquo;express lane&rdquo; that allows you to skip over sections of the list. The highest levels contain fewer nodes, allowing you to make large jumps, while the lowest level contains all nodes, allowing for precise adjustments when needed. This structure enables fast traversal through the express lanes and, when necessary, you can exit to a lower level for finer-grained searching.</p>
-    </article>
-    <a class="button read-more" href="/articles/understanding-skiplists/" aria-label="Read full article: Understanding Skip lists">Read more &#8594;</a>
-  <ul class="tags" style="padding-left: 0px;padding-top:10px">
-      <li><a href="/tags/data-structures/">Data Structures</a></li>
-      <li><a href="/tags/python/">Python</a></li>
-      <li><a href="/tags/probabilistic/">Probabilistic</a></li>
   </ul>
 
 </div>

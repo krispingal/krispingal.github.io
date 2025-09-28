@@ -6,8 +6,15 @@
     <description>Recent content in Archives on kbabuji</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Feb 2025 13:20:14 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 14 Sep 2025 18:02:58 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Fragile Elegance of Open Addressing</title>
+      <link>http://localhost:1313/articles/open-addressing-hashmap/</link>
+      <pubDate>Sun, 14 Sep 2025 18:02:58 +0530</pubDate>
+      <guid>http://localhost:1313/articles/open-addressing-hashmap/</guid>
+      <description>&lt;p&gt;In the last article, we explored chaining, where collisions are resolved by attaching an external structure—typically a doubly linked list—to each bucket. This works, but it comes with a hidden cost. Linked lists scatter elements across the heap, turning each lookup into a sequence of random memory accesses. That destroys much of the performance advantage that arrays (or vectors) usually give us: tight, contiguous storage and cache efficiency.&lt;/p&gt;&#xA;&lt;p&gt;Open addressing flips this philosophy on its head. Instead of pushing collisions outward into auxiliary structures, it insists that every key-value pair must live inside the array itself. No lists, no nodes, no extra indirection. At first glance, this seems elegant—one flat array, no messy pointers. Even better, the memory layout is cache-friendly, and linear scans often outperform linked structures despite doing “more work.”&lt;/p&gt;&#xA;&lt;p&gt;But this internal simplicity comes with its own challenges. Once you commit to storing everything in the array, you now need careful strategies for:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Probing&lt;/strong&gt;: how to find the next open slot when a collision occurs.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Deletion&lt;/strong&gt;: how to remove elements without breaking probe chains (the infamous tombstone problem).&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Load management&lt;/strong&gt;: how to keep the table from getting too crowded, since performance degrades rapidly as it fills.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;In other words: open addressing hash tables offer elegance and speed in the best case, but force us to wrestle with subtleties in the worst.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Why Finding “Nearby” Is Harder Than You Think—And How Geohashes Solve It</title>
       <link>http://localhost:1313/articles/geohash/</link>

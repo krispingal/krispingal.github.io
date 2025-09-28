@@ -114,6 +114,8 @@ In this scenario, the hashmap doubles its size, and the key-value pairs are redi
 
 Let’s explore the core operations and their implementation details:
 
+---
+
 ## Get and Contains Operations
 
 The `get` operation retrieves the value associated with a key, while `contains` checks whether a key exists in the hashmap. These operations rely on:
@@ -150,6 +152,8 @@ def contains(self, key):
 
 *Complexity*: \\(O(1)\\) on average, \\(O(n)\\) in the worst case (when all keys hash to the same bucket).
 
+---
+
 ## Put Operation
 
 The `put` operation inserts a new key-value pair or updates an existing key. Steps include:
@@ -183,6 +187,8 @@ def put(self, key, value):
 
 *Complexity*: Similar to `get` — \\(O(1)\\) on average, \\(O(n)\\) in the worst case.
 
+---
+
 ## Delete Operation
 
 The delete operation removes a key-value pair. It involves:
@@ -207,6 +213,8 @@ def delete(self, key):
     raise KeyError(f"Key {key} not found")
 ```
 *Complexity*: Similar to `get` — \\(O(1)\\) on average, \\(O(n)\\) in the worst case.
+
+---
 
 ## Synchronized Linked Hashmap
 
@@ -244,7 +252,7 @@ class FineGrainedLinkedHashTable(Dictionary):
             return default
 ```
 
------
+----
 
 ## Closing Notes
 
