@@ -1,0 +1,82 @@
+{{- $schema := dict -}}
+{{- $schema = $schema | merge (dict "@context" "https://schema.org") -}}
+{{- $schema = $schema | merge (dict "@type" "BlogPosting") -}}
+{{- $schema = $schema | merge (dict "headline" .Title) -}}
+{{- $schema = $schema | merge (dict "description" (.Params.description | default .Summary)) -}}
+
+{{- with .Date }}
+  {{- $schema = $schema | merge (dict "datePublished" (.Format "2006-01-02T15:04:05-07:00")) }}
+{{- end }}
+
+{{- with .Lastmod }}
+  {{- $schema = $schema | merge (dict "dateModified" (.Format "2006-01-02T15:04:05-07:00")) }}
+{{- else }}
+  {{- $schema = $schema | merge (dict "dateModified" (.Date.Format "2006-01-02T15:04:05-07:00")) }}
+{{- end }}
+
+{{- $schema = $schema | merge (dict "url" .Permalink) }}
+
+{{- /* Handle keywords - combine keywords, tags, and categories */ -}}
+{{- $allKeywords := slice -}}
+{{- with .Params.keywords }}
+  {{- $allKeywords = $allKeywords | append . }}
+{{- end }}
+{{- with .Params.tags }}
+  {{- $allKeywords = $allKeywords | append . }}
+{{- end }}
+{{- if $allKeywords }}
+  {{- $schema = $schema | merge (dict "keywords" (delimit ($allKeywords | uniq) ", ")) }}
+{{- end }}
+
+{{- /* Handle images properly */ -}}
+{{- with .Params.images }}
+  {{- $imageList := slice }}
+  {{- range . }}
+    {{- $imageList = $imageList | append (absURL .) }}
+  {{- end }}
+  {{- $schema = $schema | merge (dict "image" $imageList) }}
+{{- end }}
+
+{{- /* Author information */ -}}
+{{- $authorName := .Params.author | default site.Params.author | default "kbabuji" }}
+{{- $author := dict "@type" "Person" "name" $authorName }}
+{{- if site.Params.authorUrl }}
+  {{- $author = $author | merge (dict "url" site.Params.authorUrl) }}
+{{- end }}
+{{- if site.Params.authorImage }}
+  {{- $author = $author | merge (dict "image" (absURL site.Params.authorImage)) }}
+{{- end }}
+{{- $schema = $schema | merge (dict "author" $author) }}
+
+{{- /* Publisher information */ -}}
+{{- $publisher := dict "@type" "Organization" "name" (site.Title | default "Tech Blog") }}
+{{- if site.Params.logo }}
+  {{- $logo := dict "@type" "ImageObject" "url" (absURL site.Params.logo) }}
+  {{- $publisher = $publisher | merge (dict "logo" $logo) }}
+{{- end }}
+{{- $schema = $schema | merge (dict "publisher" $publisher) }}
+
+{{- /* Article section from main category */ -}}
+{{- with .Params.mainCategory }}
+  {{- $schema = $schema | merge (dict "articleSection" .) }}
+{{- else }}
+  {{- with .Params.categories }}
+    {{- $schema = $schema | merge (dict "articleSection" (index . 0)) }}
+  {{- end }}
+{{- end }}
+
+{{- /* Word count */ -}}
+{{- $schema = $schema | merge (dict "wordCount" .WordCount) }}
+
+{{- /* Main entity of page */ -}}
+{{- $mainEntity := dict "@type" "WebPage" "@id" .Permalink }}
+{{- $schema = $schema | merge (dict "mainEntityOfPage" $mainEntity) }}
+
+{{- /* For tech articles, add proficiency level if specified */ -}}
+{{- with .Params.difficulty }}
+  {{- $schema = $schema | merge (dict "proficiencyLevel" .) }}
+{{- end }}
+
+<script type="application/ld+json">
+{{ $schema | jsonify | safeHTML }}
+</script>

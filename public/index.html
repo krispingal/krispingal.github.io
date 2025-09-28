@@ -28,11 +28,10 @@
         });
     });
 </script>
-  <meta itemprop="name" content="Home">
-  <meta itemprop="description" content="Home page of blog">
-  <meta itemprop="datePublished" content="2025-09-14T18:02:58+05:30">
-  <meta itemprop="dateModified" content="2025-09-14T18:02:58+05:30">
-  <meta itemprop="keywords" content="Home page of blog"><meta property="og:url" content="http://localhost:1313/">
+
+<script type="application/ld+json">
+"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"author\":{\"@type\":\"Person\",\"name\":\"kbabuji\"},\"dateModified\":\"2025-09-14T18:02:58+05:30\",\"datePublished\":\"2025-09-14T18:02:58+05:30\",\"description\":\"Home page of blog\",\"headline\":\"Home\",\"keywords\":\"Home page of blog\",\"mainEntityOfPage\":{\"@id\":\"http://localhost:1313/\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"kbabuji\"},\"url\":\"http://localhost:1313/\",\"wordCount\":0}"
+</script><meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="kbabuji">
   <meta property="og:title" content="Home">
   <meta property="og:description" content="Home page of blog">
@@ -71,7 +70,7 @@
 <div class="article-meta">
     <time datetime="2025-09-14T18:02:58&#43;05:30">September 14, 2025</time>
     <span class="separator">|</span>
-    <span>10 min</span>
+    <span>11 min</span>
 </div>
     <article>
         <p>In the last article, we explored chaining, where collisions are resolved by attaching an external structure—typically a doubly linked list—to each bucket. This works, but it comes with a hidden cost. Linked lists scatter elements across the heap, turning each lookup into a sequence of random memory accesses. That destroys much of the performance advantage that arrays (or vectors) usually give us: tight, contiguous storage and cache efficiency.</p>
