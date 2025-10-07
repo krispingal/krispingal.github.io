@@ -116,7 +116,6 @@ main {
   overflow: hidden; /* In case you add images with different aspect ratios */
   min-height: 450px;
   padding: 2em 1em;
-  border-bottom: 1px solid #777;
 }
 
 
@@ -323,10 +322,13 @@ blockquote {
 p code, li code {
   background-color: #ececec;
   font-family: monospace;
-  padding: 2px 4px;
-  border-radius: 3px;
+  color: #333;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
   border: 1px solid #ccc;
   font-weight: 400;
+  font-size: 90%;
+  white-space: nowrap;
 }
 
 table {

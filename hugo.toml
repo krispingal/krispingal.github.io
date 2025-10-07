@@ -9,6 +9,12 @@ enableRobotsTXT = true
   title = 'kbabuji'
   description = "A software engineer's field notes from the frontier, where we peel back the layers of complex systems to reveal their hidden elegance."
   math = false
+  # --- JSON-LD AUTHOR/PUBLISHER HARDCODING ---
+  author = "Krishna Babuji" # Default author name (for author.name)
+  authorUrl = "about" # URL to your about page (for author.url)
+  authorImage = "images/portrait.webp" # Path to your author avatar (for author.image)
+  logo = "/favicon-32x32.png" # Path to your organization logo (for publisher.logo.url)
+  # ------------------------------------------
   [params.contact]
     email = 'krishna.pingal@gmail.com'
   [params.giscus]
