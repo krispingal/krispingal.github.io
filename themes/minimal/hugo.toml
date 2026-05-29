@@ -1,5 +1,5 @@
 baseURL = 'https://example.org/'
-languageCode = 'en-US'
+locale = 'en-US'
 title = 'Untangling thoughts'
 
 [[menus.main]]

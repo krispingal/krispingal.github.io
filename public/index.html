@@ -2,7 +2,7 @@
 <html lang="en-us" dir="ltr">
 
 <head>
-	<meta name="generator" content="Hugo 0.150.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.161.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.5">
   <meta name="description" content="Home page of Kbabuji blog">
@@ -35,8 +35,8 @@
   "description": "Home page of Kbabuji blog",
   "articleBody": "\"\"",
   "image": "http://localhost:1313/images/default-poster.jpg",
-  "datePublished": "2025-09-14T18:02:58\u002b05:30",
-  "dateModified": "2025-09-14T18:02:58\u002b05:30",
+  "datePublished": "2026-05-28T00:00:00-05:00",
+  "dateModified": "2026-05-28T00:00:00-05:00",
   "url": "http://localhost:1313/",
   "mainEntityOfPage": "http://localhost:1313/",
   "author": {
@@ -91,6 +91,46 @@
 <main>
   <div class="content">
     <section class="articles-list">
+<div class="card">
+    <div class="category">Data Structures &amp; Algorithms</div>
+    <h2><a style="color:#0B3C5D" href="/articles/key-value-store-1/" aria-label="Read more about Time-Traveling Through Data">Time-Traveling Through Data</a></h2>
+<div class="article-meta">
+    <time datetime="2026-05-28T00:00:00-05:00">May 28, 2026</time>
+    <span class="separator">|</span>
+    <span>9 min</span>
+</div>
+    <article>
+        <p>Most key-value stores are introduced as simple overwrite-based systems:</p>
+<ul>
+<li>write a value for a key,</li>
+<li>read the latest value back.</li>
+</ul>
+<p>But many real systems cannot afford to lose history.</p>
+<p>Imagine a bank customer disputing an overdraft fee from three weeks ago. To investigate, the bank needs to reconstruct the exact account state at a specific point in time. One approach is to start from a known balance snapshot and replay all transactions leading up to the disputed event.</p>
+<p>Or consider collaborative editors like Google Docs, Overleaf, or Docusign. These systems allow users to inspect older revisions, restore previous states, and understand how a document evolved over time. Underneath the UI, the system needs a way to answer questions like:</p>
+<ul>
+<li>What did this object look like at version <em>42</em>?</li>
+<li>What was the latest state before timestamp <em>T</em>?</li>
+<li>When was this value deleted or changed?</li>
+</ul>
+<p>These are fundamentally versioned data access problems.</p>
+<p>Versioned key-value stores provide a surprisingly elegant foundation for solving them. At their core, they extend the traditional key-value model by preserving historical state instead of overwriting it. That small shift unlocks powerful capabilities:</p>
+<ul>
+<li>historical reads,</li>
+<li>time-travel queries,</li>
+<li>rollback,</li>
+<li>auditability,</li>
+<li>snapshot reconstruction.</li>
+</ul>
+<p>In this article, we will build a simple append-only versioned key-value store in Python and gradually evolve it toward ideas used in real storage systems such as <a href="https://en.wikipedia.org/wiki/Multiversion_concurrency_control">MVCC (Multi-Version Concurrency Control)</a> databases and <a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree">LSM-tree</a> based engines.</p>
+    </article>
+    <a class="button read-more" href="/articles/key-value-store-1/" aria-label="Read full article: Time-Traveling Through Data">Read more &#8594;</a>
+  <ul class="tags" style="padding-left: 0px;padding-top:10px">
+      <li><a href="/tags/data-structures/">Data Structures</a></li>
+      <li><a href="/tags/python/">Python</a></li>
+  </ul>
+
+</div>
 <div class="card">
     <div class="category">Data Structures &amp; Algorithms</div>
     <h2><a style="color:#0B3C5D" href="/articles/open-addressing-hashmap/" aria-label="Read more about The Fragile Elegance of Open Addressing">The Fragile Elegance of Open Addressing</a></h2>
@@ -198,29 +238,6 @@ Hash maps (or hash tables) are foundational implementations of the dictionary da
   </ul>
 
 </div>
-<div class="card">
-    <div class="category">Programming Patterns &amp; Languages</div>
-    <h2><a style="color:#0B3C5D" href="/articles/from-jekyll-to-hugo/" aria-label="Read more about From Jekyll to Hugo">From Jekyll to Hugo</a></h2>
-<div class="article-meta">
-    <time datetime="2024-11-10T13:22:53-06:00">November 10, 2024</time>
-    <span class="separator">|</span>
-    <span>8 min</span>
-</div>
-    <article>
-        <figure><img src="/articles/from-jekyll-to-hugo/hugo-logo-wide.svg"
-    alt="Hugo logo" width="300px" height="250px" loading="lazy">
-</figure>
-
-<p>I recently moved my blog from <a href="https://jekyllrb.com/">Jekyll</a>, a Ruby-based static site generator, to <a href="https://gohugo.io/">Hugo</a>, a popular alternative built in Golang. In this article, I’ll walk through the rationale behind this migration, share the steps I took, and include a few custom code snippets I created along the way. This is not intended as a tutorial on setting up a blog with Hugo — there are plenty of excellent videos and documentation on <a href="https://gohugo.io/documentation/">Hugo’s site</a> for that. Instead, I’ll focus on my experience, insights, and the lessons learned that may be helpful for anyone considering a similar transition.</p>
-<p>You could find an older version of my site at <a href="https://web.archive.org/web/20200917235453/https://krispingal.github.io/">archive</a>.</p>
-    </article>
-    <a class="button read-more" href="/articles/from-jekyll-to-hugo/" aria-label="Read full article: From Jekyll to Hugo">Read more &#8594;</a>
-  <ul class="tags" style="padding-left: 0px;padding-top:10px">
-      <li><a href="/tags/golang/">Golang</a></li>
-      <li><a href="/tags/web-development/">Web Development</a></li>
-  </ul>
-
-</div>
     </section>
     <div class="pagination-container">
   <nav class="pagination" aria-label="Page navigation">
@@ -240,7 +257,7 @@ Hash maps (or hash tables) are foundational implementations of the dictionary da
     <a href="mailto:krishna.pingal@gmail.com" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.7-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z"></path></svg></a>
     <a href="/articles/index.xml" aria-label="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"></path><path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"></path><circle cx="6" cy="18" r="2"></circle></svg></a>
 </div>
-<p class="footer-copyright">© 2016 &ndash; 2025 kbabuji. All rights reserved.</p>
+<p class="footer-copyright">© 2016 &ndash; 2026 kbabuji. All rights reserved.</p>
 
   </footer>
 </body>

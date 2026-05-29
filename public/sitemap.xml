@@ -3,18 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-09-14T18:02:58+05:30</lastmod>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/articles/</loc>
-    <lastmod>2025-09-14T18:02:58+05:30</lastmod>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/about/</loc>
     <changefreq>monthly</changefreq>
   </url><url>
+    <loc>http://localhost:1313/categories/aiml/</loc>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-09-14T18:02:58+05:30</lastmod>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>http://localhost:1313/articles/key-value-store-1/</loc>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>http://localhost:1313/tags/python/</loc>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-05-28T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/tags/data-structures/</loc>
@@ -22,14 +38,6 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/categories/dsa/</loc>
-    <lastmod>2025-09-14T18:02:58+05:30</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>http://localhost:1313/tags/python/</loc>
-    <lastmod>2025-09-14T18:02:58+05:30</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-09-14T18:02:58+05:30</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
@@ -106,10 +114,6 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>http://localhost:1313/articles/guide-to-neural-network/</loc>
-    <lastmod>2018-11-04T00:00:00-05:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>http://localhost:1313/categories/aiml/</loc>
     <lastmod>2018-11-04T00:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
