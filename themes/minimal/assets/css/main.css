@@ -216,6 +216,26 @@ main {
   height: 2px;
 }
 
+/* Stack the header and wrap the nav on small screens */
+@media screen and (max-width: 768px) {
+  .masthead {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.75em 1.5em;
+  }
+
+  .masthead h2 {
+    margin: 0;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+}
+
 .footer-nav {
   padding-top: 2em;
   padding-left: 3em;
@@ -489,6 +509,10 @@ article img {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+  .content {
+    min-width: auto;
+  }
+
   .article-container {
     min-width: auto;
     padding: 1em;
