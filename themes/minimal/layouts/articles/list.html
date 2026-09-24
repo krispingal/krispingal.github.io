@@ -1,11 +1,7 @@
 {{- define "main" }}
 <div class="slim-padding">
     <h1 class="montserrat-heading">{{ .Title }}</h1>
-        {{ .Content }}
-        <div class="card-grid">
-            {{- range .Pages.ByDate.Reverse }}
-                {{- .Render "detailed-card"}}
-            {{- end }}
-        </div>
-    </div>
+    {{ .Content }}
+    {{ partial "content/card-grid.html" .Pages.ByDate.Reverse }}
+</div>
 {{- end }}

@@ -2,18 +2,18 @@
 <html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
 
 <head>
-  {{ partial "head.html" . }}
+  {{ partial "head/head.html" . }}
 </head>
 
 <body>
   <header class="navbar">
-    {{ partialCached "header.html" . }}
+    {{ partialCached "site/header.html" . }}
   </header>
   <main class="wrapper">
     {{ block "main" . }}{{ end }}
   </main>
   <footer class="footer-nav">
-    {{- partialCached "footer.html" . }}
+    {{- partialCached "site/footer.html" . }}
   </footer>
 </body>
 

@@ -5,7 +5,7 @@
     {{- $url := .url }}
     {{- $external := hasPrefix $url "http" }}
     {{- if hasPrefix $url "/" }}{{ $url = $url | relLangURL }}{{ end }}
-    <a href="{{ $url }}"{{ if $external }} target="_blank"{{ end }} aria-label="{{ .label | default (title .name) }}">{{ partial "icon.html" .name }}</a>
+    <a href="{{ $url }}"{{ if $external }} target="_blank"{{ end }} aria-label="{{ .label | default (title .name) }}">{{ partial "site/icon.html" .name }}</a>
     {{- end }}
 </div>
 {{- $year := now.Year }}

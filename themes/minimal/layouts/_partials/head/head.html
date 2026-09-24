@@ -7,9 +7,9 @@
 <title>{{- if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{- partialCached "head/css.html" . -}}
 {{- if .Param "math" }}
-{{- partialCached "math.html" . -}}
+{{- partialCached "head/math.html" . -}}
 {{- end }}
-{{- partial "jsonld.html" . -}}
+{{- partial "head/jsonld.html" . -}}
 {{- partial "opengraph.html" . -}}
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

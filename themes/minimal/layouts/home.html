@@ -6,13 +6,13 @@
     {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
     <section class="articles-list">
       {{- range $paginator.Pages }}
-      {{- .Render "homepage-card" }}
+      {{- .Render "card-feed" }}
       {{- end }}
     </section>
 
     {{- if or ($paginator.HasPrev) ($paginator.HasNext) }}
     <div class="pagination-container">
-      {{- partial "pagination.html" . }}
+      {{- partial "content/pagination.html" . }}
     </div>
     {{- end}}
   </div>
