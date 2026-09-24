@@ -1,0 +1,48 @@
+.article-link {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+}
+
+
+@media screen and (max-width: 768px) {
+  .article-link h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.card-description {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-category {
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.home-card {
+  padding-top: 0.5em;
+  padding-bottom: 1.5em;
+}
+
+.home-card h2 a {
+  color: var(--color-primary);
+}

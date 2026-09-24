@@ -11,14 +11,14 @@
                 <a href="{{ .Page.RelPermalink }}" class="see-more montserrat-heading-bold">SEE MORE <span class="arrow-icon">&#8594;</span> </a>
             </div>
             
-            <div class="minimal-articles-list">
+            <div class="term-cards">
                 {{ range first 3 .Pages }}
                     {{ .Render "minimal-card"}}
                 {{ end }}
             </div>
         </div>
         
-        <div class="minimal-divider"></div>
+        <div class="section-divider"></div>
         {{ end }}
     </div>
 </div>

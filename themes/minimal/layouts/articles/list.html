@@ -2,7 +2,7 @@
 <div class="slim-padding">
     <h1 class="montserrat-heading">{{ .Title }}</h1>
         {{ .Content }}
-        <div class="detailed-articles-list">
+        <div class="card-grid">
             {{- range .Pages.ByDate.Reverse }}
                 {{- .Render "detailed-card"}}
             {{- end }}

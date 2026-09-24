@@ -1,0 +1,25 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.pagination-item {
+  padding: 0.5rem 4rem;
+  color: var(--color-highlight);
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  border: 1.5px solid var(--color-border-strong);
+}
+
+.pagination-item.older {
+  margin-left: auto;
+}
+
+.pagination-item[aria-disabled="true"] {
+  color: var(--color-disabled);
+  pointer-events: none;
+  cursor: default;
+}

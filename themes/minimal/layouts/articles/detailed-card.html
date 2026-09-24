@@ -1,7 +1,7 @@
 {{- $images := partial "_funcs/get-page-images" . }}
 {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
 {{- $dateHuman := .Date | time.Format ":date_long" }}
-<div class="detailed-article-card">
+<div class="card-grid-item">
     {{- with $images}}
     {{- range first 1 $images }}
     <img src="{{ .Permalink }}" width="100%" height="225px" loading="lazy">

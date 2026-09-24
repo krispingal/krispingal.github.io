@@ -1,0 +1,144 @@
+:root {
+  --font-primary: "Palatino", "charter", Georgia, "Times New Roman", serif;
+  --font-secondary: "Montserrat", serif;
+
+  --color-primary: #0b3c5d;
+  --color-accent: #d9b310;
+  --color-highlight: #328cc1;
+  --color-text: #1d2731;
+  --color-bg: #f3f3f3;
+  --color-heading: #313131;
+  --color-muted: #666;
+  --color-border: #aaa;
+  --color-border-soft: #ccc;
+  --color-border-faint: #eee;
+  --color-border-strong: #bbb;
+  --color-white: #fff;
+  --color-footer-icon: #f5faff;
+  --color-footer-text: #ddd;
+  --color-text-subtle: #4a4a4a;
+  --color-rule: #888;
+  --color-disabled: #6c757d;
+  --color-code-bg: #ececec;
+  --color-code-text: #333;
+  --color-table-border: #d1d1d1;
+  --color-th-bg: #e5e5e5;
+  --color-row-alt: #eaeaea;
+  --color-hover-bg: #d3d3d3;
+}
+
+body {
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  margin: 0px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.anchor {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.anchor:hover {
+  color: var(--color-highlight);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  color: var(--color-heading);
+  letter-spacing: -0.025rem;
+  text-rendering: optimizeLegibility;
+}
+
+.montserrat-heading {
+  font-family: var(--font-secondary);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.montserrat-heading-bold {
+  font-family: var(--font-secondary);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+blockquote {
+  border-left: 6px solid var(--color-primary);
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  background-color: rgba(0, 0, 0, 5%);
+}
+
+p code,
+li code {
+  background-color: var(--color-code-bg);
+  font-family: monospace;
+  color: var(--color-code-text);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-soft);
+  font-weight: 400;
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+table {
+  width: 100%; /* Or a specific width if needed */
+  border-collapse: collapse; /* Collapses cell borders into a single border */
+}
+
+th,
+td {
+  border: 1px solid var(--color-table-border); /* Light gray border */
+  padding: 8px; /* Adds some spacing inside cells */
+  text-align: left; /* Aligns text to the left by default */
+}
+
+th {
+  background-color: var(--color-th-bg);
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-row-alt);
+}
+
+@media (min-width: 38em) {
+  html {
+    font-size: 18px;
+  }
+}
+
+figcaption h4 {
+  text-align: center;
+  color: var(--color-muted);
+}
+
+pre {
+  tab-size: 4;
+  overflow-x: auto;
+  padding: 6px;
+  border-radius: 2px;
+  font-size: 14px;
+}

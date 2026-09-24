@@ -7,7 +7,7 @@
     <h3 class="montserrat-heading">{{ .Params.description }}</h3>
 
         {{ .Content }}
-        <div class="detailed-articles-list">
+        <div class="card-grid">
             {{- range .Pages.ByDate.Reverse }}
                 {{- .Render "detailed-card"}}
             {{- end }}

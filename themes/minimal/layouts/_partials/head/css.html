@@ -1,4 +1,11 @@
-{{- with resources.Get "css/main.css" }}
+{{- /* Order matters: later files win at equal specificity. */ -}}
+{{- $parts := slice }}
+{{- range slice "base" "layout" "components/article" "components/cards" "components/card-grid" "components/term" "components/related" "components/tags" "components/button" "components/pagination" "components/about" "components/sidenote" "components/media" }}
+  {{- with resources.Get (printf "css/%s.css" .) }}
+    {{- $parts = $parts | append . }}
+  {{- end }}
+{{- end }}
+{{- with $parts | resources.Concat "css/main.css" }}
   {{- if eq hugo.Environment "development" }}
     <link rel="stylesheet" href="{{ .RelPermalink }}">
   {{- else }}

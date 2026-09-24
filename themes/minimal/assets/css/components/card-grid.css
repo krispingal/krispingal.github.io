@@ -1,0 +1,26 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+  gap: 2rem; /* Space between cards */
+  margin: 2rem 0;
+}
+
+.card-grid-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* In case you add images with different aspect ratios */
+  min-height: 450px;
+  padding: 2em 1em;
+}
+
+@media screen and (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
