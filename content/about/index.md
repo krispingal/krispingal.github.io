@@ -1,5 +1,4 @@
 +++
-menus = 'main'
 title = 'About'
 weight = 4
 layout = 'about'

@@ -1,7 +1,8 @@
 {{ define "main" }}
   <div class="content">
     {{- .Content }}
-    {{- $pages := where .Site.RegularPages "Section" "articles" }}
+    {{- $pages := site.RegularPages }}
+    {{- with site.Params.mainSection }}{{ $pages = where site.RegularPages "Section" . }}{{ end }}
     {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
     <section class="articles-list">
       {{- range $paginator.Pages }}

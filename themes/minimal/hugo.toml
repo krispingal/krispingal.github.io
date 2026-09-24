@@ -2,16 +2,6 @@ baseURL = 'https://example.org/'
 locale = 'en-US'
 title = 'Untangling thoughts'
 
-[[menus.main]]
-name = 'Home'
-pageRef = '/'
-weight = 10
-
-[[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
-weight = 30
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderHooks]

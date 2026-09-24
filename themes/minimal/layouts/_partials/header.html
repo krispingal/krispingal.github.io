@@ -1,9 +1,10 @@
 <div class="masthead">
-    <h2><a class="site-title" href="/">{{ site.Title }}</a></h2>
+    <h2><a class="site-title" href="{{ "/" | relLangURL }}">{{ site.Title }}</a></h2>
+    {{- with site.Menus.main }}
     <nav class="nav-links">
-        <a href="/about" aria-label="About me">About</a>
-        <a href="/articles">Archives</a>
-        <a href="/categories">Categories</a>
-        <a href="/tags">Tags</a>
+        {{- range . }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+        {{- end }}
     </nav>
+    {{- end }}
 </div>

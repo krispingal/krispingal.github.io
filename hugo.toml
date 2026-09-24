@@ -9,6 +9,9 @@ enableRobotsTXT = true
   title = 'kbabuji'
   description = "A software engineer's field notes from the frontier, where we peel back the layers of complex systems to reveal their hidden elegance."
   math = false
+  mainSection = "articles"
+  startYear = 2016
+  googleFontsURL = "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
   # --- JSON-LD AUTHOR/PUBLISHER HARDCODING ---
   author = "Krishna Babuji" # Default author name (for author.name)
   authorUrl = "about" # URL to your about page (for author.url)
@@ -17,6 +20,22 @@ enableRobotsTXT = true
   # ------------------------------------------
   [params.contact]
     email = 'krishna.pingal@gmail.com'
+  [[params.social]]
+    name = "github"
+    label = "GitHub"
+    url = "https://github.com/krispingal"
+  [[params.social]]
+    name = "linkedin"
+    label = "LinkedIn"
+    url = "https://linkedin.com/in/krishna-babuji"
+  [[params.social]]
+    name = "email"
+    label = "Email"
+    url = "mailto:krishna.pingal@gmail.com"
+  [[params.social]]
+    name = "rss"
+    label = "RSS"
+    url = "/articles/index.xml"
   [params.giscus]
     repo = "krispingal/krispingal.github.io"
     repoID = "R_kgDONNB2Ng"
@@ -29,6 +48,26 @@ enableRobotsTXT = true
     theme = "catppuccin_latte"
     lang = "en"
     loading = "lazy"
+
+[[menus.main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 10
+
+[[menus.main]]
+  name = "Archives"
+  pageRef = "/articles"
+  weight = 20
+
+[[menus.main]]
+  name = "Categories"
+  pageRef = "/categories"
+  weight = 30
+
+[[menus.main]]
+  name = "Tags"
+  pageRef = "/tags"
+  weight = 40
 
 [related]
   includeNewer = true
