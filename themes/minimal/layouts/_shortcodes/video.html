@@ -1,4 +1,4 @@
-<video controls {{ with .Get "autoplay" }}autoplay{{ end }} {{ with .Get "loop" }}loop{{ end }} {{ with .Get "muted" }}muted{{ end }} {{ with .Get "playsinline" }}playsinline{{ end }} {{ with .Get "poster" }}poster="{{ . }}"{{ end }} style="max-width: 100%; height: auto;">
+<video class="responsive-video" controls {{ with .Get "autoplay" }}autoplay{{ end }} {{ with .Get "loop" }}loop{{ end }} {{ with .Get "muted" }}muted{{ end }} {{ with .Get "playsinline" }}playsinline{{ end }} {{ with .Get "poster" }}poster="{{ . }}"{{ end }}>
     {{ with .Get "webm" }}<source src="{{ . }}" type="video/webm">{{ end }}
     {{ with .Get "mp4" }}<source src="{{ . }}" type="video/mp4">{{ end }}
     Your browser does not support the video tag.

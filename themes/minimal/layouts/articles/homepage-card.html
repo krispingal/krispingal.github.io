@@ -1,7 +1,8 @@
-{{- $category := index (.GetTerms "categories") 0 }}
+{{- $category := "" }}
+{{- with .GetTerms "categories" }}{{ $category = index . 0 }}{{ end }}
 <div class="card">
-    <div class="category">{{ $category.LinkTitle }}</div>
-    <h2><a style="color:#0B3C5D" href="{{ .RelPermalink }}" aria-label="Read more about {{ .LinkTitle }}">{{ .LinkTitle }}</a></h2>
+    {{- with $category }}<div class="category">{{ .LinkTitle }}</div>{{ end }}
+    <h2><a href="{{ .RelPermalink }}" aria-label="Read more about {{ .LinkTitle }}">{{ .LinkTitle }}</a></h2>
     {{- partial "article-meta.html" . }}
     <article>
         {{ .Summary }}

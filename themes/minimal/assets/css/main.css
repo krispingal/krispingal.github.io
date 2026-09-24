@@ -51,10 +51,9 @@ main {
 .term-row {
   display: flex;
   align-items: flex-start;
-  padding: 1.5em 1em;
+  padding: 1.5em 1em 2em;
   gap: 0em 3em;
-  margin-bottom: 1.5rem;
-  min-height: 16rem;
+  margin-bottom: 0;
 }
 
 .term-info {
@@ -79,12 +78,15 @@ main {
 
 .minimal-articles-list {
   flex: 1;
+  min-width: 0;
   display: flex;
   gap: 1rem;
 }
 
 .minimal-article-card {
-  flex: 0 0 15em;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 15em;
 }
 
 .article-link {
@@ -642,7 +644,7 @@ article img {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 /* Responsive adjustments */
@@ -723,6 +725,10 @@ article img {
 
 .tags ul {
   padding: 0px;
+}
+
+ul.tags {
+  padding: 10px 0 0;
 }
 
 .tags li {
@@ -1034,4 +1040,18 @@ pre {
   .sidenote__content--number-7::before {
     content: "\2021\2021";
   }
+}
+
+.card h2 a {
+  color: #0b3c5d;
+}
+
+.term-back {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+
+.responsive-video {
+  max-width: 100%;
+  height: auto;
 }

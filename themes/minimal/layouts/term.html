@@ -1,8 +1,8 @@
 {{- define "main" }}
 <div class="slim-padding">
-    <h3 class="montserrat-heading"><a href="{{ "/" | relLangURL }}{{ .Data.Plural | urlize }}">
+    <p class="montserrat-heading term-back"><a href="{{ "/" | relLangURL }}{{ .Data.Plural | urlize }}">
         ← {{ upper .Data.Plural  }}
-    </a></h2>
+    </a></p>
     <h1 class="montserrat-heading">{{ .Title }}</h1>
     <h3 class="montserrat-heading">{{ .Params.description }}</h3>
 

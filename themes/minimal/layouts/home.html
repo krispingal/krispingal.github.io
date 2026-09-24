@@ -1,5 +1,4 @@
 {{ define "main" }}
-<main>
   <div class="content">
     {{- .Content }}
     {{- $pages := where .Site.RegularPages "Section" "articles" }}
@@ -16,5 +15,4 @@
     </div>
     {{- end}}
   </div>
-</main>
 {{- end }}

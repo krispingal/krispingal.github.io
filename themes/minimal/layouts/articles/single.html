@@ -1,9 +1,10 @@
 {{- define "main" }}
-{{- $category := index (.GetTerms "categories") 0 }}
+{{- $category := "" }}
+{{- with .GetTerms "categories" }}{{ $category = index . 0 }}{{ end }}
 <article class="article-container">
     <!-- Article Header -->
     <header class="article-header">
-        <div class="category">{{ $category.LinkTitle }}</div>
+        {{- with $category }}<div class="category">{{ .LinkTitle }}</div>{{ end }}
         <h1 class="title">{{- .Title }}</h1>
         <p class="description">{{- .Description }}</p>
         <div class="meta">

@@ -1,7 +1,8 @@
 <a href="{{ .RelPermalink }}" aria-label="Read more about {{ .LinkTitle }}">
   <div class="related-card">
-      {{- $category := index (.GetTerms "categories") 0 }}
-      <div class="card-category">{{ $category.LinkTitle }}</div>
+      {{- $category := "" }}
+{{- with .GetTerms "categories" }}{{ $category = index . 0 }}{{ end }}
+      {{- with $category }}<div class="card-category">{{ .LinkTitle }}</div>{{ end }}
       <h3>{{ .LinkTitle }}</h3>
       <p class="card-description">{{ .Description }}</p>
   </div>
