@@ -15,8 +15,17 @@
     </header>
     <div class="section-divider"></div>
 
-    <!-- Article Content -->
-    {{ .Content }}
+    <!-- Article Content, with the end mark (four diamonds) before any footnotes -->
+    {{- $endMark := `<div class="end-mark" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16"><g transform="rotate(45 8 8)"><rect x="2.8" y="2.8" width="4.6" height="4.6"/><rect x="8.6" y="2.8" width="4.6" height="4.6"/><rect x="2.8" y="8.6" width="4.6" height="4.6"/><rect x="8.6" y="8.6" width="4.6" height="4.6"/></g></svg></div>` }}
+    {{- $content := string .Content }}
+    {{- /* Small-caps lead-in: the first three words of an opening paragraph */}}
+    {{- $content = replaceRE `^\s*<p>([^<\s]+(?:\s+[^<\s]+){0,2})` `<p><span class="lead-in">$1</span>` $content 1 }}
+    {{- $footnotes := `<div class="footnotes"` }}
+    {{- if strings.Contains $content $footnotes }}
+    {{ replace $content $footnotes (print $endMark $footnotes) 1 | safeHTML }}
+    {{- else }}
+    {{ print $content $endMark | safeHTML }}
+    {{- end }}
 
     <!-- Article Footer -->
     <footer class="article-footer">

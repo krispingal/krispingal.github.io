@@ -156,6 +156,28 @@ article:where(.prose) img {
   color: var(--color-muted);
 }
 
+/* Small-caps lead-in on the opening paragraph (wrapped in single.html) */
+.lead-in {
+  font-variant-caps: small-caps; /* the opening capital stays full size */
+  letter-spacing: 0.05em;
+}
+
+.end-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2rem 0 3rem; /* clear of the footnotes rule that may follow */
+  fill: var(--color-accent);
+}
+
+.end-mark::before,
+.end-mark::after {
+  content: "";
+  width: 3rem;
+  border-top: 1px solid var(--color-border-soft);
+}
+
 /* Article footer styling */
 .article-footer {
   margin-top: 3rem;
