@@ -1,12 +1,12 @@
 {{ define "main" }}
 <div class="slim-padding">
-    <h1 class="montserrat-heading">{{ .Title }}</h1>
+    <h1>{{ .Title }}</h1>
     {{ .Content }}
     <div class="terms-container">
         {{ range .Data.Terms.ByCount }}
         <div class="term-row">
             <div class="term-info">
-                <h2 class="montserrat-heading-bold">{{ .Page.LinkTitle }}</h2>
+                <h2>{{ .Page.LinkTitle }}</h2>
                 <p>{{ .Page.Params.description }}</p>
                 <a href="{{ .Page.RelPermalink }}" class="see-more montserrat-heading-bold">SEE MORE <span class="arrow-icon">&#8594;</span> </a>
             </div>

@@ -11,7 +11,7 @@ enableRobotsTXT = true
   math = false
   mainSection = "articles"
   startYear = 2016
-  googleFontsURL = "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+  googleFontsURL = "https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap"
   # --- JSON-LD AUTHOR/PUBLISHER HARDCODING ---
   author = "Krishna Babuji" # Default author name (for author.name)
   authorUrl = "about" # URL to your about page (for author.url)

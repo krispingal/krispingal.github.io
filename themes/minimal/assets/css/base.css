@@ -1,6 +1,7 @@
 :root {
-  --font-primary: "Palatino", "charter", Georgia, "Times New Roman", serif;
-  --font-secondary: "Montserrat", serif;
+  --font-primary: "Palatino", "Palatino Linotype", "Book Antiqua",
+    "URW Palladio L", P052, serif;
+  --font-secondary: "Montserrat", sans-serif;
 
   --color-primary: #0b3c5d;
   --color-accent: #d9b310;
@@ -72,14 +73,14 @@ h6 {
 .montserrat-heading {
   font-family: var(--font-secondary);
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 500;
   font-style: normal;
 }
 
 .montserrat-heading-bold {
   font-family: var(--font-secondary);
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
 }
 

@@ -3,8 +3,8 @@
     <p class="montserrat-heading term-back"><a href="{{ "/" | relLangURL }}{{ .Data.Plural | urlize }}">
         ← {{ upper .Data.Plural  }}
     </a></p>
-    <h1 class="montserrat-heading">{{ .Title }}</h1>
-    <h3 class="montserrat-heading">{{ .Params.description }}</h3>
+    <h1>{{ .Title }}</h1>
+    <h3>{{ .Params.description }}</h3>
     {{ .Content }}
     {{ partial "content/card-grid.html" .Pages.ByDate.Reverse }}
 </div>
