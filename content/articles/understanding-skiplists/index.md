@@ -24,7 +24,7 @@ To make the analogy clearer, think of these levels as a series of express lanes 
 
 {{< figure src="skipList.webp" title="Fig 1. An example Skip List" alt="An example visaulization of a skip list" skiploading="lazy" >}}
 
-**Note on Bidirectional traversal**
+### Note on Bidirectional traversal
 
 For simplicity, we assume here that skip lists contain only forward links, though it's possible to implement bidirectional (backward) links. Without {{< sidenote id="1" label="heuristics" content="A helpful heuristic in this case would let us know  approximately how much skips away target node is." >}}heuristics or specific knowledge of data distribution, however, it’s often hard to predict if moving backward would be more efficient than moving forward. Thus, a simple forward-only skip list remains optimal for most use cases.
 
@@ -38,12 +38,12 @@ Like a linked list, a skip list also consists of "nodes" and a primary data stru
 
 {{< figure src="skipListClassDiagram.webp" title="Fig 2. Skip List state" alt="A diagram depicting internal state of a skip list - [cur_level: (int), max_level: (int), probability: (float), Node: (SkipListNode: (value: int, forward: list[SkipListNode]))]" loading="lazy" >}}
 
-**Components of SkipListNode**
+### Components of SkipListNode
 
 - `value`: Stores the value or data held by the node.
 - `forward`: A list of pointers, where each index corresponds to a level in the skip list. At each level, it points to the next node at that level or remains None if no such node exists.
 
-**Components of the SkipList Structure**
+### Components of the SkipList Structure
 
 The SkipList class itself maintains key attributes that govern its behavior:
 
@@ -74,7 +74,7 @@ class SkipList:
 
 Next we can look into the `search` operation, we start with search because the same logic is used in `insert` and `delete`.
 
-**A little bit on what role probability plays**
+### A little bit on what role probability plays
 Till now we talked about the levels in skip lists. One could carefully choose which elements to put on the higher levels
 if we know the proximity of other elements. In practice when we have `inserts` and `deletes` with no information on the
 distribution of data we will have no way to know what level is optimal for a node. Here is where probability comes into
@@ -221,20 +221,20 @@ def delete(self, target: int) -> bool:
 ## Closing notes: When to use Skip Lists
 
 Skip lists are a probabilistic data structure that balances performance and simplicity. They offer efficient operations with average-case time complexity of \\(O(\log{n})\\) for search, insertion, and deletion, but without the strict balancing requirements of red-black or AVL trees. Below are some scenarios where skip lists may outperform other structures like red-black trees, AVL trees, or hash tables:
-**Range Queries**
+### Range Queries
 
 - **Efficient range searches**: Skip lists excel in range queries, as they allow for quick traversal over nodes within specified bounds. By leveraging the multi-level structure, skip lists can efficiently identify all elements within a given range.
 - **Real-time applications**: In database systems or network applications where efficient range queries are crucial, skip lists provide an effective and straightforward option.
 
-**Ordered Data**
+### Ordered Data
 
 - **Inherent order maintenance**: Skip lists maintain elements in sorted order by design, which makes them suitable for applications needing ordered traversal or lookups for successive or preceding elements.
 
-**Simple Implementation**
+### Simple Implementation
 
 - **Ease of coding and maintenance**: Unlike self-balancing trees (e.g., red-black or AVL trees) that require complex rotations or rebalancing logic, skip lists achieve balance through probabilistic leveling. This feature simplifies the codebase and reduces maintenance complexity, making skip lists relatively easy to implement and debug.
 
-**Limitations of Skip Lists**
+### Limitations of Skip Lists
 
 Despite their benefits, skip lists come with trade-offs:
 

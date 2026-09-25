@@ -192,7 +192,7 @@ A Layer 7 load balancer can inspect request URLs and headers, allowing it to rou
 
 Each backend service typically registers its routes with the load balancer, specifying the paths or criteria that it can handle. The load balancer then forwards the appropriate requests to the right service.
 
-**Example: Minimal Request Router in Go**
+### Example: Minimal Request Router in Go
 
 A Layer 7 load balancer can inspect request URLs and headers, allowing it to route traffic to specific backend services based on the request's path or parameters. This enables the load balancer to route traffic more intelligently. For example, API requests can be routed to different services (e.g., /apiA or /apiB) based on the URL path.
 

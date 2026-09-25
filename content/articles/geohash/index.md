@@ -89,14 +89,14 @@ Now, let’s dive into how geohashes are created by encoding latitude and longit
 
 
 ### Step-by-Step Encoding Process
-**Step 1: Define Latitude & Longitude Ranges**
+#### Step 1: Define Latitude & Longitude Ranges
 
 Latitude and longitude define a point on the Earth's surface:  
 - **Latitude** (horizontal lines) ranges from **−90° to +90°**, measuring distance north or south of the equator.  
 - **Longitude** (vertical lines) ranges from **−180° to +180°**, measuring distance east or west of the Prime Meridian.  
 For this walkthrough, we'll encode the coordinates of [Willis Tower in Chicago](https://en.wikipedia.org/wiki/Willis_Tower) (**41.878738, -87.6359612**).  
 
-**Step 2: Convert to Binary by Recursively Halving the Range**
+#### Step 2: Convert to Binary by Recursively Halving the Range
 
 This step is similar to **binary search**—we iteratively **halve the range** and output 
 a `0` or `1` based on whether the value is in the lower or upper half.  
@@ -160,7 +160,7 @@ We *start with range [-180, 180]* and refine it *bit by bit*.
 
 Final **Longitude Binary**:  `01011110101111001111` 
 
-**Step 3: Interleave Bits**
+#### Step 3: Interleave Bits
 
 We now **interleave the bits**, alternating lat/lon.
 
@@ -173,7 +173,7 @@ Interleaved:
 
 Resulting **20-bit binary**: `10011011110111101010`
 
-**Step 4: Convert to Base32**
+#### Step 4: Convert to Base32
 
 Next, we **split the 20-bit binary** into **5-bit groups** and convert each to a Base32 character:  
 
@@ -264,21 +264,21 @@ In the encoding section, we transformed a latitude and longitude pair into a com
 
 ### Step-by-Step Decoding Process
 
-**Step 1: Convert Base32 to Binary** 
+#### Step 1: Convert Base32 to Binary
 - Each geohash character represents **5 bits**.  
 - Convert each character back into its **5-bit binary equivalent**.  
 - Example: If our geohash is **"rffv"**, we first convert it into a **20-bit binary string**.  
 
-**Step 2: Separate the Interleaved Bits**  
+#### Step 2: Separate the Interleaved Bits
 - Recall that encoding **interleaves** longitude and latitude bits.  
 - Now, we separate the **even-indexed** bits for **longitude** and **odd-indexed** bits for **latitude**.  
 
-**Step 3: Reverse the Binary Search Process**  
+#### Step 3: Reverse the Binary Search Process
 - Start with the **full latitude range** `[-90, 90]` and **full longitude range** `[-180, 180]`.  
 - Iteratively refine the ranges using the separated bit sequences, just like encoding but in reverse.  
 - Each **1** means we take the **upper half** of the range, while each **0** means we take the **lower half**.  
 
-**Step 4: Compute the Final Coordinates**  
+#### Step 4: Compute the Final Coordinates
 - After processing all bits, we obtain **a final range** for both latitude and longitude.  
 - The final **decoded latitude and longitude** are the **midpoints** of their respective refined ranges.  
 
@@ -306,14 +306,14 @@ Location-based services frequently compute the nearest neighbors of a geohash to
 
 ### Step-by-Step Process for Finding Neighbors
 
-**Step 1: Decode to Find the Center of the Current Cell**  
+#### Step 1: Decode to Find the Center of the Current Cell
 - Use `decode` to obtain the **latitude** and **longitude** corresponding to the center of the geohash.  
 
-**Step 2: Compute the Cell Size Based on Geohash Precision**  
+#### Step 2: Compute the Cell Size Based on Geohash Precision
 - The size of a geohash cell (height and width) varies based on **precision**.  
 - Estimate the **cell height** (latitude span) and **cell width** (longitude span) based on the number of bits allocated to each.  
 
-**Step 3: Compute the Coordinates for the 8 Neighboring Cells**  
+#### Step 3: Compute the Coordinates for the 8 Neighboring Cells
 - The 8 neighbors are in the **N, S, E, W, NE, NW, SE, SW** directions.  
 - Adjust latitude and longitude by the calculated **cell height** and **cell width**.  
 - **Handle boundary conditions**:  
@@ -412,7 +412,7 @@ geospatial data. Two widely used systems that integrate geohashes are Redis and 
 making it easy to store and retrieve locations efficiently. 
 Below, we demonstrate how a food delivery service could use Redis to manage restaurant locations.  
 
-**Storing Locations in Redis**  
+#### Storing Locations in Redis
 
 ```python
 # GEOADD restaurants -73.9857 40.7484 "restaurant:1001"  # CLI equivalent
@@ -422,7 +422,7 @@ r.geoadd("restaurants", (lon, lat, restaurant_id))
 Each entry consists of **longitude, latitude, and a unique identifier**, allowing us to store millions 
 of locations efficiently.  
 
-**Querying Nearby Locations**  
+#### Querying Nearby Locations
 
 To find the closest restaurants for a given user location, we can use `GEOSEARCH`, which efficiently 
 retrieves nearby locations within a specified radius.  
@@ -509,7 +509,7 @@ Unlike Redis, which primarily operates on **simple radius-based lookups**, Elast
 - **Polygon-based queries** (search within irregularly shaped regions).  
 - **Distance-based ranking** (sorting results by actual proximity).  
 
-**Example: Storing & Querying Geohashes in Elasticsearch**  
+#### Example: Storing & Querying Geohashes in Elasticsearch
 To store a location in Elasticsearch, we can define a mapping with a `geo_point` field:  
 
 ```json
@@ -561,12 +561,12 @@ that require **complex queries, ranking, and filtering**.
 Unlike Redis and Elasticsearch, which focus on **real-time querying**, Sedona is designed for 
 **large-scale geospatial data processing**.  
 
-**Who Uses Apache Sedona?**  
+#### Who Uses Apache Sedona?
 - Companies handling **massive location datasets** (e.g., satellite imagery, mobility analysis).  
 - Applications requiring **spatial joins, clustering, and large-scale geospatial computations**.  
 - Organizations leveraging **big data frameworks** (Spark, Hadoop) for spatial analysis.  
 
-**Common Use Cases**  
+#### Common Use Cases
 - **Ride-sharing & logistics:** Computing optimal routes, identifying high-demand areas.  
 - **Urban planning:** Analyzing city-wide traffic patterns, infrastructure planning.  
 - **Environmental monitoring:** Processing satellite imagery to detect deforestation or pollution trends.  
