@@ -2,6 +2,7 @@
 title = 'About'
 weight = 4
 layout = 'about'
+background = true
 description = 'About me and site'
 [params]
   math = false

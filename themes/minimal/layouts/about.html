@@ -1,5 +1,7 @@
 {{ define "main" }}
-
+{{- if .Params.background }}
+<div id="background-canvas-container" class="about-background"></div>
+{{- end }}
 <div class="about">
     <div class="about-header">
         <p class="article-category">{{ .Title }}</p>
@@ -14,4 +16,10 @@
         </div>
     </div>
 </div>
+{{- if .Params.background }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js" integrity="sha384-6FJh+LJ4p/43R8LpkZjM6iDKaXx59crdjiBG6n2sioNPNXc+c2iNpBvO2bQ25nSH" crossorigin="anonymous"></script>
+{{- with resources.Get "js/about-background.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{- end }}
+{{- end }}
 {{ end }}

@@ -1,3 +1,29 @@
+/* Animated canvas fills the whole main area behind the about content */
+main:has(.about-background) {
+  position: relative;
+}
+
+body:has(.about-background) .navbar {
+  margin-bottom: 0;
+}
+
+body:has(.about-background) .footer-nav {
+  margin-top: 0;
+}
+
+.about-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  background-color: var(--color-canvas); /* matches the sketch background */
+}
+
+.about-background + .about {
+  position: relative;
+  z-index: 1;
+}
+
 /* Heading sits above the text column; photo and first paragraph share a top edge */
 .about {
   display: grid;
