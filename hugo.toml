@@ -45,7 +45,7 @@ enableRobotsTXT = true
     reactionsEnabled = "1"
     emitMetadata = "0"
     inputPosition = "bottom"
-    theme = "catppuccin_latte"
+    theme = "catppuccin_macchiato"
     lang = "en"
     loading = "lazy"
 

@@ -166,7 +166,10 @@ figcaption p {
 pre {
   tab-size: 4;
   overflow-x: auto;
-  padding: 6px;
-  border-radius: 2px;
-  font-size: 14px;
+  padding: 1rem 1.25rem;
+  margin: 1.5em 0;
+  border-radius: 6px;
+  /* repeated generic family stops browsers shrinking em sizes for monospace */
+  font-family: monospace, monospace;
+  font-size: 0.85em;
 }
