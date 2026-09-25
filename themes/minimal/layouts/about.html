@@ -1,8 +1,11 @@
 {{ define "main" }}
 
 <div class="about">
+    <div class="about-header">
+        <p class="article-category">{{ .Title }}</p>
+        <h1>{{ site.Params.author }}</h1>
+    </div>
     <div class="about-column-right">
-        <h1>{{ .Title }}</h1>
         {{ .Summary }}
     </div>
     <div class="about-column-left">

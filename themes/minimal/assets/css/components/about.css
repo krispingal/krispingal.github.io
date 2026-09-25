@@ -1,35 +1,56 @@
+/* Heading sits above the text column; photo and first paragraph share a top edge */
 .about {
-  display: flex;
-  gap: 1rem; /* Adds spacing between columns */
+  display: grid;
+  grid-template-columns: minmax(0, 240px) minmax(0, 38em);
+  justify-content: center;
+  grid-template-areas:
+    ". header"
+    "photo text";
+  column-gap: 3em;
+  padding: 4em 3em;
+}
+
+.about-header {
+  grid-area: header;
+}
+
+.about-header .article-category {
+  margin: 0 0 0.5rem;
+}
+
+.about-header h1 {
+  margin: 0 0 1.5rem;
 }
 
 .about-column-right {
-  flex-basis: 40%;
-  align-items: flex-end;
-  text-align: right;
+  grid-area: photo;
 }
 
 .about-column-left {
-  flex-basis: 60%; /* Sets the second column to 60% width */
-  padding: 4em 3em;
+  grid-area: text;
+}
+
+.about-column-left > div > :first-child {
+  margin-top: 0;
 }
 
 @media (max-width: 768px) {
   .about {
-    flex-direction: column; /* Stack columns vertically */
-    padding: 1em;
-  }
-
-  .about-column-right,
-  .about-column-left {
-    flex-basis: 100%; /* Make each column take full width */
-    text-align: left; /* Align text to the left on smaller screens */
-    margin-left: 0;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "photo"
+      "text";
+    row-gap: 1.5em;
     padding: 2em 1em;
   }
-  .profile-picture.polaroid {
-    margin-left: 0; /* Remove the auto margin for left alignment */
-    margin-right: auto; /* Center the image if desired */
+
+  .about-header h1 {
+    margin-bottom: 0;
+  }
+
+  .about .profile-picture.polaroid {
+    margin-left: 0;
   }
 }
 
@@ -37,7 +58,7 @@
   display: block;
   margin-left: auto;
   width: 220px;
-  padding: 10px 10px 20px 10px;
+  padding: 10px;
   background-color: var(--color-white);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
