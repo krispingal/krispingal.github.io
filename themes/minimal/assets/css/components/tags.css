@@ -8,7 +8,11 @@ ul.tags {
 
 .tags li {
   display: inline;
-  margin: 0px 2px;
+  margin: 0 4px 0 0;
+}
+
+.tags li::before {
+  content: none;
 }
 
 .tags a {

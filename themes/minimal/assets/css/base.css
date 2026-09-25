@@ -104,6 +104,10 @@ li code {
   white-space: nowrap;
 }
 
+.table-scroll {
+  overflow-x: auto;
+}
+
 table {
   width: 100%; /* Or a specific width if needed */
   border-collapse: collapse; /* Collapses cell borders into a single border */

@@ -78,6 +78,7 @@ article:where(.prose) img {
 }
 /* Article Layout */
 .article-container {
+  position: relative; /* anchors desktop sidenotes */
   margin: 0 auto;
   padding: 1em;
   min-width: 25em;
