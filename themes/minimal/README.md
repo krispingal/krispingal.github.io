@@ -54,9 +54,9 @@ Optional per-page front matter: `description`, `categories` (first one is shown 
 
 - `single.html`: article layout (category, title, related posts, comments)
 - `home.html`: index of `mainSection`: latest post featured, next six as title, description, category and date, then a link to the section
-- `list.html`: plain dated list; `articles/list.html`: card grid for the `articles` section
-- `taxonomy.html`, `term.html`: category/tag overview and term pages
-- `_default/card-*.html`: card views (`.Render "card-tile"`, `card-compact`, `card-related`), usable from any section
+- `list.html`: plain dated list; `articles/list.html`: `articles` section as a year-grouped dated list
+- `taxonomy.html`, `term.html`: category/tag overview and term pages (term pages use the same dated list)
+- `_default/card-*.html`: card views (`.Render "card-compact"`, `card-related`), usable from any section
 
 ## Shortcodes
 

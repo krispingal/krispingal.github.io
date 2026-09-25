@@ -1,11 +1,11 @@
 {{- define "main" }}
-<div class="slim-padding">
+<div class="content">
     <p class="montserrat-heading term-back"><a href="{{ "/" | relLangURL }}{{ .Data.Plural | urlize }}">
         ← {{ upper .Data.Plural  }}
     </a></p>
     <h1>{{ .Title }}</h1>
     <h3>{{ .Params.description }}</h3>
     {{ .Content }}
-    {{ partial "content/card-grid.html" .Pages.ByDate.Reverse }}
+    {{ partial "content/dated-list.html" (dict "pages" .Pages "showCategory" (ne .Data.Plural "categories")) }}
 </div>
 {{- end }}

@@ -1,0 +1,26 @@
+{{- /*
+Renders pages as a dated list grouped by year, newest first.
+
+@context {page.Pages} pages The pages to render.
+@context {bool} showCategory Show each page's first category (off on category pages).
+
+@example: {{ partial "content/dated-list.html" (dict "pages" .Pages "showCategory" true) }}
+*/ -}}
+{{- $showCategory := .showCategory }}
+{{- range .pages.ByDate.Reverse.GroupByDate "2006" }}
+<section class="year-group">
+  <h2 class="year-heading">{{ .Key }}</h2>
+  <ul class="dated-list">
+    {{- range .Pages }}
+    <li>
+      <time datetime="{{ .Date | time.Format "2006-01-02" }}">{{ .Date | time.Format "Jan 2" }}</time>
+      <div>
+        <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+        {{- with .Description }}<p class="card-description">{{ . }}</p>{{ end }}
+        {{- if $showCategory }}{{ with .GetTerms "categories" }}<span class="dated-list-category">{{ (index . 0).LinkTitle }}</span>{{ end }}{{ end }}
+      </div>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
