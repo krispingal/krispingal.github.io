@@ -1,5 +1,13 @@
 article:where(.prose) a {
   text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness 0.15s;
+}
+
+article:where(.prose) a:hover {
+  text-decoration-thickness: 0.16em;
 }
 
 article:where(.prose) a:visited {
