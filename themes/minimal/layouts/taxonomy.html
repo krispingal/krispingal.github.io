@@ -1,25 +1,20 @@
 {{ define "main" }}
-<div class="slim-padding">
+<div class="content">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
-    <div class="terms-container">
-        {{ range .Data.Terms.ByCount }}
-        <div class="term-row">
-            <div class="term-info">
-                <h2>{{ .Page.LinkTitle }}</h2>
-                <p>{{ .Page.Params.description }}</p>
-                <a href="{{ .Page.RelPermalink }}" class="see-more montserrat-heading-bold">SEE MORE <span class="arrow-icon">&#8594;</span> </a>
-            </div>
-            
-            <div class="term-cards">
-                {{ range first 3 .Pages }}
-                    {{ .Render "card-compact"}}
-                {{ end }}
-            </div>
-        </div>
-        
-        <div class="section-divider"></div>
-        {{ end }}
-    </div>
+    {{- range .Data.Terms.ByCount }}
+    <section class="term-group">
+        <h2><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a></h2>
+        {{- with .Page.Params.description }}<p class="card-description">{{ . }}</p>{{ end }}
+        <ul class="term-posts">
+            {{- range first 3 .Pages }}
+            <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a><time datetime="{{ .Date | time.Format "2006-01-02" }}">{{ .Date | time.Format "Jan 2, 2006" }}</time></li>
+            {{- end }}
+        </ul>
+        {{- if gt .Count 3 }}
+        <a href="{{ .Page.RelPermalink }}" class="see-more">All {{ .Count }} articles →</a>
+        {{- end }}
+    </section>
+    {{- end }}
 </div>
 {{ end }}

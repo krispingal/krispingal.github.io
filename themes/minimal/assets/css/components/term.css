@@ -1,41 +1,49 @@
-.term-row {
+/* Categories and tags overviews: each term with its latest posts */
+.term-group {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.term-group h2 {
+  font-size: 1.75rem;
+  margin: 0 0 0.4rem;
+}
+
+.term-group h2 a {
+  color: var(--color-primary);
+}
+
+.term-posts {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.term-posts li {
   display: flex;
-  align-items: flex-start;
-  padding: 1.5em 1em 2em;
-  gap: 0em 3em;
-  margin-bottom: 0;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.3rem 0;
 }
 
-.term-info {
-  flex: 0 0 16em;
-  padding-right: 1.5rem;
-}
-
-.term-info h2 {
-  margin: 0 0 0.5rem 0;
-}
-
-.term-info p {
-  margin: 0 0 0.5rem 0;
+.term-posts time {
+  flex-shrink: 0;
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-muted);
 }
 
 .see-more {
-  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color: inherit;
-}
-
-.term-cards {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  gap: 1rem;
-}
-
-.term-card {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 15em;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
 }
 
 .section-divider {
@@ -43,36 +51,6 @@
   background: var(--color-border);
   margin: 1.5rem 0;
   padding: 0 0.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  .term-row {
-    flex-direction: column;
-    height: auto;
-    gap: 2em;
-  }
-
-  .term-info {
-    flex: 0 0 auto;
-    width: 100%;
-    padding-right: 0;
-  }
-
-  .term-cards {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .term-card {
-    flex: 0 0 auto;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .term-row {
-    padding: 0.5em;
-  }
 }
 
 .term-back {
