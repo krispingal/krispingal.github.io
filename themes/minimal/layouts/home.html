@@ -3,17 +3,29 @@
     {{- .Content }}
     {{- $pages := site.RegularPages }}
     {{- with site.Params.mainSection }}{{ $pages = where site.RegularPages "Section" . }}{{ end }}
-    {{- $paginator := .Paginate $pages.ByDate.Reverse 5}}
-    <section class="articles-list">
-      {{- range $paginator.Pages }}
-      {{- .Render "card-feed" }}
+    {{- $pages = $pages.ByDate.Reverse }}
+    {{- range first 1 $pages }}
+    <article class="home-featured">
+      {{- with .GetTerms "categories" }}<div class="article-category">{{ (index . 0).LinkTitle }}</div>{{ end }}
+      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+      {{- with .Description }}<p class="article-subtitle">{{ . }}</p>{{ end }}
+      {{- partial "content/article-meta.html" . }}
+    </article>
+    {{- end }}
+    <ul class="home-index">
+      {{- range first 6 (after 1 $pages) }}
+      <li>
+        <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+        {{- with .Description }}<p class="card-description">{{ . }}</p>{{ end }}
+        <div class="article-meta">
+          {{- with .GetTerms "categories" }}<span class="home-index-category">{{ (index . 0).LinkTitle }}</span><span class="separator">|</span>{{ end }}
+          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+        </div>
+      </li>
       {{- end }}
-    </section>
-
-    {{- if or ($paginator.HasPrev) ($paginator.HasNext) }}
-    <div class="pagination-container">
-      {{- partial "content/pagination.html" . }}
-    </div>
-    {{- end}}
+    </ul>
+    {{- with site.Params.mainSection }}{{ with site.GetPage . }}
+    <p class="home-archive"><a href="{{ .RelPermalink }}">All {{ len $pages }} articles</a></p>
+    {{- end }}{{ end }}
   </div>
 {{- end }}

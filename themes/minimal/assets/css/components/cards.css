@@ -38,11 +38,59 @@
   letter-spacing: 0.05em;
 }
 
-.home-card {
-  padding-top: 0.5em;
-  padding-bottom: 1.5em;
+/* Home page: latest post featured, then a compact index */
+.home-featured {
+  padding: 1.5rem 0 2rem;
+  border-bottom: 3px double var(--color-text);
 }
 
-.home-card h2 a {
+.home-featured h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.home-featured .article-subtitle {
+  margin: 1rem 0;
+}
+
+.home-featured a,
+.home-index h3 a {
   color: var(--color-primary);
+}
+
+.home-index {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-index li {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.home-index h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+
+.home-index .card-description {
+  margin-bottom: 0.5rem;
+}
+
+.home-index .article-meta {
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.home-index-category {
+  color: var(--color-primary);
+}
+
+.home-archive {
+  margin: 2rem 0;
+  font-family: var(--font-secondary);
+  font-weight: 600;
 }
