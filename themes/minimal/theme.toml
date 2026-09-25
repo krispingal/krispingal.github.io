@@ -1,25 +1,19 @@
 name = 'Minimal'
 license = 'MIT'
-licenselink = 'https://github.com/owner/repo/LICENSE'
-description = 'Theme description'
+licenselink = 'https://github.com/krispingal/krispingal.github.io/blob/main/themes/minimal/LICENSE'
+description = 'A minimal, config-driven Hugo theme for a personal blog: article cards, related posts, sidenotes, giscus comments.'
 
 # The home page of the theme, where the source can be found
-homepage = 'https://github.com/owner/repo'
+homepage = 'https://github.com/krispingal/krispingal.github.io/tree/main/themes/minimal'
 
 # If you have a running demo of the theme
-demosite = 'https://owner.github.io/repo'
+demosite = 'https://kbabuji.com'
 
 # Taxonomy terms
-tags = ['blog', 'company']
-features = ['some', 'awesome', 'features']
+tags = ['blog', 'minimal', 'personal']
+features = ['config-driven menus and social links', 'related articles', 'sidenotes shortcode', 'giscus comments', 'JSON-LD']
 
 # If the theme has a single author
 [author]
-  name = 'Your name'
-  homepage = 'Your website'
-
-# If porting an existing theme
-[original]
-  author = 'Name of original author'
-  homepage = 'Website of original author'
-  repo = 'https://github.com/owner/repo'
+  name = 'Krishna Babuji'
+  homepage = 'https://kbabuji.com'

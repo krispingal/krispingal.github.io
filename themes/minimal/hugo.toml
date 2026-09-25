@@ -1,7 +1,3 @@
-baseURL = 'https://example.org/'
-locale = 'en-US'
-title = 'Untangling thoughts'
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderHooks]
