@@ -48,9 +48,27 @@ a {
   text-decoration: none;
 }
 
+/* Keyboard focus: navy on light backgrounds, gold on the dark header and footer */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.navbar :focus-visible,
+.footer-nav :focus-visible {
+  outline-color: var(--color-accent);
+}
+
 .anchor {
   color: var(--color-primary);
   text-decoration: none;
+  opacity: 0;
+}
+
+/* Heading anchors appear only when the heading is hovered or the link focused */
+:is(h1, h2, h3, h4, h5, h6):hover .anchor,
+.anchor:focus {
+  opacity: 1;
 }
 
 .anchor:hover {
@@ -135,9 +153,14 @@ tr:nth-child(even) {
   }
 }
 
-figcaption h4 {
+figcaption {
   text-align: center;
+  font-size: 0.9rem;
   color: var(--color-muted);
+}
+
+figcaption p {
+  margin: 0.25rem 0 0;
 }
 
 pre {

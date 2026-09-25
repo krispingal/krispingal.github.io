@@ -1,0 +1,28 @@
+{{- /* Like Hugo's built-in figure, but the title renders as caption text instead of an <h4> */ -}}
+<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+  {{- with .Get "link" }}<a href="{{ . }}">{{ end }}
+  {{- $u := urls.Parse (.Get "src") }}
+  {{- $src := $u.String }}
+  {{- if not $u.IsAbs }}
+    {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) }}
+      {{- $src = .RelPermalink }}
+    {{- end }}
+  {{- end }}
+  <img src="{{ $src }}"
+    {{- with or (.Get "alt") (.Get "caption" | plainify) }} alt="{{ . }}"{{ end }}
+    {{- with .Get "width" }} width="{{ . }}"{{ end }}
+    {{- with .Get "height" }} height="{{ . }}"{{ end }}
+    {{- with .Get "loading" }} loading="{{ . }}"{{ end }}>
+  {{- if .Get "link" }}</a>{{ end }}
+  {{- if or (.Get "title") (.Get "caption") (.Get "attr") }}
+  <figcaption>
+    {{- with .Get "title" }}{{ . | markdownify }}{{ end }}
+    {{- if or (.Get "caption") (.Get "attr") }}
+    <p>
+      {{- with .Get "caption" }}{{ . | markdownify }}{{ end }}
+      {{- with .Get "attr" }}{{ with $.Get "attrlink" }}<a href="{{ . }}">{{ end }}{{ . | markdownify }}{{ if $.Get "attrlink" }}</a>{{ end }}{{ end }}
+    </p>
+    {{- end }}
+  </figcaption>
+  {{- end }}
+</figure>

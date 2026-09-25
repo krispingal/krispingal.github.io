@@ -9,14 +9,6 @@
 }
 
 
-@media screen and (max-width: 768px) {
-  .article-link h3 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
 .card-description {
   font-size: 0.9rem;
   color: var(--color-muted);
